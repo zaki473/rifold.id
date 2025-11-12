@@ -27,26 +27,6 @@ Route::get('/admin', function () {
     return view('pages.admin.products');
 })->name('admin');
 
-Route::get('/checkout', function () {
-    return view('pages.checkout.checkout');
-})->name('checkout');
-
-Route::get('/checkout', function () {
-    return view('pages.checkout.checkout');
-})->name('checkout.information');
-
-Route::post('/checkout/shipping', function () {
-    return view('pages.checkout.shipping');
-})->name('checkout.shipping');
-
-Route::post('/checkout/payment', function () {
-    return view('pages.checkout.payment');
-})->name('checkout.payment');
-
-Route::post('/checkout/confirmation', function () {
-    return view('pages.checkout.confirmation');
-})->name('checkout.confirmation');
-
 Route::get('/admin/add_products', function () {
     return view('pages.admin.add_products');
 })->name('add_products');
@@ -62,4 +42,3 @@ Route::get('/add_mixandmatch', function () {
 Route::get('/admin/add_video', function () {
     return view('pages.admin.add_video');
 })->name('add_video');
-
