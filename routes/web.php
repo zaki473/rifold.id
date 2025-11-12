@@ -26,6 +26,10 @@ Route::get('/admin', function () {
     return view('pages.admin.products');
 })->name('admin');
 
+Route::get('/detail', function(){
+    return view('pages.mixandmatch.detail');
+})->name('detail');
+
 Route::get('/admin/add_products', function () {
     return view('pages.admin.add_products');
 })->name('add_products');
@@ -57,3 +61,4 @@ Route::post('/checkout/payment', function () {
 Route::post('/checkout/confirmation', function () {
     return view('pages.checkout.confirmation');
 })->name('checkout.confirmation');
+
