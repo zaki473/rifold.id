@@ -66,7 +66,7 @@
                     <br><br>
                     Tagline kami, “For The Stories Ahead”, adalah pengingat bahwa setiap orang sedang menulis kisahnya
                     masing-masing. Dan Rifold hadir untuk menemani perjalanan itu—entah di momen sederhana sehari-hari,
-                    atau di langkah besar yang mengubah hidup.
+                    atau di langkah besar yang mengubah hidup
                 </p>
             </div>
             <div class="flex justify-center">
