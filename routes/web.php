@@ -26,3 +26,7 @@ Route::get('/bestseller', function () {
 Route::get('/admin', function () {
     return view('pages.admin.main');
 })->name('admin');
+
+Route::get('/detail', function(){
+    return view('pages.mixandmatch.detail');
+})->name('detail');
