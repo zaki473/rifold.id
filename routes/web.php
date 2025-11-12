@@ -24,5 +24,21 @@ Route::get('/bestseller', function () {
 })->name('bestseller');
 
 Route::get('/admin', function () {
-    return view('pages.admin.main');
+    return view('pages.admin.products');
 })->name('admin');
+
+Route::get('/admin/add_products', function () {
+    return view('pages.admin.add_products');
+})->name('add_products');
+
+Route::get('/add_images', function () {
+    return view('pages.admin.add_images');
+})->name('add_images');
+
+Route::get('/add_mixandmatch', function () {
+    return view('pages.admin.add_mixandmatch');
+})->name('add_mixandmatch');
+
+Route::get('/admin/add_video', function () {
+    return view('pages.admin.add_video');
+})->name('add_video');
