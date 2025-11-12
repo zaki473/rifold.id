@@ -63,4 +63,3 @@ Route::get('/add_mixandmatch', function () {
 Route::get('/admin/add_video', function () {
     return view('pages.admin.add_video');
 })->name('add_video');
-
