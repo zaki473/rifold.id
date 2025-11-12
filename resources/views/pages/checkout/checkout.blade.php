@@ -22,7 +22,7 @@
                 <span class="mx-4">/</span>
                 <span>Shipping</span>
                 <span class="mx-4">/</span>
-                <span>Payment</span>
+                <span>Payments</span>
             </div>
         </div>
 
