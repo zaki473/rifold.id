@@ -62,3 +62,10 @@ Route::post('/checkout/confirmation', function () {
     return view('pages.checkout.confirmation');
 })->name('checkout.confirmation');
 
+Route::get('/login', function () {
+    return view('pages.login');
+})->name('login');
+
+Route::get('/register', function () {
+    return view('pages.register');
+})->name('register');

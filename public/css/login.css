@@ -1,0 +1,194 @@
+/* Menggunakan Google Fonts untuk tampilan yang lebih modern */
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap");
+
+/* Reset CSS dasar */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: "Poppins", sans-serif;
+    background-color: #ffffff;
+    color: #1a1a1a;
+    display: flex;
+    min-height: 100vh;
+    width: 100%;
+}
+
+.container-split {
+    display: flex;
+    width: 100%;
+}
+
+/* Sisi Kiri - Konten Login */
+.login-container {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 40px;
+    background-color: #ffffff;
+}
+
+.login-form {
+    width: 100%;
+    max-width: 400px;
+}
+
+/* Sisi Kanan - Panel Warna */
+.color-panel {
+    flex: 1;
+    background-color: #f5f3ed;
+    border-top-left-radius: 20px;
+    border-bottom-left-radius: 20px;
+}
+
+.logo {
+    font-size: 2.5rem;
+    font-weight: 700;
+    margin-bottom: 40px;
+    text-align: left;
+}
+
+.welcome-header h1 {
+    font-size: 2rem;
+    font-weight: 600;
+    margin-bottom: 8px;
+}
+
+.welcome-header p {
+    font-size: 1rem;
+    color: #666;
+    margin-bottom: 30px;
+}
+
+.form-group {
+    margin-bottom: 20px;
+}
+
+.form-group label {
+    display: block;
+    font-weight: 500;
+    margin-bottom: 8px;
+}
+
+.form-group .password-label {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.form-group a.forgot-password {
+    font-size: 0.875rem;
+    color: #007bff;
+    text-decoration: none;
+}
+.form-group a.forgot-password:hover {
+    text-decoration: underline;
+}
+
+.form-control {
+    width: 100%;
+    padding: 12px 15px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    font-size: 1rem;
+}
+.form-control:focus {
+    outline: none;
+    border-color: #000;
+}
+
+.remember-me {
+    display: flex;
+    align-items: center;
+    font-size: 0.875rem;
+    margin-bottom: 25px;
+}
+.remember-me input {
+    margin-right: 8px;
+}
+
+.btn {
+    display: inline-block;
+    width: 100%;
+    padding: 14px;
+    border-radius: 8px;
+    border: none;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    text-align: center;
+    text-decoration: none;
+}
+
+.btn-primary {
+    background-color: #000000;
+    color: #ffffff;
+}
+
+.divider {
+    display: flex;
+    align-items: center;
+    text-align: center;
+    color: #aaa;
+    margin: 25px 0;
+}
+
+.divider::before,
+.divider::after {
+    content: "";
+    flex: 1;
+    border-bottom: 1px solid #ddd;
+}
+
+.divider:not(:empty)::before {
+    margin-right: 0.5em;
+}
+
+.divider:not(:empty)::after {
+    margin-left: 0.5em;
+}
+
+.btn-social {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    padding: 12px;
+    margin-bottom: 15px;
+    border: 1px solid #ddd;
+    background-color: #fff;
+    color: #333;
+    font-weight: 500;
+}
+.btn-social img {
+    width: 20px;
+    height: 20px;
+    margin-right: 12px;
+}
+
+.signup-link {
+    text-align: center;
+    margin-top: 20px;
+}
+.signup-link a {
+    color: #007bff;
+    font-weight: 600;
+    text-decoration: none;
+}
+.signup-link a:hover {
+    text-decoration: underline;
+}
+
+/* Responsif untuk layar kecil */
+@media (max-width: 768px) {
+    .color-panel {
+        display: none; /* Sembunyikan panel kanan di perangkat mobile */
+    }
+    .login-container {
+        padding: 20px;
+    }
+}

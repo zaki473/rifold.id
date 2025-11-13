@@ -1,0 +1,192 @@
+/* resources/css/register.css */
+
+/* Gaya ini bisa digabungkan dengan file CSS utama Anda jika diinginkan */
+/* Reset CSS dasar dan font */
+:root {
+    --font-family: 'Poppins', sans-serif;
+    --background-color: #ffffff;
+    --panel-color: #F5F3ED;
+    --text-color: #1a1a1a;
+    --border-color: #ddd;
+    --primary-color: #000000;
+    --link-color: #007bff;
+}
+
+body {
+    font-family: var(--font-family);
+    background-color: var(--background-color);
+    color: var(--text-color);
+    display: flex;
+    min-height: 100vh;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+}
+
+.container-split {
+    display: flex;
+    width: 100%;
+}
+
+/* Panel Warna (Kiri) */
+.color-panel {
+    flex: 1;
+    background-color: var(--panel-color);
+    border-top-right-radius: 20px;
+    border-bottom-right-radius: 20px;
+}
+
+/* Kontainer Form (Kanan) */
+.signup-container {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 40px;
+    background-color: var(--background-color);
+}
+
+.signup-form {
+    width: 100%;
+    max-width: 400px;
+}
+
+.logo {
+    font-size: 2.5rem;
+    font-weight: 700;
+    margin-bottom: 40px;
+    text-align: left;
+}
+
+.header h1 {
+    font-size: 2rem;
+    font-weight: 600;
+    margin-bottom: 30px;
+}
+
+.form-group {
+    margin-bottom: 20px;
+}
+
+.form-group label {
+    display: block;
+    font-weight: 500;
+    margin-bottom: 8px;
+}
+
+.form-control {
+    width: 100%;
+    padding: 12px 15px;
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    font-size: 1rem;
+}
+
+.form-control:focus {
+    outline: none;
+    border-color: var(--primary-color);
+}
+
+.terms-agree {
+    display: flex;
+    align-items: center;
+    font-size: 0.875rem;
+    margin-bottom: 25px;
+}
+
+.terms-agree input {
+    margin-right: 8px;
+}
+
+.terms-agree a {
+    color: var(--primary-color);
+    font-weight: 500;
+    text-decoration: underline;
+}
+
+.btn {
+    display: inline-block;
+    width: 100%;
+    padding: 14px;
+    border-radius: 8px;
+    border: none;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    text-align: center;
+    text-decoration: none;
+}
+
+.btn-primary {
+    background-color: var(--primary-color);
+    color: #ffffff;
+}
+
+.divider {
+    display: flex;
+    align-items: center;
+    text-align: center;
+    color: #aaa;
+    margin: 25px 0;
+}
+
+.divider::before,
+.divider::after {
+    content: '';
+    flex: 1;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.divider:not(:empty)::before {
+    margin-right: .5em;
+}
+
+.divider:not(:empty)::after {
+    margin-left: .5em;
+}
+
+.btn-social {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    padding: 12px;
+    margin-bottom: 15px;
+    border: 1px solid var(--border-color);
+    background-color: #fff;
+    color: #333;
+    font-weight: 500;
+}
+
+.btn-social img {
+    width: 20px;
+    height: 20px;
+    margin-right: 12px;
+}
+
+.login-link {
+    text-align: center;
+    margin-top: 20px;
+}
+
+.login-link a {
+    color: var(--link-color);
+    font-weight: 600;
+    text-decoration: none;
+}
+
+.login-link a:hover {
+    text-decoration: underline;
+}
+
+/* Responsif untuk layar kecil */
+@media (max-width: 768px) {
+    .color-panel {
+        display: none;
+        /* Sembunyikan panel kiri di perangkat mobile */
+    }
+
+    .signup-container {
+        padding: 20px;
+    }
+}
