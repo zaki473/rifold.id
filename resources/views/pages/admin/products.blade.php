@@ -43,7 +43,7 @@
                         {{-- Contoh Baris Produk 1 --}}
                         <tr class="border-b hover:bg-gray-50">
                             <td class="p-3 flex items-center">
-                                <img src="https://via.placeholder.com/40" alt="Product Image" class="w-10 h-10 rounded-md mr-4">
+                                <img src="{{ asset('images/katalog/coze jacket classy black.png') }}" alt="Product Image" class="w-10 h-10 rounded-md mr-4">
                                 <span>COZE JACKET CLASSY BLACK</span>
                             </td>
                             <td class="p-3">Rp 149.900</td>
@@ -53,7 +53,7 @@
                         {{-- Contoh Baris Produk 2 --}}
                         <tr class="border-b hover:bg-gray-50">
                             <td class="p-3 flex items-center">
-                                <img src="https://via.placeholder.com/40" alt="Product Image" class="w-10 h-10 rounded-md mr-4">
+                                <img src="{{ asset('images/katalog/coze jacket classy black.png') }}" alt="Product Image" class="w-10 h-10 rounded-md mr-4">
                                 <span>CITY LOOP LONG SLEEVE</span>
                             </td>
                             <td class="p-3">Rp 149.000</td>
@@ -63,7 +63,7 @@
                         {{-- Contoh Baris Produk 3 --}}
                         <tr class="border-b hover:bg-gray-50">
                             <td class="p-3 flex items-center">
-                                <img src="https://via.placeholder.com/40" alt="Product Image" class="w-10 h-10 rounded-md mr-4">
+                                <img src="{{ asset('images/katalog/coze jacket classy black.png') }}" alt="Product Image" class="w-10 h-10 rounded-md mr-4">
                                 <span>OVERCOOL MIDNIGHT BLACK</span>
                             </td>
                             <td class="p-3">Rp 130.000</td>
@@ -73,7 +73,7 @@
                          {{-- Contoh Baris Produk 4 --}}
                         <tr class="hover:bg-gray-50">
                             <td class="p-3 flex items-center">
-                                <img src="https://via.placeholder.com/40" alt="Product Image" class="w-10 h-10 rounded-md mr-4">
+                                <img src="{{ asset('images/katalog/coze jacket classy black.png') }}" alt="Product Image" class="w-10 h-10 rounded-md mr-4">
                                 <span>TONEPOP NAVY WAVES</span>
                             </td>
                             <td class="p-3">Rp 110.000</td>
