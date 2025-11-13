@@ -90,7 +90,7 @@
                 <div
                     class="flex-none w-64 bg-white p-6 rounded-lg shadow-md hover:shadow-xl transition-transform hover:scale-105">
                     <img src="{{ asset('images/katalog/Cityloop long.png') }}" alt="Best Seller"
-                        class="w-full h-64 object-cover rounded-md mb-4">
+                        class="w-full h-64 object-contain rounded-md mb-4">
                     <h3 class="text-lg font-semibold mb-2">City Loop Long Sleeve</h3>
                     <p class="text-gray-600">Rp 149.900</p>
                 </div>
@@ -99,25 +99,25 @@
                 <div
                     class="flex-none w-64 bg-white p-6 rounded-lg shadow-md hover:shadow-xl transition-transform hover:scale-105">
                     <img src="{{ asset('images/katalog/Weekend walk.png') }}" alt="Best Seller"
-                        class="w-full h-64 object-cover rounded-md mb-4">
+                        class="w-full h-64 object-contain rounded-md mb-4">
                     <h3 class="text-lg font-semibold mb-2">Weekend Walk Long Sleeve</h3>
-                    <p class="text-gray-600">Rp 149.900</p>
+                    <p class="text-gray-600">Rp 149.00</p>
                 </div>
 
                 <!-- Card 3 -->
                 <div
                     class="flex-none w-64 bg-white p-6 rounded-lg shadow-md hover:shadow-xl transition-transform hover:scale-105">
-                    <img src="{{ asset('images/katalog/coze jacket classy black.png') }}" alt="Best Seller"
-                        class="w-full h-64 object-cover rounded-md mb-4">
-                    <h3 class="text-lg font-semibold mb-2">Coze Jacket Classy Black</h3>
-                    <p class="text-gray-600">Rp 149.900</p>
+                    <img src="{{ asset('images/katalog/Weekend walk.png') }}" alt="Best Seller"
+                        class="w-full h-64 object-contain rounded-md mb-4">
+                    <h3 class="text-lg font-semibold mb-2">Weekend Walk Long Sleeve</h3>
+                    <p class="text-gray-600">Rp 149.00</p>
                 </div>
 
                 <!-- Card 4 -->
                 <div
                     class="flex-none w-64 bg-white p-6 rounded-lg shadow-md hover:shadow-xl transition-transform hover:scale-105">
                     <img src="{{ asset('images/katalog/Cityloop long.png') }}" alt="Best Seller"
-                        class="w-full h-64 object-cover rounded-md mb-4">
+                        class="w-full h-64 object-contain rounded-md mb-4">
                     <h3 class="text-lg font-semibold mb-2">City Loop Long Sleve</h3>
                     <p class="text-gray-600">Rp 149.900</p>
                 </div>
@@ -126,7 +126,7 @@
                 <div
                     class="flex-none w-64 bg-white p-6 rounded-lg shadow-md hover:shadow-xl transition-transform hover:scale-105">
                     <img src="{{ asset('images/katalog/Weekend walk.png') }}" alt="Best Seller"
-                        class="w-full h-64 object-cover rounded-md mb-4">
+                        class="w-full h-64 object-contain rounded-md mb-4">
                     <h3 class="text-lg font-semibold mb-2">Weekend Walk Long Sleeve</h3>
                     <p class="text-gray-600">Rp 149.00</p>
                 </div>
