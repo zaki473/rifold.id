@@ -1,0 +1,52 @@
+/* ==========================
+   Mix & Match Uniform Layout
+   ========================== */
+
+/* Gunakan grid, bukan columns */
+.mix-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); /* 3 kolom responsif */
+  gap: 1.5rem;
+  justify-items: center;
+}
+
+/* Card styling */
+.mix-card {
+  width: 100%;
+  border-radius: 1rem;
+  overflow: hidden;
+  background-color: #fff;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.mix-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+}
+
+/* Gambar semua sama tinggi */
+.mix-image {
+  display: block;
+  width: 100%;
+  height: 500px; /* tinggi seragam */
+  object-fit: cover; /* jaga proporsi foto */
+  transition: transform 0.3s ease;
+}
+
+.mix-card:hover .mix-image {
+  transform: scale(1.05);
+}
+
+/* Responsif */
+@media (max-width: 1024px) {
+  .mix-image {
+    height: 450px;
+  }
+}
+
+@media (max-width: 640px) {
+  .mix-image {
+    height: 400px;
+  }
+}
