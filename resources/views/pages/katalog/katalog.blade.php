@@ -66,127 +66,136 @@
     </aside>
 
     <!-- PRODUK GRID -->
-    <section class="w-full md:w-[75%]">
-      <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 gap-8">
+<section class="w-full md:w-[75%]">
+  <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 gap-8">
 
-        <!-- Polo Tonepop (Oversized, Casual) -->
-        <div class="product-card bg-white p-6 rounded-lg shadow-md"
-          data-category="polo" data-price="110000" data-size="oversized" data-style="casual">
-          <img src="{{ asset('images/cactus green.png') }}" alt="Polo Cactus Green"
-            class="w-full h-64 object-cover rounded-md mb-4">
-          <h3 class="text-lg font-semibold mb-2">Polo Tonepop Cactus Green</h3>
-          <p class="text-gray-600">Rp 110.000</p>
-        </div>
+    <!-- Polo Tonepop Cactus Green (ID = 1) -->
+    <a href="{{ route('detail', 1) }}" class="block group">
+      <div class="product-card bg-white p-6 rounded-lg shadow-md cursor-pointer
+          transition-all duration-300 group-hover:scale-[1.03]"
+        data-category="polo" data-price="110000" data-size="oversized" data-style="casual">
 
-        <!-- Overcool (Boxy) -->
-        <div class="product-card bg-white p-6 rounded-lg shadow-md"
-          data-category="overcool" data-price="130000" data-size="boxy" data-style="">
-          <img src="{{ asset('images/katalog/overcool midnight black.png') }}" alt="Overcool Black"
-            class="w-full h-64 object-cover rounded-md mb-4">
-          <h3 class="text-lg font-semibold mb-2">Overcool Midnight Black</h3>
-          <p class="text-gray-600">Rp 130.000</p>
-        </div>
+        <img src="{{ asset('images/cactus green.png') }}" alt="Polo Cactus Green"
+          class="w-full h-64 object-cover rounded-md mb-4 transition-all duration-300 group-hover:scale-105">
 
-        <!-- Overcool (Boxy) -->
-        <div class="product-card bg-white p-6 rounded-lg shadow-md"
-          data-category="overcool" data-price="130000" data-size="boxy" data-style="">
-          <img src="{{ asset('images/katalog/overcool eclipse blue.png') }}" alt="Overcool Blue"
-            class="w-full h-64 object-cover rounded-md mb-4">
-          <h3 class="text-lg font-semibold mb-2">Overcool Eclipse Blue</h3>
-          <p class="text-gray-600">Rp 130.000</p>
-        </div>
-
-        <!-- Jacket -->
-        <div class="product-card bg-white p-6 rounded-lg shadow-md"
-          data-category="jacket" data-price="149900" data-size="" data-style="">
-          <img src="{{ asset('images/katalog/coze jacket classy black.png') }}" alt="Coze Jacket"
-            class="w-full h-64 object-cover rounded-md mb-4">
-          <h3 class="text-lg font-semibold mb-2">Coze Jacket Classy Black</h3>
-          <p class="text-gray-600">Rp 149.900</p>
-        </div>
-
-        <!-- Flannel (Regular, Casual) -->
-        <div class="product-card bg-white p-6 rounded-lg shadow-md"
-          data-category="flannel" data-price="149900" data-size="regular" data-style="casual">
-          <img src="{{ asset('images/katalog/Cityloop long.png') }}" alt="City Loop"
-            class="w-full h-64 object-cover rounded-md mb-4">
-          <h3 class="text-lg font-semibold mb-2">City Loop Long Sleeve</h3>
-          <p class="text-gray-600">Rp 149.900</p>
-        </div>
-
-        <!-- Flannel (Regular, Casual) -->
-        <div class="product-card bg-white p-6 rounded-lg shadow-md"
-          data-category="flannel" data-price="149900" data-size="regular" data-style="casual">
-          <img src="{{ asset('images/katalog/Weekend walk.png') }}" alt="Weekend Walk"
-            class="w-full h-64 object-cover rounded-md mb-4">
-          <h3 class="text-lg font-semibold mb-2">Weekend Walk Long Sleeve</h3>
-          <p class="text-gray-600">Rp 149.900</p>
-        </div>
-
-        <!-- Polo Tonepop (Oversized, Casual) -->
-        <div class="product-card bg-white p-6 rounded-lg shadow-md"
-          data-category="polo" data-price="130000" data-size="oversized" data-style="casual">
-          <img src="{{ asset('images/katalog/polo tonepop brown earth.png') }}" alt="Polo Brown Earth"
-            class="w-full h-64 object-cover rounded-md mb-4">
-          <h3 class="text-lg font-semibold mb-2">Polo Tonepop Brown Earth</h3>
-          <p class="text-gray-600">Rp 130.000</p>
-        </div>
-
-        <!-- Polo Tonepop (Oversized, Casual) -->
-        <div class="product-card bg-white p-6 rounded-lg shadow-md"
-          data-category="polo" data-price="149900" data-size="oversized" data-style="casual">
-          <img src="{{ asset('images/katalog/polo tonepop mocca mist.png') }}" alt="Polo Mocca"
-            class="w-full h-64 object-cover rounded-md mb-4">
-          <h3 class="text-lg font-semibold mb-2">Polo Tonepop Mocca Mist</h3>
-          <p class="text-gray-600">Rp 149.900</p>
-        </div>
-
-        <!-- Polo Tonepop (Oversized, Casual) -->
-        <div class="product-card bg-white p-6 rounded-lg shadow-md"
-          data-category="polo" data-price="110000" data-size="oversized" data-style="casual">
-          <img src="{{ asset('images/katalog/polo tonepop navy waves.png') }}" alt="Polo Navy Waves"
-            class="w-full h-64 object-cover rounded-md mb-4">
-          <h3 class="text-lg font-semibold mb-2">Polo Tonepop Navy Waves</h3>
-          <p class="text-gray-600">Rp 110.000</p>
-        </div>
-
-        <!-- T-shirt (Regular) -->
-        <div class="product-card bg-white p-6 rounded-lg shadow-md"
-          data-category="tshirt" data-price="99900" data-size="regular" data-style="">
-          <img src="{{ asset('images/katalog/t-shirt eclipse blue.png') }}" alt="T-shirt Blue"
-            class="w-full h-64 object-cover rounded-md mb-4">
-          <h3 class="text-lg font-semibold mb-2">T-shirt Eclipse Blue</h3>
-          <p class="text-gray-600">Rp 99.900</p>
-        </div>
-
-        <!-- T-shirt (Regular) -->
-        <div class="product-card bg-white p-6 rounded-lg shadow-md"
-          data-category="tshirt" data-price="99900" data-size="regular" data-style="">
-          <img src="{{ asset('images/katalog/t-shirt mocca mist.png') }}" alt="T-shirt Mocca"
-            class="w-full h-64 object-cover rounded-md mb-4">
-          <h3 class="text-lg font-semibold mb-2">T-Shirt Mocca Mist</h3>
-          <p class="text-gray-600">Rp 99.900</p>
-        </div>
-
-        <!-- T-shirt (Regular) -->
-        <div class="product-card bg-white p-6 rounded-lg shadow-md"
-          data-category="tshirt" data-price="99900" data-size="regular" data-style="">
-          <img src="{{ asset('images/katalog/t-shirt midnight black.png') }}" alt="T-shirt Black"
-            class="w-full h-64 object-cover rounded-md mb-4">
-          <h3 class="text-lg font-semibold mb-2">T-shirt Midnight Black</h3>
-          <p class="text-gray-600">Rp 99.900</p>
-        </div>
-
-        <!-- Flannel (Regular, Casual) -->
-        <div class="product-card bg-white p-6 rounded-lg shadow-md"
-          data-category="flannel" data-price="149900" data-size="regular" data-style="casual">
-          <img src="{{ asset('images/katalog/hangout hours.png') }}" alt="Hangout Hours"
-            class="w-full h-64 object-cover rounded-md mb-4">
-          <h3 class="text-lg font-semibold mb-2">Hangout Hours Long Sleeve</h3>
-          <p class="text-gray-600">Rp 149.900</p>
-        </div>
+        <h3 class="text-lg font-semibold mb-2 group-hover:text-black">
+          Polo Tonepop Cactus Green
+        </h3>
+        <p class="text-gray-600">Rp 110.000</p>
       </div>
-    </section>
+    </a>
+
+    <!-- Overcool (Boxy) -->
+    <div class="product-card bg-white p-6 rounded-lg shadow-md"
+      data-category="overcool" data-price="130000" data-size="boxy" data-style="">
+      <img src="{{ asset('images/katalog/overcool midnight black.png') }}" alt="Overcool Black"
+        class="w-full h-64 object-cover rounded-md mb-4">
+      <h3 class="text-lg font-semibold mb-2">Overcool Midnight Black</h3>
+      <p class="text-gray-600">Rp 130.000</p>
+    </div>
+
+    <!-- Overcool (Boxy) -->
+    <div class="product-card bg-white p-6 rounded-lg shadow-md"
+      data-category="overcool" data-price="130000" data-size="boxy" data-style="">
+      <img src="{{ asset('images/katalog/overcool eclipse blue.png') }}" alt="Overcool Blue"
+        class="w-full h-64 object-cover rounded-md mb-4">
+      <h3 class="text-lg font-semibold mb-2">Overcool Eclipse Blue</h3>
+      <p class="text-gray-600">Rp 130.000</p>
+    </div>
+
+    <!-- Jacket -->
+    <div class="product-card bg-white p-6 rounded-lg shadow-md"
+      data-category="jacket" data-price="149900" data-size="" data-style="">
+      <img src="{{ asset('images/katalog/coze jacket classy black.png') }}" alt="Coze Jacket"
+        class="w-full h-64 object-cover rounded-md mb-4">
+      <h3 class="text-lg font-semibold mb-2">Coze Jacket Classy Black</h3>
+      <p class="text-gray-600">Rp 149.900</p>
+    </div>
+
+    <!-- Flannel (Regular, Casual) -->
+    <div class="product-card bg-white p-6 rounded-lg shadow-md"
+      data-category="flannel" data-price="149900" data-size="regular" data-style="casual">
+      <img src="{{ asset('images/katalog/Cityloop long.png') }}" alt="City Loop"
+        class="w-full h-64 object-cover rounded-md mb-4">
+      <h3 class="text-lg font-semibold mb-2">City Loop Long Sleeve</h3>
+      <p class="text-gray-600">Rp 149.900</p>
+    </div>
+
+    <!-- Flannel (Regular, Casual) -->
+    <div class="product-card bg-white p-6 rounded-lg shadow-md"
+      data-category="flannel" data-price="149900" data-size="regular" data-style="casual">
+      <img src="{{ asset('images/katalog/Weekend walk.png') }}" alt="Weekend Walk"
+        class="w-full h-64 object-cover rounded-md mb-4">
+      <h3 class="text-lg font-semibold mb-2">Weekend Walk Long Sleeve</h3>
+      <p class="text-gray-600">Rp 149.900</p>
+    </div>
+
+    <!-- Polo Tonepop Brown Earth -->
+    <div class="product-card bg-white p-6 rounded-lg shadow-md"
+      data-category="polo" data-price="130000" data-size="oversized" data-style="casual">
+      <img src="{{ asset('images/katalog/polo tonepop brown earth.png') }}" alt="Polo Brown Earth"
+        class="w-full h-64 object-cover rounded-md mb-4">
+      <h3 class="text-lg font-semibold mb-2">Polo Tonepop Brown Earth</h3>
+      <p class="text-gray-600">Rp 130.000</p>
+    </div>
+
+    <!-- Polo Tonepop Mocca Mist -->
+    <div class="product-card bg-white p-6 rounded-lg shadow-md"
+      data-category="polo" data-price="149900" data-size="oversized" data-style="casual">
+      <img src="{{ asset('images/katalog/polo tonepop mocca mist.png') }}" alt="Polo Mocca"
+        class="w-full h-64 object-cover rounded-md mb-4">
+      <h3 class="text-lg font-semibold mb-2">Polo Tonepop Mocca Mist</h3>
+      <p class="text-gray-600">Rp 149.900</p>
+    </div>
+
+    <!-- Polo Tonepop Navy Waves -->
+    <div class="product-card bg-white p-6 rounded-lg shadow-md"
+      data-category="polo" data-price="110000" data-size="oversized" data-style="casual">
+      <img src="{{ asset('images/katalog/polo tonepop navy waves.png') }}" alt="Polo Navy Waves"
+        class="w-full h-64 object-cover rounded-md mb-4">
+      <h3 class="text-lg font-semibold mb-2">Polo Tonepop Navy Waves</h3>
+      <p class="text-gray-600">Rp 110.000</p>
+    </div>
+
+    <!-- T-shirt -->
+    <div class="product-card bg-white p-6 rounded-lg shadow-md"
+      data-category="tshirt" data-price="99900" data-size="regular" data-style="">
+      <img src="{{ asset('images/katalog/t-shirt eclipse blue.png') }}" alt="T-shirt Blue"
+        class="w-full h-64 object-cover rounded-md mb-4">
+      <h3 class="text-lg font-semibold mb-2">T-shirt Eclipse Blue</h3>
+      <p class="text-gray-600">Rp 99.900</p>
+    </div>
+
+    <!-- T-shirt -->
+    <div class="product-card bg-white p-6 rounded-lg shadow-md"
+      data-category="tshirt" data-price="99900" data-size="regular" data-style="">
+      <img src="{{ asset('images/katalog/t-shirt mocca mist.png') }}" alt="T-shirt Mocca"
+        class="w-full h-64 object-cover rounded-md mb-4">
+      <h3 class="text-lg font-semibold mb-2">T-Shirt Mocca Mist</h3>
+      <p class="text-gray-600">Rp 99.900</p>
+    </div>
+
+    <!-- T-shirt -->
+    <div class="product-card bg-white p-6 rounded-lg shadow-md"
+      data-category="tshirt" data-price="99900" data-size="regular" data-style="">
+      <img src="{{ asset('images/katalog/t-shirt midnight black.png') }}" alt="T-shirt Black"
+        class="w-full h-64 object-cover rounded-md mb-4">
+      <h3 class="text-lg font-semibold mb-2">T-shirt Midnight Black</h3>
+      <p class="text-gray-600">Rp 99.900</p>
+    </div>
+
+    <!-- Flannel -->
+    <div class="product-card bg-white p-6 rounded-lg shadow-md"
+      data-category="flannel" data-price="149900" data-size="regular" data-style="casual">
+      <img src="{{ asset('images/katalog/hangout hours.png') }}" alt="Hangout Hours"
+        class="w-full h-64 object-cover rounded-md mb-4">
+      <h3 class="text-lg font-semibold mb-2">Hangout Hours Long Sleeve</h3>
+      <p class="text-gray-600">Rp 149.900</p>
+    </div>
+
+  </div>
+</section>
+
   </main>
 
   @include('components.footer')
