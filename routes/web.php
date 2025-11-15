@@ -27,6 +27,11 @@ Route::get('/mixandmatch', function () {
     return view('pages.mixandmatch.mixandmatch');
 })->name('mixandmatch');
 
+Route::get('/mixandmatch/{id}', function ($id) {
+    return view('pages.mixandmatch.detail', ['id' => $id]);
+})->name('mixandmatch.detail');
+
+
 Route::get('/checkout', function () {
     return view('pages.checkout.checkout');
 })->name('checkout');
