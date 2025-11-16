@@ -80,3 +80,6 @@ Route::get('/profile', function () {
     return view('pages.profile.profile');
 })->name('profile');
 
+Route::get('/cart', function () {
+    return view('pages.checkout.cart');
+})->name('cart');
