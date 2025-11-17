@@ -92,6 +92,6 @@ Route::get('/admin/images', function () {
     return view('pages.admin.images');
 })->name('admin.images');
 
-Route::get('/katalog/deatil', function () {
+Route::get('/katalog/detail', function () {
     return view('pages.katalog.detail');
 })->name('produk.detail');

@@ -39,7 +39,7 @@
                     <div class="product-item row g-3 align-items-center">
                         <div class="col-1 text-center"><input class="form-check-input" type="checkbox"></div>
                         <div class="col-3 col-md-2"><img src="{{ asset('images/katalog/Weekend walk.png') }}"
-                                alt="Produk" class="product-image"></div>
+                                alt="Produk" class="product-image object-contain"></div>
                         <div class="col-8 col-md-5">
                             <div class="product-title">Jam Tangan Chronograph Pria</div>
                             <div class="product-variation">Warna: Hitam Klasik</div>
@@ -60,7 +60,7 @@
                     <div class="product-item row g-3 align-items-center">
                         <div class="col-1 text-center"><input class="form-check-input" type="checkbox"></div>
                         <div class="col-3 col-md-2"><img src="{{ asset('images/katalog/Weekend walk.png') }}"
-                                alt="Produk" class="product-image"></div>
+                                alt="Produk" class="product-image object-contain" ></div>
                         <div class="col-8 col-md-5">
                             <div class="product-title">Dompet Kulit Asli</div>
                             <div class="product-variation">Warna: Coklat Tua</div>

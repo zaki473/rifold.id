@@ -85,7 +85,7 @@
 
             <div class="flex space-x-6 overflow-x-auto scroll-smooth pb-4 scrollbar-hide">
                 <!-- Card 1 -->
-                <a href="{{ route('produk.detail', ['id' => 1]) }}" class="block">
+                <a href="{{ route('produk.detail') }}" class="block">
                     <div
                         class="flex-none w-64 bg-white p-6 rounded-lg shadow-md hover:shadow-xl transition-transform hover:scale-105 cursor-pointer">
 
