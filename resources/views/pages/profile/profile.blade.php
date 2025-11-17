@@ -1,11 +1,11 @@
-<!DOCTYPE html> 
+<!DOCTYPE html>
 <html lang="en">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src="https://cdn.tailwindcss.com"></script>
-    <title>Rifold | Profile</title>
+    <title>Rifold - Profile</title>
 </head>
 
 <body class="bg-[#FBF7F4] text-[#333333]">
@@ -117,7 +117,7 @@
                 </div>
 
                 <div class="pt-6">
-                    <a href="#" class="inline-block bg-black text-white px-6 py-3 rounded-md border border-black hover:bg-white hover:text-black transition">
+                    <a href="{{ route('profile.edit') }}" class="inline-block bg-black text-white px-6 py-3 rounded-md border border-black hover:bg-white hover:text-black transition">
                         Edit Profile
                     </a>
                 </div>
@@ -146,8 +146,8 @@
 
                         <p class="text-sm text-gray-500">
                             Order Date:
-                            {{ (isset($order->created_at) && method_exists($order->created_at, 'format')) 
-                                ? $order->created_at->format('d M Y') 
+                            {{ (isset($order->created_at) && method_exists($order->created_at, 'format'))
+                                ? $order->created_at->format('d M Y')
                                 : \Carbon\Carbon::parse($order->created_at)->format('d M Y') }}
                         </p>
 
