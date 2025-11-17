@@ -24,19 +24,16 @@
     <main class="flex-1 ml-64">
         @include('components.header_admin')
         <div class="p-8">
-            <h2 class="text-2xl font-semibold mb-4">Products</h2>
+            <h2 class="text-2xl font-semibold mb-4">Video</h2>
             <div class="bg-white rounded-lg shadow p-6">
-                <h3 class="text-xl font-semibold mb-4">Products list</h3>
+                <h3 class="text-xl font-semibold mb-4">Video List</h3>
                 <div class="mb-4">
                     <input type="text" placeholder="Search........" class="w-full p-2 border border-gray-300 rounded-md">
                 </div>
                 <table class="w-full">
                     <thead>
                         <tr class="border-b">
-                            <th class="text-left p-3">Products</th>
-                            <th class="text-left p-3">Price</th>
-                            <th class="text-left p-3">Stock</th>
-                            <th class="text-left p-3">Detail</th>
+                            <th class="text-left p-3">Video</th>
                             <th class="text-left p-3">Action</th>
                         </tr>
                     </thead>
@@ -47,9 +44,6 @@
                                 <img src="{{ asset('images/katalog/coze jacket classy black.png') }}" alt="Product Image" class="w-10 h-10 rounded-md mr-4 object-contain">
                                 <span>COZE JACKET CLASSY BLACK</span>
                             </td>
-                            <td class="p-3">Rp 149.900</td>
-                            <td class="p-3">100</td>
-                            <td class="p-3 font-bold">...</td>
                             <td class="p-3">
                                 <button class="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600 transition-colors">Edit</button>
                                 <button class="bg-red-500 text-white px-4 py-2 rounded-md hover:bg-red-600 transition-colors">Delete</button>
@@ -61,37 +55,6 @@
                                 <img src="{{ asset('images/katalog/coze jacket classy black.png') }}" alt="Product Image" class="w-10 h-10 rounded-md mr-4 object-contain">
                                 <span>CITY LOOP LONG SLEEVE</span>
                             </td>
-                            <td class="p-3">Rp 149.000</td>
-                            <td class="p-3">100</td>
-                            <td class="p-3 font-bold">...</td>
-                            <td class="p-3">
-                                <button class="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600 transition-colors">Edit</button>
-                                <button class="bg-red-500 text-white px-4 py-2 rounded-md hover:bg-red-600 transition-colors">Delete</button>
-                            </td>
-                        </tr>
-                        {{-- Contoh Baris Produk 3 --}}
-                        <tr class="border-b hover:bg-gray-50">
-                            <td class="p-3 flex items-center">
-                                <img src="{{ asset('images/katalog/coze jacket classy black.png') }}" alt="Product Image" class="w-10 h-10 rounded-md mr-4 object-contain">
-                                <span>OVERCOOL MIDNIGHT BLACK</span>
-                            </td>
-                            <td class="p-3">Rp 130.000</td>
-                            <td class="p-3">100</td>
-                            <td class="p-3 font-bold">...</td>
-                            <td class="p-3">
-                                <button class="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600 transition-colors">Edit</button>
-                                <button class="bg-red-500 text-white px-4 py-2 rounded-md hover:bg-red-600 transition-colors">Delete</button>
-                            </td>
-                        </tr>
-                         {{-- Contoh Baris Produk 4 --}}
-                        <tr class="hover:bg-gray-50">
-                            <td class="p-3 flex items-center">
-                                <img src="{{ asset('images/katalog/coze jacket classy black.png') }}" alt="Product Image" class="w-10 h-10 rounded-md mr-4 object-contain">
-                                <span>TONEPOP NAVY WAVES</span>
-                            </td>
-                            <td class="p-3">Rp 110.000</td>
-                            <td class="p-3">100</td>
-                            <td class="p-3 font-bold">...</td>
                             <td class="p-3">
                                 <button class="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600 transition-colors">Edit</button>
                                 <button class="bg-red-500 text-white px-4 py-2 rounded-md hover:bg-red-600 transition-colors">Delete</button>

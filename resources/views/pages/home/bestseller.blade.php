@@ -46,50 +46,79 @@
                 <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
 
                     {{-- Daftar Produk --}}
-                    <div
-                        class="flex-none w-80 bg-white p-6 rounded-lg shadow-md hover:shadow-xl transition-transform hover:scale-105">
-                        <img src="{{ asset('images/katalog/Cityloop long.png') }}" alt="Best Seller"
-                            class="w-full h-64 object-contain rounded-md mb-4">
-                        <h3 class="text-lg font-semibold mb-2">City Loop Long Sleeve</h3>
-                        <p class="text-gray-600">Rp 149.900</p>
-                    </div>
+                    <a href="{{ route('produk.detail') }}" class="block">
+                        <div
+                            class="flex-none w-80 bg-white p-6 rounded-lg shadow-md hover:shadow-xl transition-transform hover:scale-105 cursor-pointer">
 
-                    <div
-                        class="flex-none w-80 bg-white p-6 rounded-lg shadow-md hover:shadow-xl transition-transform hover:scale-105">
-                        <img src="{{ asset('images/katalog/Weekend walk.png') }}" alt="Best Seller"
-                            class="w-50 h-64 object-contain rounded-md mb-4">
-                        <h3 class="text-lg font-semibold mb-2">City Loop Long Sleeve</h3>
-                        <p class="text-gray-600">Rp 149.900</p>
-                    </div>
-                    <div
-                        class="flex-none w-80 bg-white p-6 rounded-lg shadow-md hover:shadow-xl transition-transform hover:scale-105">
-                        <img src="{{ asset('images/katalog/coze jacket classy black.png') }}" alt="Best Seller"
-                            class="w-50 h-64 object-contain rounded-md mb-4">
-                        <h3 class="text-lg font-semibold mb-2">City Loop Long Sleeve</h3>
-                        <p class="text-gray-600">Rp 149.900</p>
-                    </div>
-                    <div
-                        class="flex-none w-80 bg-white p-6 rounded-lg shadow-md hover:shadow-xl transition-transform hover:scale-105">
-                        <img src="{{ asset('images/katalog/Cityloop long.png') }}" alt="Best Seller"
-                            class="w-full h-64 object-contain rounded-md mb-4">
-                        <h3 class="text-lg font-semibold mb-2">City Loop Long Sleeve</h3>
-                        <p class="text-gray-600">Rp 149.900</p>
-                    </div>
-                    <div
-                        class="flex-none w-80 bg-white p-6 rounded-lg shadow-md hover:shadow-xl transition-transform hover:scale-105">
-                        <img src="{{ asset('images/katalog/Weekend walk.png') }}" alt="Best Seller"
-                            class="w-full h-64 object-contain rounded-md mb-4">
-                        <h3 class="text-lg font-semibold mb-2">City Loop Long Sleeve</h3>
-                        <p class="text-gray-600">Rp 149.900</p>
-                    </div>
+                            <img src="{{ asset('images/katalog/Cityloop long.png') }}" alt="Best Seller"
+                                class="w-full h-64 object-contain rounded-md mb-4">
 
-                    <div
-                        class="flex-none w-80 bg-white p-6 rounded-lg shadow-md hover:shadow-xl transition-transform hover:scale-105">
-                        <img src="{{ asset('images/katalog/Cityloop long.png') }}" alt="Best Seller"
-                            class="w-full h-64 object-contain rounded-md mb-4">
-                        <h3 class="text-lg font-semibold mb-2">City Loop Long Sleeve</h3>
-                        <p class="text-gray-600">Rp 149.900</p>
-                    </div>
+                            <h3 class="text-lg font-semibold mb-2">City Loop Long Sleeve</h3>
+                            <p class="text-gray-600">Rp 149.900</p>
+                        </div>
+                    </a>
+
+
+                    <a href="{{ route('produk.detail') }}" class="block">
+                        <div
+                            class="flex-none w-80 bg-white p-6 rounded-lg shadow-md hover:shadow-xl transition-transform hover:scale-105 cursor-pointer">
+
+                            <img src="{{ asset('images/katalog/Cityloop long.png') }}" alt="Best Seller"
+                                class="w-full h-64 object-contain rounded-md mb-4">
+
+                            <h3 class="text-lg font-semibold mb-2">City Loop Long Sleeve</h3>
+                            <p class="text-gray-600">Rp 149.900</p>
+                        </div>
+                    </a>
+
+                    <a href="{{ route('produk.detail') }}" class="block">
+                        <div
+                            class="flex-none w-80 bg-white p-6 rounded-lg shadow-md hover:shadow-xl transition-transform hover:scale-105 cursor-pointer">
+
+                            <img src="{{ asset('images/katalog/Cityloop long.png') }}" alt="Best Seller"
+                                class="w-full h-64 object-contain rounded-md mb-4">
+
+                            <h3 class="text-lg font-semibold mb-2">City Loop Long Sleeve</h3>
+                            <p class="text-gray-600">Rp 149.900</p>
+                        </div>
+                    </a>
+
+                    <a href="{{ route('produk.detail') }}" class="block">
+                        <div
+                            class="flex-none w-80 bg-white p-6 rounded-lg shadow-md hover:shadow-xl transition-transform hover:scale-105 cursor-pointer">
+
+                            <img src="{{ asset('images/katalog/Cityloop long.png') }}" alt="Best Seller"
+                                class="w-full h-64 object-contain rounded-md mb-4">
+
+                            <h3 class="text-lg font-semibold mb-2">City Loop Long Sleeve</h3>
+                            <p class="text-gray-600">Rp 149.900</p>
+                        </div>
+                    </a>
+                    <a href="{{ route('produk.detail') }}" class="block">
+                        <div
+                            class="flex-none w-80 bg-white p-6 rounded-lg shadow-md hover:shadow-xl transition-transform hover:scale-105 cursor-pointer">
+
+                            <img src="{{ asset('images/katalog/Cityloop long.png') }}" alt="Best Seller"
+                                class="w-full h-64 object-contain rounded-md mb-4">
+
+                            <h3 class="text-lg font-semibold mb-2">City Loop Long Sleeve</h3>
+                            <p class="text-gray-600">Rp 149.900</p>
+                        </div>
+                    </a>
+
+
+                    <a href="{{ route('produk.detail') }}" class="block">
+                        <div
+                            class="flex-none w-80 bg-white p-6 rounded-lg shadow-md hover:shadow-xl transition-transform hover:scale-105 cursor-pointer">
+
+                            <img src="{{ asset('images/katalog/Cityloop long.png') }}" alt="Best Seller"
+                                class="w-full h-64 object-contain rounded-md mb-4">
+
+                            <h3 class="text-lg font-semibold mb-2">City Loop Long Sleeve</h3>
+                            <p class="text-gray-600">Rp 149.900</p>
+                        </div>
+                    </a>
+
                 </div>
             </div>
     </section>

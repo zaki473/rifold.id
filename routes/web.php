@@ -83,3 +83,15 @@ Route::get('/profile', function () {
 Route::get('/cart', function () {
     return view('pages.checkout.cart');
 })->name('cart');
+
+Route::get('/admin/video', function () {
+    return view('pages.admin.video');
+})->name('admin.video');
+
+Route::get('/admin/images', function () {
+    return view('pages.admin.images');
+})->name('admin.images');
+
+Route::get('/katalog/deatil', function () {
+    return view('pages.katalog.detail');
+})->name('produk.detail');

@@ -9,7 +9,7 @@
                 </button>
             </div>
             <div>
-                <a href="#"
+                <a href="{{ route('home') }}"
                     class="py-2 px-6 bg-white border border-gray-300 rounded-full text-gray-700">LogOut</a>
             </div>
         </header>
