@@ -10,9 +10,11 @@
     <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
     <link rel="stylesheet" href="{{ asset('css/cart.css') }}">
+    <script src="https://cdn.tailwindcss.com"></script>
 </head>
 
-    @include('components.navbar')
+@include('components.navbar')
+
 <body>
 
     <div class="container py-4 py-lg-5">
@@ -60,7 +62,7 @@
                     <div class="product-item row g-3 align-items-center">
                         <div class="col-1 text-center"><input class="form-check-input" type="checkbox"></div>
                         <div class="col-3 col-md-2"><img src="{{ asset('images/katalog/Weekend walk.png') }}"
-                                alt="Produk" class="product-image object-contain" ></div>
+                                alt="Produk" class="product-image object-contain"></div>
                         <div class="col-8 col-md-5">
                             <div class="product-title">Dompet Kulit Asli</div>
                             <div class="product-variation">Warna: Coklat Tua</div>
@@ -96,7 +98,9 @@
                         <span>Total</span>
                         <span>Rp1.622.000</span>
                     </div>
-                    <a href="{{ route('checkout') }}" class="btn btn-primary w-100 btn-lg">
+                    <a href="{{ route('checkout') }}"
+                        class="inline-block bg-black text-white px-8 py-3 rounded-md border border-black
+                hover:bg-white hover:text-black transition-colors duration-300">
                         Lanjutkan ke Pembayaran
                     </a>
 
