@@ -52,10 +52,10 @@
                 {{-- THUMBNAILS --}}
                 <div class="flex gap-3 mt-4">
                     @foreach([
-                        'images/cactus green.png',
                         'images/detail/polo tonepop cactus detail.webp',
                         'images/detail/polo tonepop cactus detail1.webp',
-                        'images/detail/polo tonepop cactus detail 2.webp'
+                        'images/detail/polo tonepop cactus detail 2.webp',
+                        'images/detail/polo tonepop cactus detail 3.webp',
                     ] as $thumb)
                         <img src="{{ asset($thumb) }}"
                             class="thumb w-1/4 aspect-square object-cover rounded-lg border shadow-sm cursor-pointer hover:opacity-80 transition">
@@ -233,10 +233,10 @@
 {{-- SCRIPTS --}}
 <script>
     const images = [
-        "{{ asset('images/cactus green.png') }}",
         "{{ asset('images/detail/polo tonepop cactus detail.webp') }}",
         "{{ asset('images/detail/polo tonepop cactus detail1.webp') }}",
-        "{{ asset('images/detail/polo tonepop cactus detail 2.webp') }}"
+        "{{ asset('images/detail/polo tonepop cactus detail 2.webp') }}",
+        "{{ asset('images/detail/polo tonepop cactus detail 3.webp') }}"
     ];
 
     let current = 0;
