@@ -5,202 +5,283 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Font Poppins -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <title>Rifold - Katalog</title>
     <style>
-        .banner {
-            width: 100%;
-            max-width: 1293px;
-            height: 501px;
-            object-fit: cover;
-            margin: 0 auto;
-        }
-
-        .product-card img {
-            transition: transform 0.3s ease;
-        }
-
-        .product-card:hover img {
-            transform: scale(1.05);
-        }
+        body { font-family: 'Poppins', sans-serif; }
+        
+        /* Custom Scrollbar sidebar */
+        aside::-webkit-scrollbar { width: 4px; }
+        aside::-webkit-scrollbar-thumb { background-color: #e5e7eb; border-radius: 4px; }
     </style>
 </head>
 
-<body class="bg-gray-100">
+<body class="bg-gray-50 text-gray-800">
 
   <!-- NAVBAR -->
   @include('components.navbar')
 
   <!-- BANNER -->
-  <section class="flex justify-center relative mt-4">
-    <img src="{{ asset('images/banner katalog.png') }}" alt="Banner Katalog" class="banner rounded-lg shadow-md" />
+  <section class="max-w-[1293px] mx-auto px-4 sm:px-6 lg:px-8 mt-8">
+    <div class="relative w-full h-[250px] md:h-[350px] lg:h-[450px] rounded-2xl overflow-hidden shadow-sm">
+        <img src="{{ asset('images/banner katalog.png') }}" alt="Banner Katalog" class="w-full h-full object-cover hover:scale-105 transition-transform duration-700" />
+        <div class="absolute inset-0 bg-black/10"></div> <!-- Overlay tipis biar elegan -->
+    </div>
   </section>
 
-  <!-- KONTEN -->
-  <main class="max-w-[1293px] mx-auto px-4 sm:px-6 lg:px-8 py-10 flex flex-col md:flex-row gap-10">
+  <!-- KONTEN UTAMA -->
+  <main class="max-w-[1293px] mx-auto px-4 sm:px-6 lg:px-8 py-12 flex flex-col md:flex-row gap-8 lg:gap-12">
 
-    <!-- SIDEBAR FILTER -->
-    <aside class="w-full md:w-[25%] bg-white rounded-xl shadow-md p-5 h-fit">
-      <h2 class="text-lg font-semibold mb-4">Product Type</h2>
-      <ul class="space-y-2 text-sm">
-        <li><input type="checkbox" class="filter-category" value="all" checked> All</li>
-        <li><input type="checkbox" class="filter-category" value="flannel"> Flannel Shirts</li>
-        <li><input type="checkbox" class="filter-category" value="jacket"> Jackets</li>
-        <li><input type="checkbox" class="filter-category" value="polo"> Polo Shirts</li>
-        <li><input type="checkbox" class="filter-category" value="tshirt"> T-Shirts</li>
-      </ul>
+    <!-- SIDEBAR FILTER (Sticky) -->
+    <aside class="w-full md:w-[250px] flex-shrink-0 bg-white rounded-xl border border-gray-100 p-6 h-fit md:sticky md:top-24 shadow-sm z-10">
+      
+      <!-- Filter Group 1 -->
+      <div class="mb-8 border-b border-gray-100 pb-6">
+          <h2 class="text-xs font-bold text-gray-900 uppercase tracking-widest mb-4">Product Type</h2>
+          <ul class="space-y-3 text-sm text-gray-600">
+            <li class="flex items-center group">
+                <input type="checkbox" class="filter-category accent-black w-4 h-4 cursor-pointer rounded" value="all" checked> 
+                <span class="ml-3 group-hover:text-black transition-colors cursor-pointer">All Products</span>
+            </li>
+            <li class="flex items-center group">
+                <input type="checkbox" class="filter-category accent-black w-4 h-4 cursor-pointer rounded" value="flannel"> 
+                <span class="ml-3 group-hover:text-black transition-colors cursor-pointer">Flannel Shirts</span>
+            </li>
+            <li class="flex items-center group">
+                <input type="checkbox" class="filter-category accent-black w-4 h-4 cursor-pointer rounded" value="jacket"> 
+                <span class="ml-3 group-hover:text-black transition-colors cursor-pointer">Jackets</span>
+            </li>
+            <li class="flex items-center group">
+                <input type="checkbox" class="filter-category accent-black w-4 h-4 cursor-pointer rounded" value="polo"> 
+                <span class="ml-3 group-hover:text-black transition-colors cursor-pointer">Polo Shirts</span>
+            </li>
+            <li class="flex items-center group">
+                <input type="checkbox" class="filter-category accent-black w-4 h-4 cursor-pointer rounded" value="tshirt"> 
+                <span class="ml-3 group-hover:text-black transition-colors cursor-pointer">T-Shirts</span>
+            </li>
+          </ul>
+      </div>
 
-      <h2 class="text-lg font-semibold mt-6 mb-4">Style</h2>
-      <ul class="space-y-2 text-sm">
-        <li><input type="checkbox" class="filter-size" value="oversized"> Oversized Fit</li>
-        <li><input type="checkbox" class="filter-size" value="regular"> Regular Fit</li>
-        <li><input type="checkbox" class="filter-size" value="boxy"> Boxy Fit</li>
-        <li><input type="checkbox" class="filter-style" value="casual"> Casual Wear</li>
-      </ul>
+      <!-- Filter Group 2 -->
+      <div class="mb-8 border-b border-gray-100 pb-6">
+          <h2 class="text-xs font-bold text-gray-900 uppercase tracking-widest mb-4">Fit & Style</h2>
+          <ul class="space-y-3 text-sm text-gray-600">
+            <li class="flex items-center group"><input type="checkbox" class="filter-size accent-black w-4 h-4 cursor-pointer" value="oversized"> <span class="ml-3 group-hover:text-black">Oversized Fit</span></li>
+            <li class="flex items-center group"><input type="checkbox" class="filter-size accent-black w-4 h-4 cursor-pointer" value="regular"> <span class="ml-3 group-hover:text-black">Regular Fit</span></li>
+            <li class="flex items-center group"><input type="checkbox" class="filter-size accent-black w-4 h-4 cursor-pointer" value="boxy"> <span class="ml-3 group-hover:text-black">Boxy Fit</span></li>
+            <li class="flex items-center group"><input type="checkbox" class="filter-style accent-black w-4 h-4 cursor-pointer" value="casual"> <span class="ml-3 group-hover:text-black">Casual Wear</span></li>
+          </ul>
+      </div>
 
-      <h2 class="text-lg font-semibold mt-6 mb-4">Price Range</h2>
-      <ul class="space-y-2 text-sm">
-        <li><input type="checkbox" class="filter-price" value="low" /> &lt; Rp100.000</li>
-        <li><input type="checkbox" class="filter-price" value="mid" /> Rp100.000 – Rp130.000</li>
-        <li><input type="checkbox" class="filter-price" value="high" /> &gt; Rp130.000</li>
-      </ul>
+      <!-- Filter Group 3 -->
+      <div>
+          <h2 class="text-xs font-bold text-gray-900 uppercase tracking-widest mb-4">Price</h2>
+          <ul class="space-y-3 text-sm text-gray-600">
+            <li class="flex items-center group"><input type="checkbox" class="filter-price accent-black w-4 h-4 cursor-pointer" value="low" /> <span class="ml-3 group-hover:text-black">&lt; Rp100k</span></li>
+            <li class="flex items-center group"><input type="checkbox" class="filter-price accent-black w-4 h-4 cursor-pointer" value="mid" /> <span class="ml-3 group-hover:text-black">Rp100k – Rp130k</span></li>
+            <li class="flex items-center group"><input type="checkbox" class="filter-price accent-black w-4 h-4 cursor-pointer" value="high" /> <span class="ml-3 group-hover:text-black">&gt; Rp130k</span></li>
+          </ul>
+      </div>
     </aside>
 
     <!-- PRODUK GRID -->
-<section class="w-full md:w-[75%]">
-  <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 gap-8">
+    <section class="flex-1">
+      <div class="grid grid-cols-2 md:grid-cols-3 gap-x-6 gap-y-10">
 
-    <!-- Polo Tonepop Cactus Green (ID = 1) -->
-    <a href="{{ route('detail', 1) }}" class="block group">
-      <div class="product-card bg-white p-6 rounded-lg shadow-md cursor-pointer
-          transition-all duration-300 group-hover:scale-[1.03]"
-        data-category="polo" data-price="110000" data-size="oversized" data-style="casual">
+        <!-- 
+           PANDUAN CARD STYLE:
+           1. aspect-[4/5]: Rasio standar fashion (tidak terlalu tinggi, tidak kotak).
+           2. object-top: KUNCI AGAR KEPALA TIDAK KEPOTONG.
+           3. bg-gray-100: Warna latar belakang card biar menyatu sama foto produk.
+        -->
 
-        <img src="{{ asset('images/cactus green.png') }}" alt="Polo Cactus Green"
-          class="w-full h-64 object-cover rounded-md mb-4 transition-all duration-300 group-hover:scale-105">
+        <!-- Produk 1 -->
+        <a href="{{ route('detail', 1) }}" class="product-card group block cursor-pointer"
+           data-category="polo" data-price="110000" data-size="oversized" data-style="casual">
+            <!-- Image Wrapper -->
+            <div class="relative w-full aspect-[4/5] rounded-xl overflow-hidden bg-gray-100 mb-4">
+                <img src="{{ asset('images/cactus green.png') }}" alt="Polo Cactus Green"
+                     class="w-full h-full object-cover object-top transition-transform duration-700 group-hover:scale-105">
+                
+                <!-- Tombol Add to Cart (Muncul saat hover) - Opsional biar keren -->
+                <div class="absolute bottom-4 right-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300 translate-y-2 group-hover:translate-y-0">
+                    <button class="bg-white p-3 rounded-full shadow-lg hover:bg-black hover:text-white transition-colors">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z" /></svg>
+                    </button>
+                </div>
+            </div>
+            <!-- Info Produk -->
+            <div>
+                <h3 class="text-[15px] font-medium text-gray-900 mb-1 group-hover:underline decoration-1 underline-offset-4">Polo Tonepop Cactus Green</h3>
+                <p class="text-sm text-gray-500 font-semibold">Rp 110.000</p>
+            </div>
+        </a>
 
-        <h3 class="text-lg font-semibold mb-2 group-hover:text-black">
-          Polo Tonepop Cactus Green
-        </h3>
-        <p class="text-gray-600">Rp 110.000</p>
+        <!-- Produk 2 -->
+        <div class="product-card group block cursor-pointer"
+             data-category="overcool" data-price="130000" data-size="boxy" data-style="">
+            <div class="relative w-full aspect-[4/5] rounded-xl overflow-hidden bg-gray-100 mb-4">
+                <img src="{{ asset('images/katalog/overcool midnight black.png') }}" alt="Overcool Black"
+                     class="w-full h-full object-cover object-top transition-transform duration-700 group-hover:scale-105">
+            </div>
+            <div>
+                <h3 class="text-[15px] font-medium text-gray-900 mb-1 group-hover:underline decoration-1 underline-offset-4">Overcool Midnight Black</h3>
+                <p class="text-sm text-gray-500 font-semibold">Rp 130.000</p>
+            </div>
+        </div>
+
+        <!-- Produk 3 -->
+        <div class="product-card group block cursor-pointer"
+             data-category="overcool" data-price="130000" data-size="boxy" data-style="">
+            <div class="relative w-full aspect-[4/5] rounded-xl overflow-hidden bg-gray-100 mb-4">
+                <img src="{{ asset('images/katalog/overcool eclipse blue.png') }}" alt="Overcool Blue"
+                     class="w-full h-full object-cover object-top transition-transform duration-700 group-hover:scale-105">
+            </div>
+            <div>
+                <h3 class="text-[15px] font-medium text-gray-900 mb-1 group-hover:underline decoration-1 underline-offset-4">Overcool Eclipse Blue</h3>
+                <p class="text-sm text-gray-500 font-semibold">Rp 130.000</p>
+            </div>
+        </div>
+
+        <!-- Produk 4 -->
+        <div class="product-card group block cursor-pointer"
+             data-category="jacket" data-price="149900" data-size="" data-style="">
+            <div class="relative w-full aspect-[4/5] rounded-xl overflow-hidden bg-gray-100 mb-4">
+                <img src="{{ asset('images/katalog/coze jacket classy black.png') }}" alt="Coze Jacket"
+                     class="w-full h-full object-cover object-top transition-transform duration-700 group-hover:scale-105">
+            </div>
+            <div>
+                <h3 class="text-[15px] font-medium text-gray-900 mb-1 group-hover:underline decoration-1 underline-offset-4">Coze Jacket Classy Black</h3>
+                <p class="text-sm text-gray-500 font-semibold">Rp 149.900</p>
+            </div>
+        </div>
+
+        <!-- Produk 5 -->
+        <div class="product-card group block cursor-pointer"
+             data-category="flannel" data-price="149900" data-size="regular" data-style="casual">
+            <div class="relative w-full aspect-[4/5] rounded-xl overflow-hidden bg-gray-100 mb-4">
+                <img src="{{ asset('images/katalog/Cityloop long.png') }}" alt="City Loop"
+                     class="w-full h-full object-cover object-top transition-transform duration-700 group-hover:scale-105">
+            </div>
+            <div>
+                <h3 class="text-[15px] font-medium text-gray-900 mb-1 group-hover:underline decoration-1 underline-offset-4">City Loop Long Sleeve</h3>
+                <p class="text-sm text-gray-500 font-semibold">Rp 149.900</p>
+            </div>
+        </div>
+
+        <!-- Produk 6 -->
+        <div class="product-card group block cursor-pointer"
+             data-category="flannel" data-price="149900" data-size="regular" data-style="casual">
+            <div class="relative w-full aspect-[4/5] rounded-xl overflow-hidden bg-gray-100 mb-4">
+                <img src="{{ asset('images/katalog/Weekend walk.png') }}" alt="Weekend Walk"
+                     class="w-full h-full object-cover object-top transition-transform duration-700 group-hover:scale-105">
+            </div>
+            <div>
+                <h3 class="text-[15px] font-medium text-gray-900 mb-1 group-hover:underline decoration-1 underline-offset-4">Weekend Walk Long Sleeve</h3>
+                <p class="text-sm text-gray-500 font-semibold">Rp 149.900</p>
+            </div>
+        </div>
+
+        <!-- Produk 7 -->
+        <div class="product-card group block cursor-pointer"
+             data-category="polo" data-price="130000" data-size="oversized" data-style="casual">
+            <div class="relative w-full aspect-[4/5] rounded-xl overflow-hidden bg-gray-100 mb-4">
+                <img src="{{ asset('images/katalog/polo tonepop brown earth.png') }}" alt="Polo Brown Earth"
+                     class="w-full h-full object-cover object-top transition-transform duration-700 group-hover:scale-105">
+            </div>
+            <div>
+                <h3 class="text-[15px] font-medium text-gray-900 mb-1 group-hover:underline decoration-1 underline-offset-4">Polo Tonepop Brown Earth</h3>
+                <p class="text-sm text-gray-500 font-semibold">Rp 130.000</p>
+            </div>
+        </div>
+
+        <!-- Produk 8 -->
+        <div class="product-card group block cursor-pointer"
+             data-category="polo" data-price="149900" data-size="oversized" data-style="casual">
+            <div class="relative w-full aspect-[4/5] rounded-xl overflow-hidden bg-gray-100 mb-4">
+                <img src="{{ asset('images/katalog/polo tonepop mocca mist.png') }}" alt="Polo Mocca"
+                     class="w-full h-full object-cover object-top transition-transform duration-700 group-hover:scale-105">
+            </div>
+            <div>
+                <h3 class="text-[15px] font-medium text-gray-900 mb-1 group-hover:underline decoration-1 underline-offset-4">Polo Tonepop Mocca Mist</h3>
+                <p class="text-sm text-gray-500 font-semibold">Rp 149.900</p>
+            </div>
+        </div>
+
+        <!-- Produk 9 -->
+        <div class="product-card group block cursor-pointer"
+             data-category="polo" data-price="110000" data-size="oversized" data-style="casual">
+            <div class="relative w-full aspect-[4/5] rounded-xl overflow-hidden bg-gray-100 mb-4">
+                <img src="{{ asset('images/katalog/polo tonepop navy waves.png') }}" alt="Polo Navy Waves"
+                     class="w-full h-full object-cover object-top transition-transform duration-700 group-hover:scale-105">
+            </div>
+            <div>
+                <h3 class="text-[15px] font-medium text-gray-900 mb-1 group-hover:underline decoration-1 underline-offset-4">Polo Tonepop Navy Waves</h3>
+                <p class="text-sm text-gray-500 font-semibold">Rp 110.000</p>
+            </div>
+        </div>
+
+        <!-- Produk 10 -->
+        <div class="product-card group block cursor-pointer"
+             data-category="tshirt" data-price="99900" data-size="regular" data-style="">
+            <div class="relative w-full aspect-[4/5] rounded-xl overflow-hidden bg-gray-100 mb-4">
+                <img src="{{ asset('images/katalog/t-shirt eclipse blue.png') }}" alt="T-shirt Blue"
+                     class="w-full h-full object-cover object-top transition-transform duration-700 group-hover:scale-105">
+            </div>
+            <div>
+                <h3 class="text-[15px] font-medium text-gray-900 mb-1 group-hover:underline decoration-1 underline-offset-4">T-shirt Eclipse Blue</h3>
+                <p class="text-sm text-gray-500 font-semibold">Rp 99.900</p>
+            </div>
+        </div>
+
+        <!-- Produk 11 -->
+        <div class="product-card group block cursor-pointer"
+             data-category="tshirt" data-price="99900" data-size="regular" data-style="">
+            <div class="relative w-full aspect-[4/5] rounded-xl overflow-hidden bg-gray-100 mb-4">
+                <img src="{{ asset('images/katalog/t-shirt mocca mist.png') }}" alt="T-shirt Mocca"
+                     class="w-full h-full object-cover object-top transition-transform duration-700 group-hover:scale-105">
+            </div>
+            <div>
+                <h3 class="text-[15px] font-medium text-gray-900 mb-1 group-hover:underline decoration-1 underline-offset-4">T-Shirt Mocca Mist</h3>
+                <p class="text-sm text-gray-500 font-semibold">Rp 99.900</p>
+            </div>
+        </div>
+
+        <!-- Produk 12 -->
+        <div class="product-card group block cursor-pointer"
+             data-category="tshirt" data-price="99900" data-size="regular" data-style="">
+            <div class="relative w-full aspect-[4/5] rounded-xl overflow-hidden bg-gray-100 mb-4">
+                <img src="{{ asset('images/katalog/t-shirt midnight black.png') }}" alt="T-shirt Black"
+                     class="w-full h-full object-cover object-top transition-transform duration-700 group-hover:scale-105">
+            </div>
+            <div>
+                <h3 class="text-[15px] font-medium text-gray-900 mb-1 group-hover:underline decoration-1 underline-offset-4">T-shirt Midnight Black</h3>
+                <p class="text-sm text-gray-500 font-semibold">Rp 99.900</p>
+            </div>
+        </div>
+
+        <!-- Produk 13 -->
+        <div class="product-card group block cursor-pointer"
+             data-category="flannel" data-price="149900" data-size="regular" data-style="casual">
+            <div class="relative w-full aspect-[4/5] rounded-xl overflow-hidden bg-gray-100 mb-4">
+                <img src="{{ asset('images/katalog/hangout hours.png') }}" alt="Hangout Hours"
+                     class="w-full h-full object-cover object-top transition-transform duration-700 group-hover:scale-105">
+            </div>
+            <div>
+                <h3 class="text-[15px] font-medium text-gray-900 mb-1 group-hover:underline decoration-1 underline-offset-4">Hangout Hours Long Sleeve</h3>
+                <p class="text-sm text-gray-500 font-semibold">Rp 149.900</p>
+            </div>
+        </div>
+
       </div>
-    </a>
-
-    <!-- Overcool (Boxy) -->
-    <div class="product-card bg-white p-6 rounded-lg shadow-md"
-      data-category="overcool" data-price="130000" data-size="boxy" data-style="">
-      <img src="{{ asset('images/katalog/overcool midnight black.png') }}" alt="Overcool Black"
-        class="w-full h-64 object-cover rounded-md mb-4">
-      <h3 class="text-lg font-semibold mb-2">Overcool Midnight Black</h3>
-      <p class="text-gray-600">Rp 130.000</p>
-    </div>
-
-    <!-- Overcool (Boxy) -->
-    <div class="product-card bg-white p-6 rounded-lg shadow-md"
-      data-category="overcool" data-price="130000" data-size="boxy" data-style="">
-      <img src="{{ asset('images/katalog/overcool eclipse blue.png') }}" alt="Overcool Blue"
-        class="w-full h-64 object-cover rounded-md mb-4">
-      <h3 class="text-lg font-semibold mb-2">Overcool Eclipse Blue</h3>
-      <p class="text-gray-600">Rp 130.000</p>
-    </div>
-
-    <!-- Jacket -->
-    <div class="product-card bg-white p-6 rounded-lg shadow-md"
-      data-category="jacket" data-price="149900" data-size="" data-style="">
-      <img src="{{ asset('images/katalog/coze jacket classy black.png') }}" alt="Coze Jacket"
-        class="w-full h-64 object-cover rounded-md mb-4">
-      <h3 class="text-lg font-semibold mb-2">Coze Jacket Classy Black</h3>
-      <p class="text-gray-600">Rp 149.900</p>
-    </div>
-
-    <!-- Flannel (Regular, Casual) -->
-    <div class="product-card bg-white p-6 rounded-lg shadow-md"
-      data-category="flannel" data-price="149900" data-size="regular" data-style="casual">
-      <img src="{{ asset('images/katalog/Cityloop long.png') }}" alt="City Loop"
-        class="w-full h-64 object-cover rounded-md mb-4">
-      <h3 class="text-lg font-semibold mb-2">City Loop Long Sleeve</h3>
-      <p class="text-gray-600">Rp 149.900</p>
-    </div>
-
-    <!-- Flannel (Regular, Casual) -->
-    <div class="product-card bg-white p-6 rounded-lg shadow-md"
-      data-category="flannel" data-price="149900" data-size="regular" data-style="casual">
-      <img src="{{ asset('images/katalog/Weekend walk.png') }}" alt="Weekend Walk"
-        class="w-full h-64 object-cover rounded-md mb-4">
-      <h3 class="text-lg font-semibold mb-2">Weekend Walk Long Sleeve</h3>
-      <p class="text-gray-600">Rp 149.900</p>
-    </div>
-
-    <!-- Polo Tonepop Brown Earth -->
-    <div class="product-card bg-white p-6 rounded-lg shadow-md"
-      data-category="polo" data-price="130000" data-size="oversized" data-style="casual">
-      <img src="{{ asset('images/katalog/polo tonepop brown earth.png') }}" alt="Polo Brown Earth"
-        class="w-full h-64 object-cover rounded-md mb-4">
-      <h3 class="text-lg font-semibold mb-2">Polo Tonepop Brown Earth</h3>
-      <p class="text-gray-600">Rp 130.000</p>
-    </div>
-
-    <!-- Polo Tonepop Mocca Mist -->
-    <div class="product-card bg-white p-6 rounded-lg shadow-md"
-      data-category="polo" data-price="149900" data-size="oversized" data-style="casual">
-      <img src="{{ asset('images/katalog/polo tonepop mocca mist.png') }}" alt="Polo Mocca"
-        class="w-full h-64 object-cover rounded-md mb-4">
-      <h3 class="text-lg font-semibold mb-2">Polo Tonepop Mocca Mist</h3>
-      <p class="text-gray-600">Rp 149.900</p>
-    </div>
-
-    <!-- Polo Tonepop Navy Waves -->
-    <div class="product-card bg-white p-6 rounded-lg shadow-md"
-      data-category="polo" data-price="110000" data-size="oversized" data-style="casual">
-      <img src="{{ asset('images/katalog/polo tonepop navy waves.png') }}" alt="Polo Navy Waves"
-        class="w-full h-64 object-cover rounded-md mb-4">
-      <h3 class="text-lg font-semibold mb-2">Polo Tonepop Navy Waves</h3>
-      <p class="text-gray-600">Rp 110.000</p>
-    </div>
-
-    <!-- T-shirt -->
-    <div class="product-card bg-white p-6 rounded-lg shadow-md"
-      data-category="tshirt" data-price="99900" data-size="regular" data-style="">
-      <img src="{{ asset('images/katalog/t-shirt eclipse blue.png') }}" alt="T-shirt Blue"
-        class="w-full h-64 object-cover rounded-md mb-4">
-      <h3 class="text-lg font-semibold mb-2">T-shirt Eclipse Blue</h3>
-      <p class="text-gray-600">Rp 99.900</p>
-    </div>
-
-    <!-- T-shirt -->
-    <div class="product-card bg-white p-6 rounded-lg shadow-md"
-      data-category="tshirt" data-price="99900" data-size="regular" data-style="">
-      <img src="{{ asset('images/katalog/t-shirt mocca mist.png') }}" alt="T-shirt Mocca"
-        class="w-full h-64 object-cover rounded-md mb-4">
-      <h3 class="text-lg font-semibold mb-2">T-Shirt Mocca Mist</h3>
-      <p class="text-gray-600">Rp 99.900</p>
-    </div>
-
-    <!-- T-shirt -->
-    <div class="product-card bg-white p-6 rounded-lg shadow-md"
-      data-category="tshirt" data-price="99900" data-size="regular" data-style="">
-      <img src="{{ asset('images/katalog/t-shirt midnight black.png') }}" alt="T-shirt Black"
-        class="w-full h-64 object-cover rounded-md mb-4">
-      <h3 class="text-lg font-semibold mb-2">T-shirt Midnight Black</h3>
-      <p class="text-gray-600">Rp 99.900</p>
-    </div>
-
-    <!-- Flannel -->
-    <div class="product-card bg-white p-6 rounded-lg shadow-md"
-      data-category="flannel" data-price="149900" data-size="regular" data-style="casual">
-      <img src="{{ asset('images/katalog/hangout hours.png') }}" alt="Hangout Hours"
-        class="w-full h-64 object-cover rounded-md mb-4">
-      <h3 class="text-lg font-semibold mb-2">Hangout Hours Long Sleeve</h3>
-      <p class="text-gray-600">Rp 149.900</p>
-    </div>
-
-  </div>
-</section>
+    </section>
 
   </main>
 
   @include('components.footer')
 
-  <!-- SCRIPT FILTER -->
+  <!-- SCRIPT FILTER SAMA SEPERTI SEBELUMNYA -->
   <script>
     document.addEventListener("DOMContentLoaded", () => {
       const categoryChecks = document.querySelectorAll(".filter-category");
@@ -224,7 +305,6 @@
           .filter(cb => cb.checked)
           .map(cb => cb.value);
 
-        // Handle "All" logic
         if (allCheck.checked) {
           categoryChecks.forEach(cb => {
             if (cb.value !== "all") cb.checked = false;
@@ -248,7 +328,6 @@
           if (activePrices.includes("mid") && price >= 100000 && price <= 130000) matchPrice = true;
           if (activePrices.includes("high") && price > 130000) matchPrice = true;
 
-          // Apply tonepop/flannel/overcool logic
           if (category === "polo" && size !== "oversized") product.style.display = "none";
           else if (category === "flannel" && size !== "regular") product.style.display = "none";
           else if (category === "overcool" && size !== "boxy") product.style.display = "none";
@@ -263,3 +342,5 @@
       applyFilters();
     });
   </script>
+</body>
+</html>

@@ -30,7 +30,7 @@
         <div class="mt-10">
             <a href="{{ route('katalog') }}"
                 class="bg-black text-white px-8 py-3 rounded-full font-semibold hover:bg-gray-800 transition-colors duration-300">
-                Jelajahi Koleksi
+                Explore
             </a>
         </div>
     </header>

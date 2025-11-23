@@ -44,7 +44,7 @@
             <div class="flex items-center space-x-4">
                 <!-- Search Bar Desktop -->
                 <div class="hidden md:block relative">
-                    <input type="text" placeholder="Cari produk..."
+                    <input type="text" placeholder="Search product.."
                         class="bg-gray-100 rounded-full py-2 pl-10 pr-4 w-56 focus:outline-none focus:ring-2 focus:ring-gray-400 focus:bg-white transition-all duration-300 ease-in-out">
                     <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
                         <svg class="w-5 h-5 text-gray-500" xmlns="http://www.w3.org/2000/svg" fill="none"

@@ -2,6 +2,8 @@
 
 use Illuminate\Support\Facades\Route;
 use Symfony\Component\HttpKernel\Profiler\Profile;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 Route::get('/', function () {
     return view('pages.home.home');
@@ -99,3 +101,17 @@ Route::get('/admin/images', function () {
 Route::get('/katalog/detail', function () {
     return view('pages.katalog.detail');
 })->name('produk.detail');
+
+Route::get('/mixandmatch/detail', function () {
+    return view('pages.mixandmatch.detail');
+})->name('mixandmatch.detail');
+
+Route::post('/logout', function (Request $request) {
+    Auth::logout();
+ 
+    $request->session()->invalidate();
+ 
+    $request->session()->regenerateToken();
+ 
+    return redirect('/'); // Kembali ke halaman utama/login setelah logout
+})->name('logout');
