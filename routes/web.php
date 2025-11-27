@@ -5,6 +5,7 @@ use Symfony\Component\HttpKernel\Profiler\Profile;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
+
 Route::get('/', function () {
     return view('pages.home.home');
 })->name('home');
@@ -115,3 +116,21 @@ Route::post('/logout', function (Request $request) {
  
     return redirect('/'); // Kembali ke halaman utama/login setelah logout
 })->name('logout');
+
+// 1. Route untuk Menampilkan Form Review (GET)
+// Mengarah ke file: resources/views/pages/katalog/detail.review.blade.php
+Route::get('/katalog/{id}/review', function ($id) {
+    // File ada di: resources/views/pages/katalog/detail.review.blade.php
+    // Karena nama file mengandung titik, gunakan view()->file() dengan path penuh
+    return view()->file(resource_path('views/pages/katalog/detail.review.blade.php'), ['id' => $id]);
+})->name('reviews.create');
+
+// 2. Route untuk Memproses Simpan Review (POST)
+Route::post('/reviews/store', function (Request $request) {
+    // Karena belum ada database, kita pura-pura simpan dan redirect balik
+    // Ambil ID produk dari input hidden, kalau tidak ada default ke 1
+    $id = $request->input('product_id', 1);
+    
+    // Redirect kembali ke halaman detail produk
+    return redirect()->route('detail', ['id' => $id]); 
+})->name('reviews.store');
