@@ -25,7 +25,7 @@
                 </div>
 
                 {{-- Form akan mengirim data ke route 'register' --}}
-                <form method="POST" action="{{ route('login') }}">
+                <form method="POST" action="{{ route('register') }}">
                     @csrf {{-- Token Keamanan Laravel --}}
 
                     {{-- Input untuk Nama --}}
@@ -49,11 +49,14 @@
                     {{-- Input untuk Password --}}
                     <div class="form-group">
                         <label for="password">Password</label>
-                        <input type="password" id="password" name="password" class="form-control" placeholder="Name" required autocomplete="new-password">
-                        @error('password')
-                            <span style="color: red; font-size: 0.875rem; margin-top: 5px; display: block;">{{ $message }}</span>
-                        @enderror
+                        <input type="password" id="password" name="password" class="form-control" placeholder="Enter your password" required>
                     </div>
+
+                    <div class="form-group">
+                        <label for="password_confirmation">Confirm Password</label>
+                        <input type="password" id="password_confirmation" name="password_confirmation" class="form-control" placeholder="Confirm your password" required>
+                    </div>
+
 
                     {{-- Persetujuan Syarat & Ketentuan --}}
                     <div class="terms-agree">
@@ -66,7 +69,7 @@
 
 
                 <div class="login-link">
-                    Have an account? <a href="{{ route('login') }}">Sign In</a>
+                    Have an account? <a href="{{ route('loginpage') }}">Sign In</a>
                 </div>
             </div>
         </div>

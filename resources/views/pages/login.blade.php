@@ -19,7 +19,7 @@
                 </div>
 
                 {{-- Form akan mengirim data ke route 'login' di Laravel --}}
-                <form method="POST" action="{{ route('home') }}">
+                <form method="POST" action="{{ route('login') }}">
                     @csrf {{-- Token keamanan Laravel --}}
 
                     <div class="form-group">
@@ -46,7 +46,10 @@
                 </form>
 
                 <div class="signup-link">
-                    Don't have an account? <a href="{{ route('register') }}">Sign Up</a>
+                    Don't have an account? <a href="{{ route('registerpage') }}">Sign Up</a>
+                </div>
+                <div class="signup-link">
+                    <a href="{{ route('home') }}">Return to page</a>
                 </div>
             </div>
         </div>

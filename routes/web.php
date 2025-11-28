@@ -4,7 +4,8 @@ use Illuminate\Support\Facades\Route;
 use Symfony\Component\HttpKernel\Profiler\Profile;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-
+use App\Http\Controllers\AuthController;
+use App\Http\Middleware\RoleMiddleware;
 
 Route::get('/', function () {
     return view('pages.home.home');
@@ -51,53 +52,64 @@ Route::post('/checkout/confirmation', function () {
     return view('pages.checkout.confirmation');
 })->name('checkout.confirmation');
 
-Route::get('/admin', function () {
-    return view('pages.admin.products');
-})->name('admin');
+// Admin routes (protected)
+Route::middleware(['auth', 'role:admin'])->prefix('admin')->group(function () {
+    Route::get('/', function () {
+        return view('pages.admin.products');
+    })->name('admin');
 
-Route::get('/admin/add_products', function () {
-    return view('pages.admin.add_products');
-})->name('add_products');
+    Route::get('/add_products', function () {
+        return view('pages.admin.add_products');
+    })->name('add_products');
 
-Route::get('/add_images', function () {
-    return view('pages.admin.add_images');
-})->name('add_images');
+    Route::get('/add_images', function () {
+        return view('pages.admin.add_images');
+    })->name('add_images');
 
-Route::get('/add_mixandmatch', function () {
-    return view('pages.admin.add_mixandmatch');
-})->name('add_mixandmatch');
+    Route::get('/add_mixandmatch', function () {
+        return view('pages.admin.add_mixandmatch');
+    })->name('add_mixandmatch');
 
-Route::get('/admin/add_video', function () {
-    return view('pages.admin.add_video');
-})->name('add_video');
+    Route::get('/add_video', function () {
+        return view('pages.admin.add_video');
+    })->name('add_video');
 
-Route::get('/login', function () {
-    return view('pages.login');
-})->name('login');
+    Route::get('/video', function () {
+        return view('pages.admin.video');
+    })->name('admin.video');
 
-Route::get('/register', function () {
-    return view('pages.register');
-})->name('register');
+    Route::get('/images', function () {
+        return view('pages.admin.images');
+    })->name('admin.images');
+});
 
-Route::get('/profile', function () {
+// login dan register
+Route::get('/login', [AuthController::class, 'loginPage'])->name('loginpage');
+Route::post('/login', [AuthController::class, 'login'])->name('login');
+
+Route::get('/register', [AuthController::class, 'registerPage'])->name('registerpage');
+Route::post('/register', [AuthController::class, 'register'])->name('register');
+// end login dan register
+
+// cart dan profile
+Route::middleware('auth')->group(function () {
+    Route::get('/profile', function () {
     return view('pages.profile.profile');
-})->name('profile');
+    })->name('profile');
+
+    Route::get('/cart', function () {
+    return view('pages.checkout.cart');
+    })->name('cart');
+});
+
 
 Route::get('/profile/edit', function () {
     return view('pages.profile.edit');
 })->name('profile.edit');
 
-Route::get('/cart', function () {
-    return view('pages.checkout.cart');
-})->name('cart');
 
-Route::get('/admin/video', function () {
-    return view('pages.admin.video');
-})->name('admin.video');
 
-Route::get('/admin/images', function () {
-    return view('pages.admin.images');
-})->name('admin.images');
+// (admin video/images routes are registered above within the protected admin group)
 
 Route::get('/katalog/detail', function () {
     return view('pages.katalog.detail');
@@ -106,16 +118,6 @@ Route::get('/katalog/detail', function () {
 Route::get('/mixandmatch/detail', function () {
     return view('pages.mixandmatch.detail');
 })->name('mixandmatch.detail');
-
-Route::post('/logout', function (Request $request) {
-    Auth::logout();
- 
-    $request->session()->invalidate();
- 
-    $request->session()->regenerateToken();
- 
-    return redirect('/'); // Kembali ke halaman utama/login setelah logout
-})->name('logout');
 
 // 1. Route untuk Menampilkan Form Review (GET)
 // Mengarah ke file: resources/views/pages/katalog/detail.review.blade.php
@@ -130,7 +132,10 @@ Route::post('/reviews/store', function (Request $request) {
     // Karena belum ada database, kita pura-pura simpan dan redirect balik
     // Ambil ID produk dari input hidden, kalau tidak ada default ke 1
     $id = $request->input('product_id', 1);
-    
+
     // Redirect kembali ke halaman detail produk
-    return redirect()->route('detail', ['id' => $id]); 
+    return redirect()->route('detail', ['id' => $id]);
 })->name('reviews.store');
+
+//logout
+Route::post('/logout', [App\Http\Controllers\AuthController::class, 'logout'])->name('logout');

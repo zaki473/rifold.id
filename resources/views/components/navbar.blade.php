@@ -65,6 +65,7 @@
                     </svg>
                 </button>
 
+                @auth
                 <!-- Cart -->
                 <a href="{{ route('cart') }}" class="relative group p-2">
                     <svg class="w-6 h-6 text-gray-700 group-hover:text-black transition-colors duration-300"
@@ -74,9 +75,10 @@
                             d="M2.25 3h1.386c.51 0 .955.343 1.087.835l.383 1.437M7.5 14.25a3 3 0 00-3 3h15.75m-12.75-3h11.218c.51 0 .962-.343 1.087-.835l1.823-6.831a.75.75 0 00-.678-.915H5.617m-1.386-2.25L5.617 5.25m0 0L6 7.5h12l-1.823-6.75H5.617zM6 18.75a.75.75 0 11-1.5 0 .75.75 0 011.5 0zm12.75 0a.75.75 0 11-1.5 0 .75.75 0 011.5 0z" />
                     </svg>
                 </a>
-
+                @endauth
+                
                 <!-- Login -->
-                <a href="{{ route('login') }}" class="relative group p-2 hidden sm:block">
+                <a href="{{ route('profile') }}" class="relative group p-2 hidden sm:block">
                     <svg class="w-7 h-7 text-gray-700 group-hover:text-black transition-colors duration-300"
                         xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
                         stroke="currentColor">
