@@ -9,15 +9,15 @@
         <div>
             <h3 class="font-semibold text-lg mb-4 text-white">Company</h3>
             <ul class="space-y-2 text-white">
-                <li><a href="#" class="hover:underline">About</a></li>
-                <li><a href="#" class="hover:underline">Address</a></li>
+                <li><a href="{{ route('about') }}" class="hover:underline">About</a></li>
+                <li><a href="" class="hover:underline">Address</a></li>
             </ul>
         </div>
 
         <div>
             <h3 class="font-semibold text-lg mb-4 text-white">Contact</h3>
             <ul class="space-y-2 text-white">
-                <li><a href="#" class="hover:underline">WhatsApp</a></li>
+                <li><a href="whatsapp://send?phone=6285174122504&text=Halo%20MinFold%2C%20saya%20mau%20tanya-tanya%20nih%21" class="hover:underline">WhatsApp</a></li>
                 <li><a href="mailto:rifold@gmail.com" class="hover:underline">rifold@gmail.com</a></li>
             </ul>
         </div>
@@ -25,9 +25,8 @@
         <div>
             <h3 class="font-semibold text-lg mb-4 text-white">Follow us</h3>
             <ul class="space-y-2 text-white">
-                <li><a href="#" class="hover:underline">Instagram</a></li>
-                <li><a href="#" class="hover:underline">TikTok</a></li>
-                <li><a href="#" class="hover:underline">Facebook</a></li>
+                <li><a href="https://www.instagram.com/rifold.id?igsh=MWd5NGt1aWljNGdubw==" class="hover:underline">Instagram</a></li>
+                <li><a href="https://www.tiktok.com/@rifold.id?_t=ZS-8twCdoUS1ha&_r=1" class="hover:underline">TikTok</a></li>
             </ul>
         </div>
     </div>
