@@ -53,7 +53,7 @@ Route::post('/checkout/confirmation', function () {
 })->name('checkout.confirmation');
 
 // Admin routes (protected)
-Route::middleware(['auth', 'role:admin'])->prefix('admin')->group(function () {
+Route::middleware(['auth'])->prefix('admin')->group(function () {
     Route::get('/', function () {
         return view('pages.admin.products');
     })->name('admin');
