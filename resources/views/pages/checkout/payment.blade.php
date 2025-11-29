@@ -70,7 +70,7 @@
                                         <div class="w-10 h-10 rounded-full bg-green-50 text-green-600 flex items-center justify-center">
                                             <svg class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 18h.01M8 21h8a2 2 0 002-2V5a2 2 0 00-2-2H8a2 2 0 00-2 2v14a2 2 0 002 2z"/></svg>
                                         </div>
-                                        <div><p class="font-semibold text-gray-900">E-Wallet</p><p class="text-xs text-gray-500">OVO, DANA, GoPay</p></div>
+                                        <div><p class="font-semibold text-gray-900">Qris</p></div>
                                     </div>
                                     <div class="w-5 h-5 border border-gray-300 rounded-full peer-checked:bg-black peer-checked:border-black flex items-center justify-center"><div class="w-2 h-2 bg-white rounded-full hidden peer-checked:block"></div></div>
                                 </div>

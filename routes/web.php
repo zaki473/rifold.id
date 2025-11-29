@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\AuthController;
 use App\Http\Middleware\RoleMiddleware;
+use App\Http\Controllers\ProductController;
 
 Route::get('/', function () {
     return view('pages.home.home');
@@ -54,13 +55,12 @@ Route::post('/checkout/confirmation', function () {
 
 // Admin routes (protected)
 Route::middleware(['auth'])->prefix('admin')->group(function () {
-    Route::get('/', function () {
-        return view('pages.admin.products');
-    })->name('admin');
-
-    Route::get('/add_products', function () {
-        return view('pages.admin.add_products');
-    })->name('add_products');
+    Route::get('/', [ProductController::class, 'index'])->name('admin');
+    Route::get('/add_products', [ProductController::class, 'create'])->name('add_products');
+    Route::post('/store_products', [ProductController::class, 'store'])->name('store_products');
+    Route::get('/product/{id}/edit', [ProductController::class, 'edit'])->name('edit_products');
+    Route::put('/product/{id}', [ProductController::class, 'update'])->name('products.update');
+    Route::delete('/product/{id}', [ProductController::class, 'destroy'])->name('products.destroy');
 
     Route::get('/add_images', function () {
         return view('pages.admin.add_images');
