@@ -82,12 +82,11 @@
                            Add Images
                         </a>
                     </li>
-                    {{-- Contoh jika nanti ingin menambah --}}
-                    {{-- <li>
-                        <a href="#" class="block p-2 rounded-lg text-gray-700 hover:bg-gray-200">
-                           View Gallery
+                    <li>
+                        <a href="{{ route('admin.mixandmatch') }}" class="block p-2 rounded-lg text-gray-700 hover:bg-gray-200 {{ request()->routeIs('admin.mixandmatch') ? 'active' : '' }}">
+                           Mix and Match List
                         </a>
-                    </li> --}}
+                    </li>
                 </ul>
             </li>
 

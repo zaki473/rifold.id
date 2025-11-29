@@ -5,6 +5,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\ProductController;
+use App\Http\Controllers\MixAndMatchController;
 
 /*
 |--------------------------------------------------------------------------
@@ -140,9 +141,14 @@ Route::middleware(['auth'])->prefix('admin')->group(function () {
         return view('pages.admin.add_images');
     })->name('add_images');
 
+    Route::resource('mix-and-match', MixAndMatchController::class);
     Route::get('/add_mixandmatch', function () {
         return view('pages.admin.add_mixandmatch');
     })->name('add_mixandmatch');
+
+    Route::get('/mixandmatch', function () {
+        return view('pages.admin.mixandmatch');
+    })->name('admin.mixandmatch');
 
     Route::get('/add_video', function () {
         return view('pages.admin.add_video');
