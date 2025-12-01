@@ -38,7 +38,7 @@
                 </button>
                 <ul x-show="open" x-transition class="mt-2 space-y-2 pl-5">
                     <li>
-                        <a href="{{ route('admin.images') }}" class="block p-2 rounded-lg text-gray-700 hover:bg-gray-200 {{ request()->routeIs('admin.images') ? 'active' : '' }}">
+                        <a href="{{ route('home') }}" class="block p-2 rounded-lg text-gray-700 hover:bg-gray-200 {{ request()->routeIs('admin.images') ? 'active' : '' }}">
                            Images List
                         </a>
                     </li>
@@ -78,12 +78,12 @@
                 </button>
                 <ul x-show="open" x-transition class="mt-2 space-y-2 pl-5">
                     <li>
-                        <a href="{{ route('add_mixandmatch') }}" class="block p-2 rounded-lg text-gray-700 hover:bg-gray-200 {{ request()->routeIs('add_mixandmatch') ? 'active' : '' }}">
+                        <a href="{{ route('mixandmatch.create') }}" class="block p-2 rounded-lg text-gray-700 hover:bg-gray-200 {{ request()->routeIs('add_mixandmatch') ? 'active' : '' }}">
                            Add Images
                         </a>
                     </li>
                     <li>
-                        <a href="{{ route('admin.mixandmatch') }}" class="block p-2 rounded-lg text-gray-700 hover:bg-gray-200 {{ request()->routeIs('admin.mixandmatch') ? 'active' : '' }}">
+                        <a href="{{ route('mixandmatch.index') }}" class="block p-2 rounded-lg text-gray-700 hover:bg-gray-200 {{ request()->routeIs('admin.mixandmatch') ? 'active' : '' }}">
                            Mix and Match List
                         </a>
                     </li>

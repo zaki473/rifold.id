@@ -136,19 +136,18 @@ Route::middleware(['auth'])->prefix('admin')->group(function () {
     Route::put('/product/{id}', [ProductController::class, 'update'])->name('products.update');
     Route::delete('/product/{id}', [ProductController::class, 'destroy'])->name('products.destroy');
 
+    Route::get('/list',[MixAndMatchController::class, 'index'])->name('mixandmatch.index');
+    Route::get('/add_mixandmatch', [MixAndMatchController::class, 'create'])->name('mixandmatch.create');
+    Route::post('/store_mixandmatch', [MixAndMatchController::class, 'store'])->name('mixandmatch.store');
+    Route::get('/mixandmatch/{mixAndMatch}/edit', [MixAndMatchController::class, 'edit'])->name('mixandmatch.edit');
+    Route::put('/mixandmatch/{mixAndMatch}', [MixAndMatchController::class, 'update'])->name('mixandmatch.update');
+    Route::delete('/mixandmatch/{mixAndMatch}', [MixAndMatchController::class, 'destroy'])->name('mixandmatch.destroy');
+
+
     // Admin pages
     Route::get('/add_images', function () {
         return view('pages.admin.add_images');
     })->name('add_images');
-
-    Route::resource('mix-and-match', MixAndMatchController::class);
-    Route::get('/add_mixandmatch', function () {
-        return view('pages.admin.add_mixandmatch');
-    })->name('add_mixandmatch');
-
-    Route::get('/mixandmatch', function () {
-        return view('pages.admin.mixandmatch');
-    })->name('admin.mixandmatch');
 
     Route::get('/add_video', function () {
         return view('pages.admin.add_video');

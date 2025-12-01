@@ -11,6 +11,7 @@ class MixAndMatch extends Model
     protected $table = 'mix_and_matches';
 
     protected $fillable = [
+        'name',
         'images_path',
     ];
 }
