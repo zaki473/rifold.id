@@ -24,7 +24,10 @@
     <main class="flex-1 ml-64">
         @include('components.header_admin')
         <div class="p-8">
-            <h2 class="text-2xl font-semibold mb-4">Images</h2>
+            <div class="flex justify-between items-center mb-4">
+                <h2 class="text-2xl font-semibold">Images</h2>
+            </div>
+
             <div class="bg-white rounded-lg shadow p-6">
                 <h3 class="text-xl font-semibold mb-4">Images list</h3>
                 <div class="mb-4">
@@ -38,37 +41,51 @@
                         </tr>
                     </thead>
                     <tbody>
-                        {{-- Contoh Baris Produk 1 --}}
-                        <tr class="border-b hover:bg-gray-50">
-                            <td class="p-3 flex items-center">
-                                <img src="{{ asset('images/katalog/coze jacket classy black.png') }}" alt="Product Image" class="w-10 h-10 rounded-md mr-4 object-contain">
-                                <span>COZE JACKET CLASSY BLACK</span>
-                            </td>
-                            <td class="p-3">
-                                <button class="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600 transition-colors">Edit</button>
-                                <button class="bg-red-500 text-white px-4 py-2 rounded-md hover:bg-red-600 transition-colors">Delete</button>
-                            </td>
-                        </tr>
-                        {{-- Contoh Baris Produk 2 --}}
-                        <tr class="border-b hover:bg-gray-50">
-                            <td class="p-3 flex items-center">
-                                <img src="{{ asset('images/katalog/coze jacket classy black.png') }}" alt="Product Image" class="w-10 h-10 rounded-md mr-4 object-contain">
-                                <span>CITY LOOP LONG SLEEVE</span>
-                            </td>
-                            <td class="p-3">
-                                <button class="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600 transition-colors">Edit</button>
-                                <button class="bg-red-500 text-white px-4 py-2 rounded-md hover:bg-red-600 transition-colors">Delete</button>
-                            </td>
-                        </tr>
+                        {{-- MULAI LOOPING DATA --}}
+                        @forelse($imagePaths as $item)
+                            <tr class="border-b hover:bg-gray-50">
+                                <td class="p-3 flex items-center">
+                                    {{-- Menampilkan Gambar Pertama dari JSON --}}
+                                    @php
+                                        $images = json_decode($item->images_path);
+                                        $firstImage = $images[0] ?? null;
+                                    @endphp
+
+                                    @if($firstImage)
+                                        <img src="{{ asset('storage/' . $firstImage) }}" alt="Product Image" class="w-10 h-10 rounded-md mr-4 object-contain">
+                                    @else
+                                        <div class="w-10 h-10 rounded-md mr-4 bg-gray-200"></div>
+                                    @endif
+
+                                    <span>{{ $item->name }}</span>
+                                </td>
+                                <td class="p-3">
+                                    {{-- Update href tombol edit --}}
+                                    <a href="{{ route('images.edit', $item->id) }}" class="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600 transition-colors inline-block">
+                                        Edit
+                                    </a>
+
+                                    <form action="{{ route('images.destroy', $item->id) }}" method="POST" class="inline-block"
+                                        onsubmit="return confirm('Are you sure you want to delete this item?');">
+                                        @csrf
+                                        @method('DELETE')
+                                        <button type="submit"
+                                            class="bg-red-500 text-white px-4 py-2 rounded-md hover:bg-red-600 transition-colors">
+                                            Delete
+                                        </button>
+                                    </form>
+                            </tr>
+                        @empty
+                            <tr>
+                                <td colspan="2" class="p-3 text-center text-gray-500">No data available</td>
+                            </tr>
+                        @endforelse
+                        {{-- AKHIR LOOPING DATA --}}
                     </tbody>
                 </table>
                 {{-- Paginasi --}}
                 <div class="mt-6 flex justify-end items-center">
-                    <a href="#" class="px-3 py-1 border rounded-md mx-1">&lt;</a>
-                    <a href="#" class="px-3 py-1 border rounded-md mx-1 bg-gray-200">1</a>
-                    <a href="#" class="px-3 py-1 border rounded-md mx-1">2</a>
-                    <a href="#" class="px-3 py-1 border rounded-md mx-1">3</a>
-                    <a href="#" class="px-3 py-1 border rounded-md mx-1">&gt;</a>
+                   {{ $imagePaths->links('pagination::tailwind') }}
                 </div>
             </div>
         </div>

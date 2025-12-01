@@ -6,6 +6,7 @@ use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\MixAndMatchController;
+use App\Http\Controllers\ImagesController;
 
 /*
 |--------------------------------------------------------------------------
@@ -129,13 +130,15 @@ Route::middleware(['auth'])->prefix('admin')->group(function () {
     // Products
     Route::get('/', [ProductController::class, 'index'])->name('admin');
 
+    //products
+    Route::get('/products_list',[ProductController::class, 'index'])->name('products.index');
     Route::get('/add_products', [ProductController::class, 'create'])->name('add_products');
     Route::post('/store_products', [ProductController::class, 'store'])->name('store_products');
-
     Route::get('/product/{id}/edit', [ProductController::class, 'edit'])->name('edit_products');
     Route::put('/product/{id}', [ProductController::class, 'update'])->name('products.update');
     Route::delete('/product/{id}', [ProductController::class, 'destroy'])->name('products.destroy');
 
+    // Mix and Match
     Route::get('/list',[MixAndMatchController::class, 'index'])->name('mixandmatch.index');
     Route::get('/add_mixandmatch', [MixAndMatchController::class, 'create'])->name('mixandmatch.create');
     Route::post('/store_mixandmatch', [MixAndMatchController::class, 'store'])->name('mixandmatch.store');
@@ -143,23 +146,14 @@ Route::middleware(['auth'])->prefix('admin')->group(function () {
     Route::put('/mixandmatch/{mixAndMatch}', [MixAndMatchController::class, 'update'])->name('mixandmatch.update');
     Route::delete('/mixandmatch/{mixAndMatch}', [MixAndMatchController::class, 'destroy'])->name('mixandmatch.destroy');
 
+    // Images
+    Route::get('/images_list',[ImagesController::class, 'index'])->name('images.index');
+    Route::get('/add_images', [ImagesController::class, 'create'])->name('images.create');
+    Route::post('/store_images', [ImagesController::class, 'store'])->name('images.store');
+    Route::get('/images/{images}/edit', [ImagesController::class, 'edit'])->name('images.edit');
+    Route::put('/images/{images}', [ImagesController::class, 'update'])->name('images.update');
+    Route::delete('/images/{images}', [ImagesController::class, 'destroy'])->name('images.destroy');
 
-    // Admin pages
-    Route::get('/add_images', function () {
-        return view('pages.admin.add_images');
-    })->name('add_images');
-
-    Route::get('/add_video', function () {
-        return view('pages.admin.add_video');
-    })->name('add_video');
-
-    Route::get('/video', function () {
-        return view('pages.admin.video');
-    })->name('admin.video');
-
-    Route::get('/images', function () {
-        return view('pages.admin.images');
-    })->name('admin.images');
 });
 
 /*

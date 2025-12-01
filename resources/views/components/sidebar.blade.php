@@ -18,7 +18,7 @@
                 </button>
                 <ul x-show="open" x-transition class="mt-2 space-y-2 pl-5">
                     <li>
-                        <a href="{{ route('admin') }}" class="block p-2 rounded-lg text-gray-700 hover:bg-gray-200 {{ request()->routeIs('admin') ? 'active' : '' }}">
+                        <a href="{{ route('products.index') }}" class="block p-2 rounded-lg text-gray-700 hover:bg-gray-200 {{ request()->routeIs('admin') ? 'active' : '' }}">
                            Product List
                         </a>
                     </li>
@@ -38,33 +38,13 @@
                 </button>
                 <ul x-show="open" x-transition class="mt-2 space-y-2 pl-5">
                     <li>
-                        <a href="{{ route('home') }}" class="block p-2 rounded-lg text-gray-700 hover:bg-gray-200 {{ request()->routeIs('admin.images') ? 'active' : '' }}">
+                        <a href="{{ route('images.index') }}" class="block p-2 rounded-lg text-gray-700 hover:bg-gray-200 {{ request()->routeIs('admin.images') ? 'active' : '' }}">
                            Images List
                         </a>
                     </li>
                     <li>
-                        <a href="{{ route('add_images') }}" class="block p-2 rounded-lg text-gray-700 hover:bg-gray-200 {{ request()->routeIs('add_images') ? 'active' : '' }}">
+                        <a href="{{ route('images.create') }}" class="block p-2 rounded-lg text-gray-700 hover:bg-gray-200 {{ request()->routeIs('add_images') ? 'active' : '' }}">
                            Add Images
-                        </a>
-                    </li>
-                </ul>
-            </li>
-
-            {{-- 2. Dropdown untuk Home Page Content --}}
-            <li x-data="{ open: {{ request()->routeIs('add_images', 'add_video') ? 'true' : 'false' }} }">
-                <button @click="open = !open" class="w-full flex justify-between items-center p-3 rounded-lg text-gray-700 hover:bg-gray-200 transition-colors duration-200 focus:outline-none">
-                    <span class="font-medium">Content Video</span>
-                    <svg class="w-4 h-4 transform transition-transform duration-200" :class="{ 'rotate-180': open }" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
-                </button>
-                <ul x-show="open" x-transition class="mt-2 space-y-2 pl-5">
-                    <li>
-                        <a href="{{ route('admin.video') }}" class="block p-2 rounded-lg text-gray-700 hover:bg-gray-200 {{ request()->routeIs('admin.video') ? 'active' : '' }}">
-                           Video List
-                        </a>
-                    </li>
-                    <li>
-                        <a href="{{ route('add_video') }}" class="block p-2 rounded-lg text-gray-700 hover:bg-gray-200 {{ request()->routeIs('add_video') ? 'active' : '' }}">
-                           Add Video
                         </a>
                     </li>
                 </ul>
@@ -78,13 +58,13 @@
                 </button>
                 <ul x-show="open" x-transition class="mt-2 space-y-2 pl-5">
                     <li>
-                        <a href="{{ route('mixandmatch.create') }}" class="block p-2 rounded-lg text-gray-700 hover:bg-gray-200 {{ request()->routeIs('add_mixandmatch') ? 'active' : '' }}">
-                           Add Images
+                        <a href="{{ route('mixandmatch.index') }}" class="block p-2 rounded-lg text-gray-700 hover:bg-gray-200 {{ request()->routeIs('admin.mixandmatch') ? 'active' : '' }}">
+                           Mix and Match List
                         </a>
                     </li>
                     <li>
-                        <a href="{{ route('mixandmatch.index') }}" class="block p-2 rounded-lg text-gray-700 hover:bg-gray-200 {{ request()->routeIs('admin.mixandmatch') ? 'active' : '' }}">
-                           Mix and Match List
+                        <a href="{{ route('mixandmatch.create') }}" class="block p-2 rounded-lg text-gray-700 hover:bg-gray-200 {{ request()->routeIs('add_mixandmatch') ? 'active' : '' }}">
+                           Add Images
                         </a>
                     </li>
                 </ul>
