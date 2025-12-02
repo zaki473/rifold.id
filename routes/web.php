@@ -88,7 +88,7 @@ Route::post('/checkout/confirmation', function () {
 
 /*
 |--------------------------------------------------------------------------
-| Auth (Login & Register) 
+| Auth (Login & Register)
 |--------------------------------------------------------------------------
 */
 
@@ -158,6 +158,13 @@ Route::middleware(['auth'])->prefix('admin')->group(function () {
 });
 
 
+Route::get('/payment_qris', function () {
+    return view('pages.checkout.payment_qris');
+})->name('payment_qris');
+
+Route::get('/payment_bank', function () {
+    return view('pages.checkout.payment_bank');
+})->name('payment_bank');
 /*
 |--------------------------------------------------------------------------
 | Review

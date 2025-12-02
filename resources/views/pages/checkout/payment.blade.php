@@ -48,7 +48,9 @@
             <div class="lg:col-span-7">
                 <div class="bg-white p-8 rounded-2xl shadow-sm border border-gray-100">
                     <h2 class="text-2xl font-bold mb-6 text-gray-900">Metode Pembayaran</h2>
-                    <form action="{{ route('checkout.confirmation') }}" method="POST">
+
+                    <!-- UPDATE 1: Menambahkan ID 'paymentForm' pada tag form -->
+                    <form id="paymentForm" action="{{ route('checkout.confirmation') }}" method="POST">
                         @csrf
                         <div class="space-y-4">
                             <label class="relative block cursor-pointer group">
@@ -122,5 +124,35 @@
         </div>
     </div>
     @include('components.footer')
+
+    <!-- UPDATE 2: Script JavaScript untuk menangani redirect -->
+    <script>
+        document.getElementById('paymentForm').addEventListener('submit', function(e) {
+            // Ambil elemen radio button yang sedang dipilih
+            const selectedPayment = document.querySelector('input[name="payment"]:checked');
+
+            // Cek apakah user memilih "ewallet" (Qris)
+            if (selectedPayment && selectedPayment.value === 'ewallet') {
+                e.preventDefault(); // Mencegah form dikirim ke controller Laravel
+
+                // Redirect langsung ke halaman payment_qris
+                // Anda bisa mengganti URL di bawah sesuai struktur URL Anda
+                // Contoh: '/payment_qris' atau 'payment_qris.html' atau route lengkapnya
+                window.location.href = '/payment_qris';
+            } // jika memilih bank maka ke halaman payment bank
+
+            else if (selectedPayment && selectedPayment.value === 'bank') {
+                e.preventDefault(); // Mencegah form dikirim ke controller Laravel
+
+                // Redirect langsung ke halaman payment_bank
+                window.location.href = '/payment_bank';
+            }
+
+
+
+
+            // Jika memilih Bank/COD, form akan lanjut submit normal ke action="{{ route('checkout.confirmation') }}"
+        });
+    </script>
 </body>
 </html>
