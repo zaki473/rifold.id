@@ -85,9 +85,11 @@
       </div>
     </aside>
 
-    <!-- PRODUK GRID -->
-    <section class="flex-1">
-      <div class="grid grid-cols-2 md:grid-cols-3 gap-x-6 gap-y-10">
+<!-- PRODUK GRID -->
+<section class="flex-1">
+  <div class="grid grid-cols-2 md:grid-cols-3 gap-x-6 gap-y-10">
+
+    @forelse($products as $product)
 
         <!-- 
            PANDUAN CARD STYLE:
@@ -274,6 +276,51 @@
             </div>
         </div>
 
+         <a href="{{ route('detail', $product->id) }}" 
+           class="product-card group block cursor-pointer"
+           data-category="{{ strtolower($product->category) }}" 
+           data-price="{{ $product->price }}" 
+           data-size="{{ strtolower($product->size) }}" 
+           data-style="{{ strtolower($product->description) }}"> <!-- Asumsi style ada di deskripsi/bisa disesuaikan -->
+            
+            <!-- Image Wrapper -->
+            <div class="relative w-full aspect-[4/5] rounded-xl overflow-hidden bg-gray-100 mb-4">
+                @if(!empty($product->images) && isset($product->images[0]))
+                    <!-- Menampilkan gambar pertama -->
+                    <img src="{{ asset('storage/' . $product->images[0]) }}" 
+                         alt="{{ $product->name }}"
+                         class="w-full h-full object-cover object-top transition-transform duration-700 group-hover:scale-105">
+                @else
+                    <!-- Gambar cadangan jika tidak ada upload -->
+                    <img src="https://via.placeholder.com/300x400?text=No+Image" class="w-full h-full object-cover">
+                @endif
+                
+                <!-- Tombol Hover (Opsional, bawaan kodinganmu) -->
+                <div class="absolute bottom-4 right-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300 translate-y-2 group-hover:translate-y-0">
+                    <button class="bg-white p-3 rounded-full shadow-lg hover:bg-black hover:text-white transition-colors">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z" /></svg>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Info Produk -->
+            <div>
+                <h3 class="text-[15px] font-medium text-gray-900 mb-1 group-hover:underline decoration-1 underline-offset-4">
+                    {{ $product->name }}
+                </h3>
+                <p class="text-sm text-gray-500 font-semibold">
+                    Rp {{ number_format($product->price, 0, ',', '.') }}
+                </p>
+            </div>
+        </a>
+    @empty
+        <div class="col-span-full text-center py-12">
+            <p class="text-gray-500 text-lg">Belum ada produk yang tersedia.</p>
+        </div>
+    @endforelse
+
+  </div>
+</section>
       </div>
     </section>
 

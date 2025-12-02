@@ -32,17 +32,19 @@ Route::get('/bestseller', function () {
 |--------------------------------------------------------------------------
 */
 
-Route::get('/katalog', function () {
-    return view('pages.katalog.katalog');
-})->name('katalog');
-
-Route::get('/katalog/{id}', function ($id) {
-    return view('pages.katalog.detail', ['id' => $id]);
-})->name('detail');
-
 Route::get('/katalog/detail', function () {
     return view('pages.katalog.detail');
 })->name('produk.detail');
+
+Route::get(
+    '/katalog',
+    [ProductController::class, 'katalog']
+)
+    ->name('katalog');
+
+Route::get('/katalog/{id}', [ProductController::class, 'show'])
+    ->name('detail');
+
 
 /*
 |--------------------------------------------------------------------------
@@ -60,7 +62,7 @@ Route::get('/mixandmatch/{id}', function ($id) {
 
 Route::get('/mixandmatch/detail', function () {
     return view('pages.mixandmatch.detail');
-})->name('mixandmatch.detail');
+})->name('mixandmatch.view_detail'); // Ganti nama dikit biar ga duplikat
 
 /*
 |--------------------------------------------------------------------------
@@ -86,7 +88,7 @@ Route::post('/checkout/confirmation', function () {
 
 /*
 |--------------------------------------------------------------------------
-| Auth (Login & Register)
+| Auth (Login & Register) 
 |--------------------------------------------------------------------------
 */
 
@@ -127,34 +129,34 @@ Route::get('/profile/edit', function () {
 
 Route::middleware(['auth'])->prefix('admin')->group(function () {
 
-    // Products
+    // Dashboard
     Route::get('/', [ProductController::class, 'index'])->name('admin');
 
-    //products
-    Route::get('/products_list',[ProductController::class, 'index'])->name('products.index');
+    // Products Management
+    Route::get('/products_list', [ProductController::class, 'index'])->name('products.index');
     Route::get('/add_products', [ProductController::class, 'create'])->name('add_products');
     Route::post('/store_products', [ProductController::class, 'store'])->name('store_products');
     Route::get('/product/{id}/edit', [ProductController::class, 'edit'])->name('edit_products');
     Route::put('/product/{id}', [ProductController::class, 'update'])->name('products.update');
     Route::delete('/product/{id}', [ProductController::class, 'destroy'])->name('products.destroy');
 
-    // Mix and Match
-    Route::get('/list',[MixAndMatchController::class, 'index'])->name('mixandmatch.index');
+    // Mix and Match Management
+    Route::get('/list', [MixAndMatchController::class, 'index'])->name('mixandmatch.index');
     Route::get('/add_mixandmatch', [MixAndMatchController::class, 'create'])->name('mixandmatch.create');
     Route::post('/store_mixandmatch', [MixAndMatchController::class, 'store'])->name('mixandmatch.store');
     Route::get('/mixandmatch/{mixAndMatch}/edit', [MixAndMatchController::class, 'edit'])->name('mixandmatch.edit');
     Route::put('/mixandmatch/{mixAndMatch}', [MixAndMatchController::class, 'update'])->name('mixandmatch.update');
     Route::delete('/mixandmatch/{mixAndMatch}', [MixAndMatchController::class, 'destroy'])->name('mixandmatch.destroy');
 
-    // Images
-    Route::get('/images_list',[ImagesController::class, 'index'])->name('images.index');
+    // Images Management
+    Route::get('/images_list', [ImagesController::class, 'index'])->name('images.index');
     Route::get('/add_images', [ImagesController::class, 'create'])->name('images.create');
     Route::post('/store_images', [ImagesController::class, 'store'])->name('images.store');
     Route::get('/images/{images}/edit', [ImagesController::class, 'edit'])->name('images.edit');
     Route::put('/images/{images}', [ImagesController::class, 'update'])->name('images.update');
     Route::delete('/images/{images}', [ImagesController::class, 'destroy'])->name('images.destroy');
-
 });
+
 
 /*
 |--------------------------------------------------------------------------
