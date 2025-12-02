@@ -7,6 +7,7 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\MixAndMatchController;
 use App\Http\Controllers\ImagesController;
+use App\Http\Controllers\ReviewController;
 
 /*
 |--------------------------------------------------------------------------
@@ -179,8 +180,15 @@ Route::get('/katalog/{id}/review', function ($id) {
     );
 })->name('reviews.create');
 
-// Simpan review (dummy)
-Route::post('/reviews/store', function (Request $request) {
-    $id = $request->input('product_id', 1);
-    return redirect()->route('detail', ['id' => $id]);
-})->name('reviews.store');
+Route::post('/reviews/store', [ReviewController::class, 'store'])
+    ->middleware('auth')
+    ->name('reviews.store');
+
+    Route::get('/katalog/{id}/review', [ReviewController::class, 'create'])
+    ->middleware('auth') // Wajib login
+    ->name('reviews.create');
+
+// Route untuk MENYIMPAN data review (Action form)
+Route::post('/reviews/store', [ReviewController::class, 'store'])
+    ->middleware('auth')
+    ->name('reviews.store');

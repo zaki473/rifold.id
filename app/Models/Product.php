@@ -20,4 +20,9 @@ class Product extends Model
     protected $casts = [
         'images' => 'array',
     ];
+    // Tambahkan ini di dalam class Product
+public function reviews()
+{
+    return $this->hasMany(Review::class)->latest(); // Review terbaru di atas
+}
 }

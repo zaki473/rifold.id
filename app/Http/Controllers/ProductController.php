@@ -8,53 +8,41 @@ use Illuminate\Support\Facades\Storage;
 
 class ProductController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
     public function index()
     {
         $products = Product::latest()->paginate(10);
-
         return view('pages.admin.products', compact('products'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
     public function create()
     {
         return view('pages.admin.add_products');
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
     public function store(Request $request)
     {
-
-                // 1. Validasi Input
+        // 1. Validasi
         $request->validate([
             'name' => 'required|string|max:255',
             'category' => 'required|string|max:255',
-            'price' => 'required|numeric',
+            'price' => 'required|numeric', // Tidak perlu str_replace kalau input type="number"
             'size' => 'nullable|string',
             'stock' => 'required|integer',
             'color' => 'nullable|string',
             'description' => 'required|string',
             'images' => 'required',
-            'images.*' => 'image|mimes:jpeg,png,jpg|max:2048',
+            'images.*' => 'image|mimes:jpeg,png,jpg,webp|max:2048', // Sudah support webp
         ]);
 
-        // 2. Proses Upload Gambar
+        // 2. Upload Gambar
         $imagePath = [];
-
         if ($request->hasFile('images')) {
             foreach ($request->file('images') as $image) {
                 $imagePath[] = $image->store('products', 'public');
             }
         }
 
-        // 3. Simpan ke Database
+        // 3. Simpan
         Product::create([
             'name' => $request->name,
             'category' => $request->category,
@@ -66,46 +54,33 @@ class ProductController extends Controller
             'images' => $imagePath,
         ]);
 
-        // 4. Redirect kembali dengan pesan sukses
         return redirect()->route('admin')->with('success', 'Product created successfully!');
-
-
     }
 
-    /**
-     * Display the specified resource.
-     */
-        public function katalog()
+    // --- FRONTEND ---
+    public function katalog()
     {
         $products = Product::latest()->get();
         return view('pages.katalog.katalog', compact('products'));
     }
+
     public function show($id)
     {
         $product = Product::findOrFail($id);
         return view('pages.katalog.detail', compact('product'));
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
+    // --- EDIT & DELETE ---
     public function edit(string $id)
     {
         $product = Product::findOrFail($id);
-
-        // Kirim data produk ke view edit
         return view('pages.admin.edit_products', compact('product'));
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
     public function update(Request $request, string $id)
     {
-        // Gunakan $product (tunggal) agar konsisten
         $product = Product::findOrFail($id);
 
-        // 1. Validasi
         $request->validate([
             'name'         => 'required|string|max:255',
             'category'     => 'required|string',
@@ -114,44 +89,28 @@ class ProductController extends Controller
             'stock'        => 'required|integer',
             'color'        => 'nullable|string',
             'description'  => 'required|string',
-            'images.*'     => 'nullable|image|mimes:jpeg,png,jpg|max:2048',
+            'images.*'     => 'nullable|image|mimes:jpeg,png,jpg,webp|max:2048',
         ]);
 
-        // 2. Persiapkan data
-        $data = [
-            'name'        => $request->name,
-            'category'    => $request->category,
-            'price'       => $request->price,
-            'size'        => $request->size,
-            'stock'       => $request->stock,
-            'color'       => $request->color,
-            'description' => $request->description,
-        ];
+        $data = $request->only(['name', 'category', 'price', 'size', 'stock', 'color', 'description']);
 
-        // 3. Cek Upload Gambar Baru
         if ($request->hasFile('images')) {
             $imagePath = [];
             foreach ($request->file('images') as $image) {
                 $imagePath[] = $image->store('products', 'public');
             }
-            // Optional: Hapus gambar lama jika perlu (opsional)
+            // Opsional: Hapus gambar lama di sini jika mau
             $data['images'] = $imagePath;
         }
 
-        // 4. Update
         $product->update($data);
 
         return redirect()->route('admin')->with('success', 'Product updated successfully!');
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
     public function destroy(string $id)
     {
        $product = Product::findOrFail($id);
-
-        // Hapus file gambar fisik
         if ($product->images && is_array($product->images)) {
             foreach ($product->images as $image) {
                 if(Storage::disk('public')->exists($image)){
@@ -159,9 +118,7 @@ class ProductController extends Controller
                 }
             }
         }
-
         $product->delete();
-
         return redirect()->route('admin')->with('success', 'Product deleted successfully!');
     }
 }

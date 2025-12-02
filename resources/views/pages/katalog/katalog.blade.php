@@ -85,242 +85,56 @@
       </div>
     </aside>
 
-<!-- PRODUK GRID -->
-<section class="flex-1">
-  <div class="grid grid-cols-2 md:grid-cols-3 gap-x-6 gap-y-10">
+    <!-- PRODUK GRID -->
+    <section class="flex-1">
+      <div class="grid grid-cols-2 md:grid-cols-3 gap-x-6 gap-y-10">
 
-    @forelse($products as $product)
-
-        <!-- 
-           PANDUAN CARD STYLE:
-           1. aspect-[4/5]: Rasio standar fashion (tidak terlalu tinggi, tidak kotak).
-           2. object-top: KUNCI AGAR KEPALA TIDAK KEPOTONG.
-           3. bg-gray-100: Warna latar belakang card biar menyatu sama foto produk.
-        -->
-
-        <!-- Produk 1 -->
-        <a href="{{ route('detail', 1) }}" class="product-card group block cursor-pointer"
-           data-category="polo" data-price="110000" data-size="oversized" data-style="casual">
-            <!-- Image Wrapper -->
-            <div class="relative w-full aspect-[4/5] rounded-xl overflow-hidden bg-gray-100 mb-4">
-                <img src="{{ asset('images/cactus green.png') }}" alt="Polo Cactus Green"
-                     class="w-full h-full object-cover object-top transition-transform duration-700 group-hover:scale-105">
+        {{-- LOOPING DATA DATABASE --}}
+        {{-- Kode ini akan mengulang tampilan kartu produk untuk setiap data yang ada di DB --}}
+        @forelse($products as $product)
+            <a href="{{ route('detail', $product->id) }}" 
+            class="product-card group block cursor-pointer"
+            data-category="{{ strtolower($product->category) }}" 
+            data-price="{{ $product->price }}" 
+            data-size="{{ strtolower($product->size) }}" 
+            data-style="{{ strtolower($product->description) }}"> <!-- Asumsi style diambil dari deskripsi -->
                 
-                <!-- Tombol Add to Cart (Muncul saat hover) - Opsional biar keren -->
-                <div class="absolute bottom-4 right-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300 translate-y-2 group-hover:translate-y-0">
-                    <button class="bg-white p-3 rounded-full shadow-lg hover:bg-black hover:text-white transition-colors">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z" /></svg>
-                    </button>
+                <!-- Image Wrapper -->
+                <div class="relative w-full aspect-[4/5] rounded-xl overflow-hidden bg-gray-100 mb-4">
+                    @if(!empty($product->images) && isset($product->images[0]))
+                        <!-- Menampilkan gambar pertama dari database -->
+                        <img src="{{ asset('storage/' . $product->images[0]) }}" 
+                            alt="{{ $product->name }}"
+                            class="w-full h-full object-cover object-top transition-transform duration-700 group-hover:scale-105">
+                    @else
+                        <!-- Gambar cadangan jika tidak ada upload -->
+                        <img src="https://via.placeholder.com/300x400?text=No+Image" class="w-full h-full object-cover">
+                    @endif
+                    
+                    <!-- Tombol Add to Cart (Hover) -->
+                    <div class="absolute bottom-4 right-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300 translate-y-2 group-hover:translate-y-0">
+                        <button class="bg-white p-3 rounded-full shadow-lg hover:bg-black hover:text-white transition-colors">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z" /></svg>
+                        </button>
+                    </div>
                 </div>
-            </div>
-            <!-- Info Produk -->
-            <div>
-                <h3 class="text-[15px] font-medium text-gray-900 mb-1 group-hover:underline decoration-1 underline-offset-4">Polo Tonepop Cactus Green</h3>
-                <p class="text-sm text-gray-500 font-semibold">Rp 110.000</p>
-            </div>
-        </a>
 
-        <!-- Produk 2 -->
-        <div class="product-card group block cursor-pointer"
-             data-category="overcool" data-price="130000" data-size="boxy" data-style="">
-            <div class="relative w-full aspect-[4/5] rounded-xl overflow-hidden bg-gray-100 mb-4">
-                <img src="{{ asset('images/katalog/overcool midnight black.png') }}" alt="Overcool Black"
-                     class="w-full h-full object-cover object-top transition-transform duration-700 group-hover:scale-105">
-            </div>
-            <div>
-                <h3 class="text-[15px] font-medium text-gray-900 mb-1 group-hover:underline decoration-1 underline-offset-4">Overcool Midnight Black</h3>
-                <p class="text-sm text-gray-500 font-semibold">Rp 130.000</p>
-            </div>
-        </div>
-
-        <!-- Produk 3 -->
-        <div class="product-card group block cursor-pointer"
-             data-category="overcool" data-price="130000" data-size="boxy" data-style="">
-            <div class="relative w-full aspect-[4/5] rounded-xl overflow-hidden bg-gray-100 mb-4">
-                <img src="{{ asset('images/katalog/overcool eclipse blue.png') }}" alt="Overcool Blue"
-                     class="w-full h-full object-cover object-top transition-transform duration-700 group-hover:scale-105">
-            </div>
-            <div>
-                <h3 class="text-[15px] font-medium text-gray-900 mb-1 group-hover:underline decoration-1 underline-offset-4">Overcool Eclipse Blue</h3>
-                <p class="text-sm text-gray-500 font-semibold">Rp 130.000</p>
-            </div>
-        </div>
-
-        <!-- Produk 4 -->
-        <div class="product-card group block cursor-pointer"
-             data-category="jacket" data-price="149900" data-size="" data-style="">
-            <div class="relative w-full aspect-[4/5] rounded-xl overflow-hidden bg-gray-100 mb-4">
-                <img src="{{ asset('images/katalog/coze jacket classy black.png') }}" alt="Coze Jacket"
-                     class="w-full h-full object-cover object-top transition-transform duration-700 group-hover:scale-105">
-            </div>
-            <div>
-                <h3 class="text-[15px] font-medium text-gray-900 mb-1 group-hover:underline decoration-1 underline-offset-4">Coze Jacket Classy Black</h3>
-                <p class="text-sm text-gray-500 font-semibold">Rp 149.900</p>
-            </div>
-        </div>
-
-        <!-- Produk 5 -->
-        <div class="product-card group block cursor-pointer"
-             data-category="flannel" data-price="149900" data-size="regular" data-style="casual">
-            <div class="relative w-full aspect-[4/5] rounded-xl overflow-hidden bg-gray-100 mb-4">
-                <img src="{{ asset('images/katalog/Cityloop long.png') }}" alt="City Loop"
-                     class="w-full h-full object-cover object-top transition-transform duration-700 group-hover:scale-105">
-            </div>
-            <div>
-                <h3 class="text-[15px] font-medium text-gray-900 mb-1 group-hover:underline decoration-1 underline-offset-4">City Loop Long Sleeve</h3>
-                <p class="text-sm text-gray-500 font-semibold">Rp 149.900</p>
-            </div>
-        </div>
-
-        <!-- Produk 6 -->
-        <div class="product-card group block cursor-pointer"
-             data-category="flannel" data-price="149900" data-size="regular" data-style="casual">
-            <div class="relative w-full aspect-[4/5] rounded-xl overflow-hidden bg-gray-100 mb-4">
-                <img src="{{ asset('images/katalog/Weekend walk.png') }}" alt="Weekend Walk"
-                     class="w-full h-full object-cover object-top transition-transform duration-700 group-hover:scale-105">
-            </div>
-            <div>
-                <h3 class="text-[15px] font-medium text-gray-900 mb-1 group-hover:underline decoration-1 underline-offset-4">Weekend Walk Long Sleeve</h3>
-                <p class="text-sm text-gray-500 font-semibold">Rp 149.900</p>
-            </div>
-        </div>
-
-        <!-- Produk 7 -->
-        <div class="product-card group block cursor-pointer"
-             data-category="polo" data-price="130000" data-size="oversized" data-style="casual">
-            <div class="relative w-full aspect-[4/5] rounded-xl overflow-hidden bg-gray-100 mb-4">
-                <img src="{{ asset('images/katalog/polo tonepop brown earth.png') }}" alt="Polo Brown Earth"
-                     class="w-full h-full object-cover object-top transition-transform duration-700 group-hover:scale-105">
-            </div>
-            <div>
-                <h3 class="text-[15px] font-medium text-gray-900 mb-1 group-hover:underline decoration-1 underline-offset-4">Polo Tonepop Brown Earth</h3>
-                <p class="text-sm text-gray-500 font-semibold">Rp 130.000</p>
-            </div>
-        </div>
-
-        <!-- Produk 8 -->
-        <div class="product-card group block cursor-pointer"
-             data-category="polo" data-price="149900" data-size="oversized" data-style="casual">
-            <div class="relative w-full aspect-[4/5] rounded-xl overflow-hidden bg-gray-100 mb-4">
-                <img src="{{ asset('images/katalog/polo tonepop mocca mist.png') }}" alt="Polo Mocca"
-                     class="w-full h-full object-cover object-top transition-transform duration-700 group-hover:scale-105">
-            </div>
-            <div>
-                <h3 class="text-[15px] font-medium text-gray-900 mb-1 group-hover:underline decoration-1 underline-offset-4">Polo Tonepop Mocca Mist</h3>
-                <p class="text-sm text-gray-500 font-semibold">Rp 149.900</p>
-            </div>
-        </div>
-
-        <!-- Produk 9 -->
-        <div class="product-card group block cursor-pointer"
-             data-category="polo" data-price="110000" data-size="oversized" data-style="casual">
-            <div class="relative w-full aspect-[4/5] rounded-xl overflow-hidden bg-gray-100 mb-4">
-                <img src="{{ asset('images/katalog/polo tonepop navy waves.png') }}" alt="Polo Navy Waves"
-                     class="w-full h-full object-cover object-top transition-transform duration-700 group-hover:scale-105">
-            </div>
-            <div>
-                <h3 class="text-[15px] font-medium text-gray-900 mb-1 group-hover:underline decoration-1 underline-offset-4">Polo Tonepop Navy Waves</h3>
-                <p class="text-sm text-gray-500 font-semibold">Rp 110.000</p>
-            </div>
-        </div>
-
-        <!-- Produk 10 -->
-        <div class="product-card group block cursor-pointer"
-             data-category="tshirt" data-price="99900" data-size="regular" data-style="">
-            <div class="relative w-full aspect-[4/5] rounded-xl overflow-hidden bg-gray-100 mb-4">
-                <img src="{{ asset('images/katalog/t-shirt eclipse blue.png') }}" alt="T-shirt Blue"
-                     class="w-full h-full object-cover object-top transition-transform duration-700 group-hover:scale-105">
-            </div>
-            <div>
-                <h3 class="text-[15px] font-medium text-gray-900 mb-1 group-hover:underline decoration-1 underline-offset-4">T-shirt Eclipse Blue</h3>
-                <p class="text-sm text-gray-500 font-semibold">Rp 99.900</p>
-            </div>
-        </div>
-
-        <!-- Produk 11 -->
-        <div class="product-card group block cursor-pointer"
-             data-category="tshirt" data-price="99900" data-size="regular" data-style="">
-            <div class="relative w-full aspect-[4/5] rounded-xl overflow-hidden bg-gray-100 mb-4">
-                <img src="{{ asset('images/katalog/t-shirt mocca mist.png') }}" alt="T-shirt Mocca"
-                     class="w-full h-full object-cover object-top transition-transform duration-700 group-hover:scale-105">
-            </div>
-            <div>
-                <h3 class="text-[15px] font-medium text-gray-900 mb-1 group-hover:underline decoration-1 underline-offset-4">T-Shirt Mocca Mist</h3>
-                <p class="text-sm text-gray-500 font-semibold">Rp 99.900</p>
-            </div>
-        </div>
-
-        <!-- Produk 12 -->
-        <div class="product-card group block cursor-pointer"
-             data-category="tshirt" data-price="99900" data-size="regular" data-style="">
-            <div class="relative w-full aspect-[4/5] rounded-xl overflow-hidden bg-gray-100 mb-4">
-                <img src="{{ asset('images/katalog/t-shirt midnight black.png') }}" alt="T-shirt Black"
-                     class="w-full h-full object-cover object-top transition-transform duration-700 group-hover:scale-105">
-            </div>
-            <div>
-                <h3 class="text-[15px] font-medium text-gray-900 mb-1 group-hover:underline decoration-1 underline-offset-4">T-shirt Midnight Black</h3>
-                <p class="text-sm text-gray-500 font-semibold">Rp 99.900</p>
-            </div>
-        </div>
-
-        <!-- Produk 13 -->
-        <div class="product-card group block cursor-pointer"
-             data-category="flannel" data-price="149900" data-size="regular" data-style="casual">
-            <div class="relative w-full aspect-[4/5] rounded-xl overflow-hidden bg-gray-100 mb-4">
-                <img src="{{ asset('images/katalog/hangout hours.png') }}" alt="Hangout Hours"
-                     class="w-full h-full object-cover object-top transition-transform duration-700 group-hover:scale-105">
-            </div>
-            <div>
-                <h3 class="text-[15px] font-medium text-gray-900 mb-1 group-hover:underline decoration-1 underline-offset-4">Hangout Hours Long Sleeve</h3>
-                <p class="text-sm text-gray-500 font-semibold">Rp 149.900</p>
-            </div>
-        </div>
-
-         <a href="{{ route('detail', $product->id) }}" 
-           class="product-card group block cursor-pointer"
-           data-category="{{ strtolower($product->category) }}" 
-           data-price="{{ $product->price }}" 
-           data-size="{{ strtolower($product->size) }}" 
-           data-style="{{ strtolower($product->description) }}"> <!-- Asumsi style ada di deskripsi/bisa disesuaikan -->
-            
-            <!-- Image Wrapper -->
-            <div class="relative w-full aspect-[4/5] rounded-xl overflow-hidden bg-gray-100 mb-4">
-                @if(!empty($product->images) && isset($product->images[0]))
-                    <!-- Menampilkan gambar pertama -->
-                    <img src="{{ asset('storage/' . $product->images[0]) }}" 
-                         alt="{{ $product->name }}"
-                         class="w-full h-full object-cover object-top transition-transform duration-700 group-hover:scale-105">
-                @else
-                    <!-- Gambar cadangan jika tidak ada upload -->
-                    <img src="https://via.placeholder.com/300x400?text=No+Image" class="w-full h-full object-cover">
-                @endif
-                
-                <!-- Tombol Hover (Opsional, bawaan kodinganmu) -->
-                <div class="absolute bottom-4 right-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300 translate-y-2 group-hover:translate-y-0">
-                    <button class="bg-white p-3 rounded-full shadow-lg hover:bg-black hover:text-white transition-colors">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z" /></svg>
-                    </button>
+                <!-- Info Produk -->
+                <div>
+                    <h3 class="text-[15px] font-medium text-gray-900 mb-1 group-hover:underline decoration-1 underline-offset-4">
+                        {{ $product->name }}
+                    </h3>
+                    <p class="text-sm text-gray-500 font-semibold">
+                        Rp {{ number_format($product->price, 0, ',', '.') }}
+                    </p>
                 </div>
+            </a>
+        @empty
+            <div class="col-span-full text-center py-12">
+                <p class="text-gray-500 text-lg">Belum ada produk yang tersedia.</p>
             </div>
+        @endforelse
 
-            <!-- Info Produk -->
-            <div>
-                <h3 class="text-[15px] font-medium text-gray-900 mb-1 group-hover:underline decoration-1 underline-offset-4">
-                    {{ $product->name }}
-                </h3>
-                <p class="text-sm text-gray-500 font-semibold">
-                    Rp {{ number_format($product->price, 0, ',', '.') }}
-                </p>
-            </div>
-        </a>
-    @empty
-        <div class="col-span-full text-center py-12">
-            <p class="text-gray-500 text-lg">Belum ada produk yang tersedia.</p>
-        </div>
-    @endforelse
-
-  </div>
-</section>
       </div>
     </section>
 
