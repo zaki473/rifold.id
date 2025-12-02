@@ -40,8 +40,9 @@
                 </div>
             </div>
 
-            <!-- Ikon Kanan (Search, Cart, Login) & Tombol Menu Mobile -->
+            <!-- Ikon Kanan (Search, Cart, Profile) & Tombol Menu Mobile -->
             <div class="flex items-center space-x-4">
+                
                 <!-- Search Bar Desktop -->
                 <div class="hidden md:block relative">
                     <input type="text" placeholder="Search product.."
@@ -55,7 +56,7 @@
                     </div>
                 </div>
 
-                <!-- Ikon Search Mobile (hanya tampil di mobile) -->
+                <!-- Ikon Search Mobile -->
                 <button id="search-toggle-mobile"
                     class="md:hidden p-2 rounded-full hover:bg-gray-200 transition-colors">
                     <svg class="w-6 h-6 text-gray-700" xmlns="http://www.w3.org/2000/svg" fill="none"
@@ -66,7 +67,7 @@
                 </button>
 
                 @auth
-                <!-- Cart -->
+                <!-- Cart (Hanya muncul jika login) -->
                 <a href="{{ route('cart') }}" class="relative group p-2">
                     <svg class="w-6 h-6 text-gray-700 group-hover:text-black transition-colors duration-300"
                         xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
@@ -77,15 +78,37 @@
                 </a>
                 @endauth
                 
-                <!-- Login -->
-                <a href="{{ route('profile') }}" class="relative group p-2 hidden sm:block">
-                    <svg class="w-7 h-7 text-gray-700 group-hover:text-black transition-colors duration-300"
-                        xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
-                        stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round"
-                            d="M17.982 18.725A7.488 7.488 0 0012 15.75a7.488 7.488 0 00-5.982 2.975m11.963 0a9 9 0 10-11.963 0m11.963 0A8.966 8.966 0 0112 21a8.966 8.966 0 01-5.982-2.275M15 9.75a3 3 0 11-6 0 3 3 0 016 0z" />
-                    </svg>
-                </a>
+                <!-- START: Logic Profile / Login Button (Desktop) -->
+                <div class="hidden sm:block">
+                    @auth
+                        <!-- KONDISI: SUDAH LOGIN -->
+                        <a href="{{ route('profile') }}" class="flex items-center justify-center p-1 focus:outline-none group" title="My Profile">
+                            @if(Auth::user()->profile_photo_path)
+                                <!-- Opsi 1: Jika ada foto profil -->
+                                <img src="{{ asset('storage/' . Auth::user()->profile_photo_path) }}" 
+                                     alt="{{ Auth::user()->name }}" 
+                                     class="w-8 h-8 rounded-full object-cover border border-gray-300 group-hover:border-black transition-all duration-300">
+                            @else
+                                <!-- Opsi 2: Jika tidak ada foto (Tampilkan Inisial) -->
+                                <div class="w-8 h-8 rounded-full bg-gray-100 border border-gray-300 flex items-center justify-center text-sm font-bold text-gray-700 group-hover:bg-black group-hover:text-white transition-all duration-300">
+                                    {{-- Ambil huruf pertama dari nama user --}}
+                                    {{ strtoupper(substr(Auth::user()->name, 0, 1)) }}
+                                </div>
+                            @endif
+                        </a>
+                    @else
+                        <!-- KONDISI: BELUM LOGIN (GUEST) -->
+                        <a href="{{ route('loginpage') }}" class="relative group p-2 block" title="Login">
+                            <svg class="w-7 h-7 text-gray-700 group-hover:text-black transition-colors duration-300"
+                                xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                                stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round"
+                                    d="M17.982 18.725A7.488 7.488 0 0012 15.75a7.488 7.488 0 00-5.982 2.975m11.963 0a9 9 0 10-11.963 0m11.963 0A8.966 8.966 0 0112 21a8.966 8.966 0 01-5.982-2.275M15 9.75a3 3 0 11-6 0 3 3 0 016 0z" />
+                            </svg>
+                        </a>
+                    @endauth
+                </div>
+                <!-- END: Logic Profile / Login Button -->
 
                 <!-- Tombol Hamburger (hanya tampil di mobile) -->
                 <div class="md:hidden">
@@ -110,7 +133,7 @@
         </div>
     </div>
 
-    <!-- Search Bar Mobile (muncul saat ikon search di-klik) -->
+    <!-- Search Bar Mobile -->
     <div id="mobile-search" class="hidden md:hidden px-4 pb-4">
         <div class="relative">
             <input type="text" placeholder="Cari produk..."
@@ -125,7 +148,7 @@
         </div>
     </div>
 
-    <!-- Menu Mobile (muncul saat hamburger di-klik) -->
+    <!-- Menu Mobile -->
     <div class="md:hidden hidden" id="mobile-menu">
         <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3 border-t border-gray-200">
             <a href="{{ route('home') }}"
@@ -137,13 +160,41 @@
             <a href="{{ route('mixandmatch') }}"
                 class="text-gray-700 hover:bg-gray-200 hover:text-black block px-3 py-2 rounded-md text-base font-medium">Mix
                 and Match</a>
-            <a href="{{ route('login') }}"
-                class="text-gray-700 hover:bg-gray-200 hover:text-black block px-3 py-2 rounded-md text-base font-medium sm:hidden">Login</a>
+
+            <!-- Logic Mobile: Login vs User Profile -->
+            @auth
+                <div class="border-t border-gray-200 mt-2 pt-2">
+                    <div class="px-3 py-2 flex items-center">
+                        @if(Auth::user()->profile_photo_path)
+                             <img src="{{ asset('storage/' . Auth::user()->profile_photo_path) }}" alt="" class="h-8 w-8 rounded-full object-cover mr-2">
+                        @else
+                             <div class="h-8 w-8 rounded-full bg-gray-200 flex items-center justify-center text-xs font-bold mr-2 text-gray-700">
+                                {{ strtoupper(substr(Auth::user()->name, 0, 1)) }}
+                             </div>
+                        @endif
+                        <span class="font-medium text-gray-800">Hi, {{ Auth::user()->name }}</span>
+                    </div>
+                    <a href="{{ route('profile') }}" class="text-gray-700 hover:bg-gray-200 hover:text-black block px-3 py-2 rounded-md text-base font-medium">My Profile</a>
+                    
+                    <!-- Form Logout -->
+                    <form method="POST" action="{{ route('logout') }}" class="block">
+                        @csrf
+                        <button type="submit" class="w-full text-left text-red-600 hover:bg-red-50 block px-3 py-2 rounded-md text-base font-medium">
+                            Logout
+                        </button>
+                    </form>
+                </div>
+            @else
+                <a href="{{ route('loginpage') }}"
+                    class="text-gray-700 hover:bg-gray-200 hover:text-black block px-3 py-2 rounded-md text-base font-medium border-t border-gray-200 mt-2">
+                    Login / Register
+                </a>
+            @endauth
         </div>
     </div>
 </nav>
 
-<!-- JavaScript (letakkan sebelum tag </body>) -->
+<!-- JavaScript -->
 <script>
     document.addEventListener('DOMContentLoaded', function() {
         const mobileMenuButton = document.getElementById('mobile-menu-button');
