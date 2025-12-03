@@ -42,7 +42,7 @@
 
             <!-- Ikon Kanan (Search, Cart, Profile) & Tombol Menu Mobile -->
             <div class="flex items-center space-x-4">
-                
+
                 <!-- Search Bar Desktop -->
                 <div class="hidden md:block relative">
                     <input type="text" placeholder="Search product.."
@@ -77,16 +77,16 @@
                     </svg>
                 </a>
                 @endauth
-                
+
                 <!-- START: Logic Profile / Login Button (Desktop) -->
                 <div class="hidden sm:block">
                     @auth
                         <!-- KONDISI: SUDAH LOGIN -->
-                        <a href="{{ route('profile.edit') }}" class="flex items-center justify-center p-1 focus:outline-none group" title="My Profile">
+                        <a href="{{ route('profile.index') }}" class="flex items-center justify-center p-1 focus:outline-none group" title="My Profile">
                             @if(Auth::user()->profile_photo_path)
                                 <!-- Opsi 1: Jika ada foto profil -->
-                                <img src="{{ asset('storage/' . Auth::user()->profile_photo_path) }}" 
-                                     alt="{{ Auth::user()->name }}" 
+                                <img src="{{ asset('storage/' . Auth::user()->profile_photo_path) }}"
+                                     alt="{{ Auth::user()->name }}"
                                      class="w-8 h-8 rounded-full object-cover border border-gray-300 group-hover:border-black transition-all duration-300">
                             @else
                                 <!-- Opsi 2: Jika tidak ada foto (Tampilkan Inisial) -->
@@ -175,7 +175,7 @@
                         <span class="font-medium text-gray-800">Hi, {{ Auth::user()->name }}</span>
                     </div>
                     <a href="{{ route('profile.edit') }}" class="text-gray-700 hover:bg-gray-200 hover:text-black block px-3 py-2 rounded-md text-base font-medium">My Profile</a>
-                    
+
                     <!-- Form Logout -->
                     <form method="POST" action="{{ route('logout') }}" class="block">
                         @csrf

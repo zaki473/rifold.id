@@ -39,7 +39,7 @@ Route::get('/katalog/detail', function () {
 })->name('produk.detail');
 
 Route::get('/katalog', [ProductController::class, 'katalog'])->name('katalog');
-Route::get('/katalog/{id}', [ProductController::class, 'show'])->name('detail');
+Route::get('/katalog/{product:nama}', [ProductController::class, 'show'])->name('detail');
 
 
 /*
@@ -116,8 +116,8 @@ Route::middleware('auth')->group(function () {
         return view('pages.profile.profile');
     })->name('profile');
 
-    Route::get('/profile', [ProfileController::class, 'index'])->name('profile');
-    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
+    Route::get('/profile', [ProfileController::class, 'index'])->name('profile.index');
+    Route::get('/profile/edit', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::put('/profile', [ProfileController::class, 'update'])->name('profile.update');
 
     // --- CART ---
