@@ -82,7 +82,7 @@
                 <div class="hidden sm:block">
                     @auth
                         <!-- KONDISI: SUDAH LOGIN -->
-                        <a href="{{ route('profile') }}" class="flex items-center justify-center p-1 focus:outline-none group" title="My Profile">
+                        <a href="{{ route('profile.edit') }}" class="flex items-center justify-center p-1 focus:outline-none group" title="My Profile">
                             @if(Auth::user()->profile_photo_path)
                                 <!-- Opsi 1: Jika ada foto profil -->
                                 <img src="{{ asset('storage/' . Auth::user()->profile_photo_path) }}" 
@@ -174,7 +174,7 @@
                         @endif
                         <span class="font-medium text-gray-800">Hi, {{ Auth::user()->name }}</span>
                     </div>
-                    <a href="{{ route('profile') }}" class="text-gray-700 hover:bg-gray-200 hover:text-black block px-3 py-2 rounded-md text-base font-medium">My Profile</a>
+                    <a href="{{ route('profile.edit') }}" class="text-gray-700 hover:bg-gray-200 hover:text-black block px-3 py-2 rounded-md text-base font-medium">My Profile</a>
                     
                     <!-- Form Logout -->
                     <form method="POST" action="{{ route('logout') }}" class="block">

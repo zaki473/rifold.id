@@ -8,7 +8,7 @@ use App\Http\Controllers\ProductController;
 use App\Http\Controllers\MixAndMatchController;
 use App\Http\Controllers\ImagesController;
 use App\Http\Controllers\ReviewController;
-use App\Http\Controllers\CartController;
+use App\Http\Controllers\ProfileController; // Pastikan ini ada
 
 /*
 |--------------------------------------------------------------------------
@@ -38,14 +38,8 @@ Route::get('/katalog/detail', function () {
     return view('pages.katalog.detail');
 })->name('produk.detail');
 
-Route::get(
-    '/katalog',
-    [ProductController::class, 'katalog']
-)
-    ->name('katalog');
-
-Route::get('/katalog/{id}', [ProductController::class, 'show'])
-    ->name('detail');
+Route::get('/katalog', [ProductController::class, 'katalog'])->name('katalog');
+Route::get('/katalog/{id}', [ProductController::class, 'show'])->name('detail');
 
 
 /*
@@ -58,13 +52,14 @@ Route::get('/mixandmatch', function () {
     return view('pages.mixandmatch.mixandmatch');
 })->name('mixandmatch');
 
+Route::get('/mixandmatch/detail', function () {
+    return view('pages.mixandmatch.detail');
+})->name('mixandmatch.view_detail');
+
 Route::get('/mixandmatch/{id}', function ($id) {
     return view('pages.mixandmatch.detail', ['id' => $id]);
 })->name('mixandmatch.detail');
 
-Route::get('/mixandmatch/detail', function () {
-    return view('pages.mixandmatch.detail');
-})->name('mixandmatch.view_detail'); // Ganti nama dikit biar ga duplikat
 
 /*
 |--------------------------------------------------------------------------
@@ -88,6 +83,14 @@ Route::post('/checkout/confirmation', function () {
     return view('pages.checkout.confirmation');
 })->name('checkout.confirmation');
 
+Route::get('/payment_qris', function () {
+    return view('pages.checkout.payment_qris');
+})->name('payment_qris');
+
+Route::get('/payment_bank', function () {
+    return view('pages.checkout.payment_bank');
+})->name('payment_bank');
+
 /*
 |--------------------------------------------------------------------------
 | Auth (Login & Register)
@@ -104,24 +107,24 @@ Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 
 /*
 |--------------------------------------------------------------------------
-| User Protected Routes (auth)
+| User Protected Routes (Wajib Login)
 |--------------------------------------------------------------------------
 */
 
 Route::middleware('auth')->group(function () {
-
     Route::get('/profile', function () {
         return view('pages.profile.profile');
     })->name('profile');
 
+    Route::get('/profile', [ProfileController::class, 'index'])->name('profile');
+    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
+    Route::put('/profile', [ProfileController::class, 'update'])->name('profile.update');
+
+    // --- CART ---
     Route::get('/cart', function () {
         return view('pages.checkout.cart');
     })->name('cart');
 });
-
-Route::get('/profile/edit', function () {
-    return view('pages.profile.edit');
-})->name('profile.edit');
 
 /*
 |--------------------------------------------------------------------------
@@ -160,53 +163,13 @@ Route::middleware(['auth'])->prefix('admin')->group(function () {
 });
 
 
-Route::get('/payment_qris', function () {
-    return view('pages.checkout.payment_qris');
-})->name('payment_qris');
-
-Route::get('/payment_bank', function () {
-    return view('pages.checkout.payment_bank');
-})->name('payment_bank');
 /*
 |--------------------------------------------------------------------------
 | Review
 |--------------------------------------------------------------------------
 */
 
-// Form review
-Route::get('/katalog/{id}/review', function ($id) {
-    return view()->file(
-        resource_path('views/pages/katalog/detail.review.blade.php'),
-        ['id' => $id]
-    );
-})->name('reviews.create');
-
-Route::post('/reviews/store', [ReviewController::class, 'store'])
-    ->middleware('auth')
-    ->name('reviews.store');
-
-    Route::get('/katalog/{id}/review', [ReviewController::class, 'create'])
-    ->middleware('auth') // Wajib login
-    ->name('reviews.create');
-
-// Route untuk MENYIMPAN data review (Action form)
-Route::post('/reviews/store', [ReviewController::class, 'store'])
-    ->middleware('auth')
-    ->name('reviews.store');
-
-    Route::middleware('auth')->group(function () {
-    // Menampilkan Cart
-    Route::get('/cart', [CartController::class, 'index'])->name('cart');
-    
-    // Tambah ke Cart (Dari Detail Page)
-    Route::post('/cart/add', [CartController::class, 'store'])->name('cart.add');
-    
-    // Update Quantity (+/-)
-    Route::patch('/cart/update/{id}', [CartController::class, 'update'])->name('cart.update');
-    
-    // Hapus Item
-    Route::delete('/cart/delete/{id}', [CartController::class, 'destroy'])->name('cart.destroy');
-    
-    // Profile (yang lama biarkan)
-    Route::get('/profile', function () { return view('pages.profile.profile'); })->name('profile');
+Route::middleware('auth')->group(function () {
+    Route::get('/katalog/{id}/review', [ReviewController::class, 'create'])->name('reviews.create');
+    Route::post('/reviews/store', [ReviewController::class, 'store'])->name('reviews.store');
 });
