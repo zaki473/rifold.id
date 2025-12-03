@@ -8,6 +8,7 @@ use App\Http\Controllers\ProductController;
 use App\Http\Controllers\MixAndMatchController;
 use App\Http\Controllers\ImagesController;
 use App\Http\Controllers\ReviewController;
+use App\Http\Controllers\CartController;
 
 /*
 |--------------------------------------------------------------------------
@@ -192,3 +193,20 @@ Route::post('/reviews/store', [ReviewController::class, 'store'])
 Route::post('/reviews/store', [ReviewController::class, 'store'])
     ->middleware('auth')
     ->name('reviews.store');
+
+    Route::middleware('auth')->group(function () {
+    // Menampilkan Cart
+    Route::get('/cart', [CartController::class, 'index'])->name('cart');
+    
+    // Tambah ke Cart (Dari Detail Page)
+    Route::post('/cart/add', [CartController::class, 'store'])->name('cart.add');
+    
+    // Update Quantity (+/-)
+    Route::patch('/cart/update/{id}', [CartController::class, 'update'])->name('cart.update');
+    
+    // Hapus Item
+    Route::delete('/cart/delete/{id}', [CartController::class, 'destroy'])->name('cart.destroy');
+    
+    // Profile (yang lama biarkan)
+    Route::get('/profile', function () { return view('pages.profile.profile'); })->name('profile');
+});
