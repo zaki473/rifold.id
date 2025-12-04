@@ -4,59 +4,66 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
+use App\Models\User; // Pastikan Model User di-import
 
 class ProfileController extends Controller
 {
-    // Halaman profil
+    // Menampilkan Halaman Profil
     public function index()
     {
-        return view('pages.profile.profile', [
-            'user' => Auth::user()
-        ]);
+        $user = Auth::user();
+        // Ambil data order dari DB jika ada, jika tidak kosongkan collection
+        $orders = $user->orders ?? collect([]); 
+
+        return view('pages.profile.profile', compact('user', 'orders'));
+
     }
 
-    // Halaman edit profil
+    // Menampilkan Halaman Edit
     public function edit()
     {
-        return view('pages.profile.edit', [
-            'user' => Auth::user()
-        ]);
+        $user = Auth::user();
+        return view('pages.profile.edit', compact('user'));
     }
 
-    // Update profil
+    // Proses Update Data & Foto
     public function update(Request $request)
     {
         $user = Auth::user();
 
-        // Validasi input
+        // 1. Validasi
         $request->validate([
             'name' => 'required|string|max:255',
-            'email' => 'required|email',
-            'profile_photo' => 'nullable|image|mimes:jpg,jpeg,png|max:2048'
+            'phone' => 'nullable|string|max:20',
+            'address' => 'nullable|string|max:500',
+            'profile_photo' => 'nullable|image|mimes:jpeg,png,jpg|max:2048', // Max 2MB
         ]);
 
-        // Update nama dan email
+        // 2. Update Info Dasar
         $user->name = $request->name;
-        $user->email = $request->email;
+        $user->phone = $request->phone;
+        $user->address = $request->address;
 
-        // Jika upload foto baru
+        // 3. Cek apakah ada upload foto
         if ($request->hasFile('profile_photo')) {
-
-            // Hapus foto lama kalau ada
-            if ($user->profile_photo_path && file_exists(storage_path('app/public/' . $user->profile_photo_path))) {
-                unlink(storage_path('app/public/' . $user->profile_photo_path));
+            
+            // Hapus foto lama jika ada (dan bukan default/dummy)
+            if ($user->profile_photo_path && Storage::disk('public')->exists($user->profile_photo_path)) {
+                Storage::disk('public')->delete($user->profile_photo_path);
             }
 
-            // Upload foto baru
-            $path = $request->file('profile_photo')->store('profile', 'public');
-
+            // Simpan foto baru ke folder 'profile-photos' di storage public
+            // Hasilnya misal: profile-photos/unik123.jpg
+            $path = $request->file('profile_photo')->store('profile-photos', 'public');
+            
             // Simpan path ke database
             $user->profile_photo_path = $path;
         }
 
-        // Simpan perubahan
+        /** @var \App\Models\User $user */
         $user->save();
 
-        return redirect()->route('profile.edit')->with('success', 'Profile updated!');
+        return redirect()->route('profile')->with('success', 'Profil berhasil diperbarui!');
     }
 }

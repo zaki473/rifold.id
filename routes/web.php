@@ -112,13 +112,11 @@ Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 */
 
 Route::middleware('auth')->group(function () {
-    Route::get('/profile', function () {
-        return view('pages.profile.profile');
-    })->name('profile');
+    
+    Route::get('/profile', [ProfileController::class, 'index'])->name('profile');
+Route::get('/profile/edit', [ProfileController::class, 'edit'])->name('profile.edit');
+Route::put('/profile', [ProfileController::class, 'update'])->name('profile.update');
 
-    Route::get('/profile', [ProfileController::class, 'index'])->name('profile.index');
-    Route::get('/profile/edit', [ProfileController::class, 'edit'])->name('profile.edit');
-    Route::put('/profile', [ProfileController::class, 'update'])->name('profile.update');
 
     // --- CART ---
     Route::get('/cart', function () {
