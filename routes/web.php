@@ -111,36 +111,21 @@ Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 | User Protected Routes (Wajib Login)
 |--------------------------------------------------------------------------
 */
-
 Route::middleware('auth')->group(function () {
-    
+
+    // ===== PROFILE (BENAR) =====
     Route::get('/profile', [ProfileController::class, 'index'])->name('profile');
-Route::get('/profile/edit', [ProfileController::class, 'edit'])->name('profile.edit');
-Route::put('/profile', [ProfileController::class, 'update'])->name('profile.update');
+    Route::get('/profile/edit', [ProfileController::class, 'edit'])->name('profile.edit');
+    Route::put('/profile', [ProfileController::class, 'update'])->name('profile.update');
 
-});
-
-    Route::middleware(['auth'])->group(function () {
-    
-    // Profile
-    Route::get('/profile', function () {
-        return view('pages.profile.profile');
-    })->name('profile');
-
-    // --- CART SYSTEM (YANG BENAR) ---
-    // 1. Menampilkan Cart (Ambil data dari database)
+    // ===== CART SYSTEM =====
     Route::get('/cart', [CartController::class, 'index'])->name('cart');
-
-    // 2. Tambah ke Cart
     Route::post('/cart/add', [CartController::class, 'store'])->name('cart.add');
-
-    // 3. Update Jumlah (+/-)
     Route::patch('/cart/update/{id}', [CartController::class, 'update'])->name('cart.update');
-
-    // 4. Hapus Item
     Route::delete('/cart/delete/{id}', [CartController::class, 'destroy'])->name('cart.destroy');
 
 });
+
 /*
 |--------------------------------------------------------------------------
 | Admin (auth)
