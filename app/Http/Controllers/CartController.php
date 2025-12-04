@@ -12,16 +12,18 @@ class CartController extends Controller
     // Menampilkan Keranjang
     public function index()
     {
-        // Ambil cart milik user yang sedang login beserta data produknya
-        $cartItems = Cart::with('product')->where('user_id', Auth::id())->get();
-        
-        // Hitung Total Belanja
-        $totalPrice = 0;
-        foreach($cartItems as $item) {
-            $totalPrice += $item->product->price * $item->quantity;
-        }
+       
+    // Ambil data keranjang milik user yang sedang login
+    $cartItems = Cart::with('product')->where('user_id', Auth::id())->get();
+    
+    // Hitung Total
+    $totalPrice = 0;
+    foreach($cartItems as $item) {
+        $totalPrice += $item->product->price * $item->quantity;
+    }
 
-        return view('pages.checkout.cart', compact('cartItems', 'totalPrice'));
+    // Kirim variabel $cartItems dan $totalPrice ke View
+    return view('pages.checkout.cart', compact('cartItems', 'totalPrice'));
     }
 
     // Menambah Barang ke Keranjang

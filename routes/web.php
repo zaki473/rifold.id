@@ -7,6 +7,7 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\MixAndMatchController;
 use App\Http\Controllers\ImagesController;
+use App\Http\Controllers\CartController;
 use App\Http\Controllers\ReviewController;
 use App\Http\Controllers\ProfileController; // Pastikan ini ada
 
@@ -117,13 +118,29 @@ Route::middleware('auth')->group(function () {
 Route::get('/profile/edit', [ProfileController::class, 'edit'])->name('profile.edit');
 Route::put('/profile', [ProfileController::class, 'update'])->name('profile.update');
 
-
-    // --- CART ---
-    Route::get('/cart', function () {
-        return view('pages.checkout.cart');
-    })->name('cart');
 });
 
+    Route::middleware(['auth'])->group(function () {
+    
+    // Profile
+    Route::get('/profile', function () {
+        return view('pages.profile.profile');
+    })->name('profile');
+
+    // --- CART SYSTEM (YANG BENAR) ---
+    // 1. Menampilkan Cart (Ambil data dari database)
+    Route::get('/cart', [CartController::class, 'index'])->name('cart');
+
+    // 2. Tambah ke Cart
+    Route::post('/cart/add', [CartController::class, 'store'])->name('cart.add');
+
+    // 3. Update Jumlah (+/-)
+    Route::patch('/cart/update/{id}', [CartController::class, 'update'])->name('cart.update');
+
+    // 4. Hapus Item
+    Route::delete('/cart/delete/{id}', [CartController::class, 'destroy'])->name('cart.destroy');
+
+});
 /*
 |--------------------------------------------------------------------------
 | Admin (auth)
