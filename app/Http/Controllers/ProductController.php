@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Product;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
+use App\Models\MixAndMatch;
 
 class ProductController extends Controller
 {
@@ -14,10 +15,12 @@ class ProductController extends Controller
         return view('pages.admin.products', compact('products'));
     }
 
-    public function create()
-    {
-        return view('pages.admin.add_products');
-    }
+   public function create()
+{
+    $mixAndMatches = MixAndMatch::all();
+    return view('pages.admin.add_products', compact('mixAndMatches'));
+}
+
 
     public function store(Request $request)
     {
@@ -32,6 +35,7 @@ class ProductController extends Controller
             'description' => 'required|string',
             'images' => 'required',
             'images.*' => 'image|mimes:jpeg,png,jpg,webp|max:2048', // Sudah support webp
+            'mix_and_match_id' => 'nullable|exists:mix_and_matches,id',
         ]);
 
         // 2. Upload Gambar
@@ -52,6 +56,7 @@ class ProductController extends Controller
             'color' => $request->color,
             'description' => $request->description,
             'images' => $imagePath,
+            'mix_and_match_id' => $request->mix_and_match_id,
         ]);
 
         return redirect()->route('admin')->with('success', 'Product created successfully!');
@@ -74,6 +79,7 @@ class ProductController extends Controller
     public function edit(string $id)
     {
         $product = Product::findOrFail($id);
+        $mixAndMatches = MixAndMatch::all();
         return view('pages.admin.edit_products', compact('product'));
     }
 
@@ -90,9 +96,11 @@ class ProductController extends Controller
             'color'        => 'nullable|string',
             'description'  => 'required|string',
             'images.*'     => 'nullable|image|mimes:jpeg,png,jpg,webp|max:2048',
+            'mix_and_match_id' => 'nullable|exists:mix_and_matches,id',
+
         ]);
 
-        $data = $request->only(['name', 'category', 'price', 'size', 'stock', 'color', 'description']);
+        $data = $request->only(['name', 'category', 'price', 'size', 'stock', 'color', 'description','mix_and_match_id']);
 
         if ($request->hasFile('images')) {
             $imagePath = [];

@@ -46,7 +46,8 @@ class MixAndMatchController extends Controller
 
     public function show(MixAndMatch $mixAndMatch)
     {
-        // Biasanya tidak dipakai di admin panel sederhana
+       $mix = MixAndMatch::with('products')->findOrFail($mixAndMatch->id);
+        return view('pages.mixandmatch.detail', compact('mix'));
     }
 
     public function edit(MixAndMatch $mixAndMatch)
@@ -119,7 +120,7 @@ class MixAndMatchController extends Controller
 
     public function detail($id)
 {
-    $mix = MixAndMatch::findOrFail($id);
+    $mix = MixAndMatch::with('products')->findOrFail($id);
     $images = json_decode($mix->images_path); // semua gambar mix
     return view('pages.mixandmatch.detail', compact('mix'));
 }

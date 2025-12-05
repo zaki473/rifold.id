@@ -10,7 +10,6 @@
             <h3 class="font-semibold text-lg mb-4 text-white">Company</h3>
             <ul class="space-y-2 text-white">
                 <li><a href="{{ route('about') }}" class="hover:underline">About</a></li>
-                <li><a href="" class="hover:underline">Address</a></li>
             </ul>
         </div>
 

@@ -61,6 +61,10 @@ Route::get('/mixandmatch/{id}', function ($id) {
     return view('pages.mixandmatch.detail', ['id' => $id]);
 })->name('mixandmatch.detail');
 
+Route::get('/product/{id}', [ProductController::class, 'show'])
+    ->name('product.show');
+
+
 
 /*
 |--------------------------------------------------------------------------

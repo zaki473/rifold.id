@@ -1,185 +1,139 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>{{ $mix->name }} - RIFOLD</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ $mix->name }} - RIFOLD</title>
 
-  <!-- TAILWIND CSS -->
-  <script src="https://cdn.tailwindcss.com"></script>
+    <!-- TAILWIND CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
 
-  <!-- FONT POPPINS -->
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <!-- FONT POPPINS -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
 
-  <!-- FONT AWESOME -->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <!-- FONT AWESOME -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 
-  <!-- SWIPER CSS -->
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css"/>
-
-  <style>
-    body { font-family: 'Poppins', sans-serif; }
-
-    .swiper-pagination-bullet {
-        width: 5px !important;
-        height: 5px !important;
-        border-radius: 999px !important;
-        background-color: #c0c0c0 !important;
-        opacity: 0.6 !important;
-    }
-
-    .swiper-pagination-bullet-active {
-        background-color: #000 !important;
-        opacity: 1 !important;
-    }
-
-    .swiper-button-next, .swiper-button-prev {
-        width: 28px !important;
-        height: 28px !important;
-        background: white !important;
-        border-radius: 999px !important;
-        box-shadow: 0 4px 10px rgba(0,0,0,0.1) !important;
-    }
-
-    .swiper-button-next:after,
-    .swiper-button-prev:after {
-        font-size: 10px !important;
-        color: black !important;
-        font-weight: bold !important;
-    }
-
-    .swiper-button-next, .swiper-button-prev {
-        opacity: 0;
-        transition: opacity .3s ease;
-    }
-
-    .group:hover .swiper-button-next,
-    .group:hover .swiper-button-prev {
-        opacity: 1;
-    }
-  </style>
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #FAFAFA; /* Sedikit abu agar card putih lebih pop-up */
+        }
+        /* Custom Scrollbar */
+        .custom-scroll::-webkit-scrollbar { width: 4px; }
+        .custom-scroll::-webkit-scrollbar-track { background: transparent; }
+        .custom-scroll::-webkit-scrollbar-thumb { background: #e5e7eb; border-radius: 10px; }
+        .custom-scroll::-webkit-scrollbar-thumb:hover { background: #d1d5db; }
+    </style>
 </head>
 
-<body class="bg-white text-gray-900 antialiased">
+<body class="text-gray-900 antialiased">
 
-  @include('components.navbar')
+    @include('components.navbar')
 
-  @php
-      $images = json_decode($mix->images_path);
-      $mainImage = $images[0] ?? null;
-  @endphp
+    @php
+        $images = json_decode($mix->images_path);
+        $mainImage = $images[0] ?? null;
+    @endphp
 
-  <main class="w-full min-h-screen pt-24 pb-32 relative overflow-hidden">
+    <main class="w-full min-h-screen pt-24 pb-20 px-4 flex justify-center">
 
-    <div class="max-w-4xl mx-auto px-6 relative z-10">
+        <div class="max-w-6xl w-full">
 
-        <!-- BACK BUTTON -->
-        <div class="absolute left-6 top-0 md:left-0">
-            <a href="{{ route('mixandmatch.frontend') }}" class="group flex items-center text-gray-500 hover:text-black transition-colors duration-300">
-                <div class="w-10 h-10 rounded-full border border-gray-200 flex items-center justify-center group-hover:border-black transition-colors mr-3">
-                    <i class="fa-solid fa-arrow-left text-sm"></i>
-                </div>
-                <span class="font-medium text-sm tracking-wide">Back</span>
-            </a>
-        </div>
+            <!-- HEADER / BACK BUTTON -->
+            <div class="mb-8 flex items-center justify-between">
+                <a href="{{ route('mixandmatch.frontend') }}" class="group flex items-center text-gray-500 hover:text-black transition-colors duration-300">
+                    <div class="w-10 h-10 rounded-full border border-gray-200 flex items-center justify-center group-hover:border-black transition-colors mr-3 bg-white">
+                        <i class="fa-solid fa-arrow-left text-sm"></i>
+                    </div>
+                    <span class="font-medium text-sm tracking-wide">Back to Collection</span>
+                </a>
+            </div>
 
-        <!-- TITLE -->
-        <div class="text-center mt-16 mb-12">
-            <span class="text-xs font-bold tracking-[0.2em] text-gray-400 uppercase mb-2 block">
-              Mix & Match Collection
-            </span>
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 items-start">
 
-            <h1 class="text-4xl md:text-6xl font-extrabold tracking-tight text-gray-900">
-              {{ $mix->name }}
-            </h1>
-        </div>
+                <!-- BAGIAN KIRI: MODEL IMAGE (Sticky agar tetap terlihat saat scroll produk) -->
+                <div class="lg:col-span-5 relative flex flex-col items-center lg:sticky lg:top-24">
 
-        <!-- CONTENT WRAPPER -->
-        <div class="relative flex justify-center items-center mt-8">
-
-            <!-- BACKGROUND CIRCLE -->
-            <div class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2
-                        w-[300px] h-[300px] md:w-[450px] md:h-[450px]
-                        bg-[#F2F0EB] rounded-full -z-10"></div>
-
-            <!-- MODEL IMAGE -->
-            @if($mainImage)
-              <img src="{{ asset('storage/' . $mainImage) }}"
-                   alt="{{ $mix->name }}"
-                   class="relative z-10 w-[280px] md:w-[380px] object-contain drop-shadow-2xl hover:scale-[1.01] transition-transform duration-500">
-            @endif
-
-            <!-- PRODUCT CARD -->
-            <div
-               class="absolute z-20 -bottom-10 left-1/2 -translate-x-1/2 md:-ml-28
-                      bg-white p-2 rounded-xl shadow-[0_15px_40px_-10px_rgba(0,0,0,0.1)]
-                      w-40 md:w-48 border border-gray-100
-                      hover:-translate-y-2 hover:shadow-xl transition-all duration-300 group">
-
-                <!-- Badge -->
-                <div class="absolute -top-2 -right-2 bg-black text-white text-[9px] font-bold px-2 py-1 rounded-full">
-                    Mix
-                </div>
-
-                <!-- IMAGE SLIDER -->
-                <div class="relative group">
-                    <div class="swiper mySwiper bg-gray-50 rounded-lg overflow-hidden border border-gray-100 aspect-square">
-                        <div class="swiper-wrapper">
-                            @foreach ($images as $img)
-                                <div class="swiper-slide">
-                                    <img src="{{ asset('storage/' . $img) }}" class="w-full h-full object-cover">
-                                </div>
-                            @endforeach
-                        </div>
-                        <div class="swiper-pagination !bottom-1"></div>
+                    <!-- Background Circle -->
+                    <div class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2
+                        w-[320px] h-[320px] md:w-[420px] md:h-[420px]
+                        bg-[#E5E5E5] rounded-full -z-10 opacity-70">
                     </div>
 
-                    <div class="swiper-button-next"></div>
-                    <div class="swiper-button-prev"></div>
+                    <!-- Model Image -->
+                    @if ($mainImage)
+                        <img src="{{ asset('storage/' . $mainImage) }}" alt="{{ $mix->name }}"
+                            class="relative z-10 w-[280px] md:w-[350px] object-contain drop-shadow-2xl hover:scale-[1.01] transition-transform duration-500 rounded-lg">
+                    @endif
+
+                    <!-- Mobile Title (Hidden on Desktop) -->
+                    <div class="text-center mt-6 lg:hidden">
+                        <h1 class="text-3xl font-extrabold tracking-tight text-gray-900">{{ $mix->name }}</h1>
+                    </div>
                 </div>
 
-                <!-- Product Info -->
-                <div class="text-left px-1 mt-2">
-                    <h3 class="text-gray-900 font-bold text-xs leading-tight mb-0.5">
-                        {{ $mix->name }}
-                    </h3>
-                    <p class="text-gray-500 text-[10px] font-medium">
-                        Mix & Match Collection
-                    </p>
+                <!-- BAGIAN KANAN: PRODUCT LIST (Style Card Kecil) -->
+                <div class="lg:col-span-7">
+
+                    <!-- Desktop Title -->
+                    <div class="hidden lg:block mb-8 pl-2">
+                        <span class="text-xs font-bold tracking-[0.2em] text-gray-400 uppercase mb-1 block">Shop The Look</span>
+                        <h1 class="text-5xl font-extrabold tracking-tight text-gray-900">{{ $mix->name }}</h1>
+                        <p class="text-gray-500 text-sm mt-3 max-w-md">Klik produk di bawah untuk melihat detail atau mengedit pesanan Anda.</p>
+                    </div>
+
+                    <!-- GRID PRODUK -->
+                    <div class="grid grid-cols-2 md:grid-cols-3 gap-4">
+                        @foreach ($mix->products as $product)
+
+                            <!-- PRODUCT CARD (Design updated to match your snippet) -->
+                            <a href="{{ route('product.show', $product->id) }}"
+                               class="group block bg-white p-2 rounded-xl border border-gray-100 shadow-[0_4px_20px_-10px_rgba(0,0,0,0.1)] hover:-translate-y-1 hover:shadow-xl transition-all duration-300 relative">
+
+                                <!-- Badge 'View' (Optional) -->
+                                <div class="absolute top-2 right-2 z-10 opacity-0 group-hover:opacity-100 transition-opacity">
+                                    <div class="bg-black text-white text-[9px] font-bold px-2 py-1 rounded-full">View</div>
+                                </div>
+
+                                <!-- Image Wrapper -->
+                                <div class="relative w-full aspect-square bg-gray-50 rounded-lg overflow-hidden border border-gray-50">
+                                    <img src="{{ asset('storage/' . $product->images[0]) }}"
+                                         alt="{{ $product->name }}"
+                                         class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                                </div>
+
+                                <!-- Info Wrapper (Sama persis style-nya) -->
+                                <div class="text-left px-1 mt-3 mb-1">
+                                    <!-- Nama Produk -->
+                                    <h3 class="text-gray-900 font-bold text-xs leading-tight mb-1 group-hover:text-blue-600 transition-colors line-clamp-1">
+                                        {{ $product->name }}
+                                    </h3>
+
+                                    <!-- Harga -->
+                                    <div class="flex items-center justify-between">
+                                        <p class="text-gray-500 text-[10px] font-medium">
+                                            Rp {{ number_format($product->price) }}
+                                        </p>
+
+                                        <!-- Arrow Icon -->
+                                        <i class="fa-solid fa-arrow-right text-[10px] text-gray-300 group-hover:text-black transition-colors"></i>
+                                    </div>
+                                </div>
+                            </a>
+
+                        @endforeach
+                    </div>
+
                 </div>
 
-                <!-- Arrow Icon -->
-                <div class="absolute bottom-2 right-2 text-gray-300 group-hover:text-black transition-colors">
-                    <i class="fa-solid fa-arrow-right text-[10px]"></i>
-                </div>
             </div>
 
         </div>
+    </main>
 
-    </div>
-  </main>
-
-  @include('components.footer')
-
-  <!-- SWIPER JS -->
-  <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
-
-  <script>
-    var swiper = new Swiper(".mySwiper", {
-        loop: true,
-        speed: 500,
-        spaceBetween: 0,
-        effect: "slide",
-        pagination: {
-            el: ".swiper-pagination",
-            clickable: true,
-        },
-        navigation: {
-            nextEl: ".swiper-button-next",
-            prevEl: ".swiper-button-prev",
-        },
-    });
-  </script>
+    @include('components.footer')
 
 </body>
 </html>

@@ -14,4 +14,10 @@ class MixAndMatch extends Model
         'name',
         'images_path',
     ];
+
+    public function products()
+{
+    return $this->hasMany(Product::class);
+}
+
 }
