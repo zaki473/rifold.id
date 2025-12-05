@@ -19,13 +19,13 @@
     {{-- NAVBAR --}}
     @include('components.navbar')
 
-    {{-- 
-       CATATAN: Saya menghapus blok @php $user = ... @endphp dummy data 
+    {{--
+       CATATAN: Saya menghapus blok @php $user = ... @endphp dummy data
        agar data asli dari Controller yang dipakai.
     --}}
 
     <div class="max-w-7xl mx-auto px-6 md:px-12 py-16 md:py-24">
-        
+
         <!-- HEADER -->
         <div class="flex flex-col md:flex-row justify-between items-end border-b border-gray-200 pb-8 mb-12">
             <div>
@@ -34,7 +34,7 @@
                 </h1>
                 <p class="text-gray-500 text-sm md:text-base">Welcome to your personal dashboard.</p>
             </div>
-            
+
             <form action="{{ route('logout') }}" method="POST" class="mt-4 md:mt-0">
                 @csrf
                 <button type="submit" class="text-sm font-medium text-red-500 hover:text-red-700 transition border-b border-transparent hover:border-red-700 pb-0.5">
@@ -47,22 +47,22 @@
 
             <!-- SIDEBAR -->
             <div class="lg:col-span-4 lg:sticky lg:top-32 space-y-10">
-                
+
                 <!-- Photo Section (DIPERBAIKI) -->
                 <div class="group relative w-full aspect-square max-w-[280px] lg:max-w-full rounded-2xl overflow-hidden bg-gray-100 mx-auto lg:mx-0 shadow-sm border border-gray-100">
-                    
+
                     {{-- Logika Tampilan Foto --}}
                     @if($user->profile_photo_path)
-                        <img src="{{ asset('storage/' . $user->profile_photo_path) }}" 
-                             alt="{{ $user->name }}" 
+                        <img src="{{ asset('storage/' . $user->profile_photo_path) }}"
+                             alt="{{ $user->name }}"
                              class="w-full h-full object-cover object-top transition duration-700 group-hover:scale-105">
                     @else
                         {{-- Fallback jika user belum upload foto --}}
-                        <img src="{{ asset('images/clean-outfit.png') }}" 
-                             alt="Default Profile" 
+                        <img src="{{ asset('images/clean-outfit.png') }}"
+                             alt="Default Profile"
                              class="w-full h-full object-cover transition duration-700 group-hover:scale-105">
                     @endif
-                    
+
                     <!-- Tombol Edit Foto (Link ke halaman Edit) -->
                     <a href="{{ route('profile.edit') }}" class="absolute inset-0 bg-black/20 opacity-0 group-hover:opacity-100 transition duration-300 flex items-center justify-center cursor-pointer">
                         <span class="bg-white text-black px-4 py-2 rounded-full text-xs font-bold uppercase tracking-widest shadow-lg hover:bg-gray-100">
@@ -154,7 +154,7 @@
                     @else
                         <div class="py-12 text-center bg-gray-50 rounded-xl">
                             <p class="text-gray-500 mb-4">You haven't placed any orders yet.</p>
-                            <a href="#" class="inline-block bg-black text-white px-8 py-3 rounded-full text-sm font-bold uppercase tracking-wide hover:bg-gray-800 transition">
+                            <a href="{{ route('katalog') }}" class="inline-block bg-black text-white px-8 py-3 rounded-full text-sm font-bold uppercase tracking-wide hover:bg-gray-800 transition">
                                 Start Shopping
                             </a>
                         </div>

@@ -124,6 +124,12 @@ Route::middleware('auth')->group(function () {
     Route::patch('/cart/update/{id}', [CartController::class, 'update'])->name('cart.update');
     Route::delete('/cart/delete/{id}', [CartController::class, 'destroy'])->name('cart.destroy');
 
+    Route::get('/mixandmatch', [MixAndMatchController::class, 'frontend'])
+    ->name('mixandmatch.frontend');
+
+    Route::get('/mixandmatch/{id}', [MixAndMatchController::class, 'detail'])
+    ->name('mixandmatch.detail');
+
 });
 
 /*
@@ -160,6 +166,10 @@ Route::middleware(['auth'])->prefix('admin')->group(function () {
     Route::get('/images/{images}/edit', [ImagesController::class, 'edit'])->name('images.edit');
     Route::put('/images/{images}', [ImagesController::class, 'update'])->name('images.update');
     Route::delete('/images/{images}', [ImagesController::class, 'destroy'])->name('images.destroy');
+
+    Route::get('/status_orders', function () {
+        return view('pages.admin.status_order');
+    })->name('status_order');
 });
 
 

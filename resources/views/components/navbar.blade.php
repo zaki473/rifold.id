@@ -31,7 +31,7 @@
                         <span
                             class="absolute bottom-0 left-0 w-full h-0.5 bg-black transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300 ease-out"></span>
                     </a>
-                    <a href="{{ route('mixandmatch') }}"
+                    <a href="{{ route('mixandmatch.frontend') }}"
                         class="text-gray-700 hover:text-black text-sm font-medium transition-colors duration-300 relative group">
                         <span>Mix and Match</span>
                         <span
@@ -157,7 +157,7 @@
                 class="text-gray-700 hover:bg-gray-200 hover:text-black block px-3 py-2 rounded-md text-base font-medium">About</a>
             <a href="{{ route('katalog') }}"
                 class="text-gray-700 hover:bg-gray-200 hover:text-black block px-3 py-2 rounded-md text-base font-medium">Katalog</a>
-            <a href="{{ route('mixandmatch') }}"
+            <a href="{{ route('mixandmatch.frontend') }}"
                 class="text-gray-700 hover:bg-gray-200 hover:text-black block px-3 py-2 rounded-md text-base font-medium">Mix
                 and Match</a>
 

@@ -20,20 +20,29 @@
 
     {{-- Masonry layout --}}
     <div class="masonry columns-1 sm:columns-2 md:columns-3 gap-6 [column-fill:_balance]">
-      @foreach (range(1,18) as $i)
-        
-        <a 
-          href="{{ route('mixandmatch.detail', $i) }}" 
-          class="mix-card mb-6 break-inside-avoid block overflow-hidden rounded-2xl bg-white shadow-md hover:shadow-xl transition-all duration-300 ease-out"
-        >
-          <img 
-            src="{{ asset('images/mix' . $i . '.png') }}" 
-            alt="Mix {{ $i }}" 
-            class="mix-image w-full h-auto"
-          >
-        </a>
+       @foreach ($mixAndMatches as $mix)
 
-      @endforeach
+    @php
+      $images = json_decode($mix->images_path);
+      $thumbnail = $images[0] ?? null;
+    @endphp
+
+    <a
+      href="{{ route('mixandmatch.detail', $mix->id) }}"
+      class="mix-card mb-6 break-inside-avoid block overflow-hidden rounded-2xl bg-white shadow-md hover:shadow-xl transition-all duration-300 ease-out"
+    >
+
+      @if($thumbnail)
+        <img
+          src="{{ asset('storage/' . $thumbnail) }}"
+          alt="{{ $mix->name }}"
+          class="mix-image w-full h-auto"
+        >
+      @endif
+
+    </a>
+
+  @endforeach
     </div>
   </main>
 

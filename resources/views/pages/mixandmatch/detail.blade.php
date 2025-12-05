@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Clean Outfit - RIFOLD</title>
+  <title>{{ $mix->name }} - RIFOLD</title>
 
   <!-- TAILWIND CSS -->
   <script src="https://cdn.tailwindcss.com"></script>
@@ -20,7 +20,6 @@
   <style>
     body { font-family: 'Poppins', sans-serif; }
 
-    /* Bullet kecil seperti katalog */
     .swiper-pagination-bullet {
         width: 5px !important;
         height: 5px !important;
@@ -34,9 +33,8 @@
         opacity: 1 !important;
     }
 
-    /* Tombol panah style katalog - DIPERKECIL */
     .swiper-button-next, .swiper-button-prev {
-        width: 28px !important; /* Diperkecil dari 35px */
+        width: 28px !important;
         height: 28px !important;
         background: white !important;
         border-radius: 999px !important;
@@ -45,12 +43,11 @@
 
     .swiper-button-next:after,
     .swiper-button-prev:after {
-        font-size: 10px !important; /* Diperkecil dari 13px */
+        font-size: 10px !important;
         color: black !important;
         font-weight: bold !important;
     }
 
-    /* Hover efek muncul */
     .swiper-button-next, .swiper-button-prev {
         opacity: 0;
         transition: opacity .3s ease;
@@ -67,13 +64,18 @@
 
   @include('components.navbar')
 
+  @php
+      $images = json_decode($mix->images_path);
+      $mainImage = $images[0] ?? null;
+  @endphp
+
   <main class="w-full min-h-screen pt-24 pb-32 relative overflow-hidden">
-    
+
     <div class="max-w-4xl mx-auto px-6 relative z-10">
-        
+
         <!-- BACK BUTTON -->
         <div class="absolute left-6 top-0 md:left-0">
-            <a href="{{ url('/mixandmatch') }}" class="group flex items-center text-gray-500 hover:text-black transition-colors duration-300">
+            <a href="{{ route('mixandmatch.frontend') }}" class="group flex items-center text-gray-500 hover:text-black transition-colors duration-300">
                 <div class="w-10 h-10 rounded-full border border-gray-200 flex items-center justify-center group-hover:border-black transition-colors mr-3">
                     <i class="fa-solid fa-arrow-left text-sm"></i>
                 </div>
@@ -83,9 +85,12 @@
 
         <!-- TITLE -->
         <div class="text-center mt-16 mb-12">
-            <span class="text-xs font-bold tracking-[0.2em] text-gray-400 uppercase mb-2 block">Mix & Match Collection</span>
-            <h1 class="text-5xl md:text-6xl font-extrabold tracking-tight text-gray-900">
-              CLEAN OUTFIT
+            <span class="text-xs font-bold tracking-[0.2em] text-gray-400 uppercase mb-2 block">
+              Mix & Match Collection
+            </span>
+
+            <h1 class="text-4xl md:text-6xl font-extrabold tracking-tight text-gray-900">
+              {{ $mix->name }}
             </h1>
         </div>
 
@@ -93,66 +98,61 @@
         <div class="relative flex justify-center items-center mt-8">
 
             <!-- BACKGROUND CIRCLE -->
-            <div class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 
-                        w-[300px] h-[300px] md:w-[450px] md:h-[450px] 
+            <div class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2
+                        w-[300px] h-[300px] md:w-[450px] md:h-[450px]
                         bg-[#F2F0EB] rounded-full -z-10"></div>
 
             <!-- MODEL IMAGE -->
-            <img src="{{ asset('images/clean-outfit.png') }}" 
-                 alt="Clean Outfit Model"
-                 class="relative z-10 w-[280px] md:w-[380px] object-contain drop-shadow-2xl hover:scale-[1.01] transition-transform duration-500">
+            @if($mainImage)
+              <img src="{{ asset('storage/' . $mainImage) }}"
+                   alt="{{ $mix->name }}"
+                   class="relative z-10 w-[280px] md:w-[380px] object-contain drop-shadow-2xl hover:scale-[1.01] transition-transform duration-500">
+            @endif
 
-            <!-- 
-                PRODUCT CARD (UKURAN DIPERKECIL)
-                Changes:
-                1. w-40 md:w-48 (Sebelumnya w-48 md:w-56) -> Membuat kotak lebih kecil.
-                2. p-2 (Sebelumnya p-3) -> Padding lebih tipis.
-                3. md:-ml-28 (Sebelumnya -ml-32) -> Margin disesuaikan sedikit karena kotak mengecil.
-            -->
-            <a href="{{ route('detail', 1) }}" 
+            <!-- PRODUCT CARD -->
+            <div
                class="absolute z-20 -bottom-10 left-1/2 -translate-x-1/2 md:-ml-28
-                      bg-white p-2 rounded-xl shadow-[0_15px_40px_-10px_rgba(0,0,0,0.1)] 
+                      bg-white p-2 rounded-xl shadow-[0_15px_40px_-10px_rgba(0,0,0,0.1)]
                       w-40 md:w-48 border border-gray-100
-                      hover:-translate-y-2 hover:shadow-xl transition-all duration-300 group cursor-pointer">
+                      hover:-translate-y-2 hover:shadow-xl transition-all duration-300 group">
 
-                <!-- Badge 'Shop This' -->
-                <div class="absolute -top-2 -right-2 bg-black text-white text-[9px] font-bold px-2 py-1 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                    Shop
+                <!-- Badge -->
+                <div class="absolute -top-2 -right-2 bg-black text-white text-[9px] font-bold px-2 py-1 rounded-full">
+                    Mix
                 </div>
 
                 <!-- IMAGE SLIDER -->
                 <div class="relative group">
                     <div class="swiper mySwiper bg-gray-50 rounded-lg overflow-hidden border border-gray-100 aspect-square">
                         <div class="swiper-wrapper">
-                            <div class="swiper-slide">
-                                <img src="{{ asset('images/polo-overcool.png') }}" class="w-full h-full object-cover">
-                            </div>
-                            <div class="swiper-slide">
-                                <img src="{{ asset('images/polo-overcool blue.png') }}" class="w-full h-full object-cover">
-                            </div>
-                            <div class="swiper-slide">
-                                <img src="{{ asset('images/polo-overcool black.png') }}" class="w-full h-full object-cover">
-                            </div>
+                            @foreach ($images as $img)
+                                <div class="swiper-slide">
+                                    <img src="{{ asset('storage/' . $img) }}" class="w-full h-full object-cover">
+                                </div>
+                            @endforeach
                         </div>
                         <div class="swiper-pagination !bottom-1"></div>
                     </div>
+
                     <div class="swiper-button-next"></div>
                     <div class="swiper-button-prev"></div>
                 </div>
 
-                <!-- Product Info (Font diperkecil) -->
+                <!-- Product Info -->
                 <div class="text-left px-1 mt-2">
-                    <h3 class="text-gray-900 font-bold text-xs leading-tight mb-0.5 group-hover:underline decoration-1 underline-offset-2">
-                        Polo Overcool Series
+                    <h3 class="text-gray-900 font-bold text-xs leading-tight mb-0.5">
+                        {{ $mix->name }}
                     </h3>
-                    <p class="text-gray-500 text-[10px] font-medium">Rp 129.000</p>
+                    <p class="text-gray-500 text-[10px] font-medium">
+                        Mix & Match Collection
+                    </p>
                 </div>
 
-                <!-- Arrow Icon (Ukuran diperkecil) -->
+                <!-- Arrow Icon -->
                 <div class="absolute bottom-2 right-2 text-gray-300 group-hover:text-black transition-colors">
                     <i class="fa-solid fa-arrow-right text-[10px]"></i>
                 </div>
-            </a>
+            </div>
 
         </div>
 

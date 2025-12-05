@@ -72,7 +72,7 @@
 
             {{-- Menu tunggal lainnya --}}
             <li>
-                <a href="#" class="block p-3 rounded-lg text-gray-700 hover:bg-gray-200 transition-colors duration-200">
+                <a href="{{ route('status_order') }}" class="block p-3 rounded-lg text-gray-700 hover:bg-gray-200 transition-colors duration-200">
                    Status
                 </a>
             </li>

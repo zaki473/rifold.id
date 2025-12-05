@@ -110,4 +110,18 @@ class MixAndMatchController extends Controller
 
         return redirect()->route('mixandmatch.index')->with('success', 'Mix & Match deleted successfully.');
     }
+
+    public function frontend()
+    {
+        $mixAndMatches = MixAndMatch::latest()->get();
+        return view('pages.mixandmatch.mixandmatch', compact('mixAndMatches'));
+    }
+
+    public function detail($id)
+{
+    $mix = MixAndMatch::findOrFail($id);
+    $images = json_decode($mix->images_path); // semua gambar mix
+    return view('pages.mixandmatch.detail', compact('mix'));
+}
+
 }
