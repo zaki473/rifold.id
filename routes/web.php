@@ -123,6 +123,8 @@ Route::post('/register', [AuthController::class, 'register'])->name('register');
 
 Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 
+
+
 /*
 |--------------------------------------------------------------------------
 | User Protected Routes (Wajib Login)
@@ -131,7 +133,7 @@ Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 Route::middleware('auth')->group(function () {
 
     // ===== PROFILE (BENAR) =====
-    Route::get('/profile', [ProfileController::class, 'index'])->name('profile');
+    Route::get('/profile', [ProfileController::class, 'index'])->name('profile.index');
     Route::get('/profile/edit', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::put('/profile', [ProfileController::class, 'update'])->name('profile.update');
 
@@ -190,9 +192,10 @@ Route::middleware(['auth'])->prefix('admin')->group(function () {
     Route::put('/images/{images}', [ImagesController::class, 'update'])->name('images.update');
     Route::delete('/images/{images}', [ImagesController::class, 'destroy'])->name('images.destroy');
 
-    Route::get('/status_orders', function () {
-        return view('pages.admin.status_order');
-    })->name('status_order');
+    Route::get('/status_orders', [OrderController::class, 'adminIndex'])->name('status_order');
+    Route::put('/admin/status_orders/{order}', [OrderController::class, 'updateStatus'])
+    ->name('admin.order.updateStatus');
+
 });
 
 

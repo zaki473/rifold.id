@@ -15,7 +15,7 @@
     @include('components.navbar')
 
     <div class="max-w-6xl mx-auto px-6 md:px-12 pt-32 pb-24">
-        
+
         <!-- Header -->
         <div class="flex flex-col md:flex-row md:items-center justify-between border-b border-gray-100 pb-8 mb-12">
             <div>
@@ -24,7 +24,7 @@
                 </h1>
                 <p class="text-gray-500 mt-2 text-sm md:text-base">Perbarui data diri dan foto profil Anda.</p>
             </div>
-            <a href="{{ route('profile') }}" class="mt-4 md:mt-0 text-sm font-bold uppercase tracking-widest text-gray-400 hover:text-black transition-colors">
+            <a href="{{ route('profile.index') }}" class="mt-4 md:mt-0 text-sm font-bold uppercase tracking-widest text-gray-400 hover:text-black transition-colors">
                 &larr; Kembali
             </a>
         </div>
@@ -47,7 +47,7 @@
                 <!-- LEFT: PHOTO UPLOAD -->
                 <div class="lg:col-span-4 space-y-6">
                     <div class="relative group w-full aspect-[3/4] bg-gray-100 rounded-2xl overflow-hidden shadow-sm">
-                        
+
                         {{-- Logic Preview Gambar --}}
                         <img id="preview-image"
                              src="{{ $user->profile_photo_path ? asset('storage/' . $user->profile_photo_path) : asset('images/clean-outfit.png') }}"
@@ -59,7 +59,7 @@
                                 <span class="text-xs font-bold uppercase tracking-widest text-black">Upload New</span>
                             </div>
                         </label>
-                        
+
                         <input type="file" id="photo-upload" name="profile_photo" class="hidden" onchange="previewFile()">
                     </div>
                     <p class="text-center text-xs text-gray-400 font-medium">JPG, PNG. Max 2MB.</p>
@@ -91,7 +91,7 @@
                     </div>
 
                     <div class="pt-8 border-t border-gray-100 flex items-center justify-end gap-6">
-                        <a href="{{ route('profile') }}" class="text-sm font-semibold text-gray-500 hover:text-black">Cancel</a>
+                        <a href="{{ route('profile.index') }}" class="text-sm font-semibold text-gray-500 hover:text-black">Cancel</a>
                         <button type="submit" class="bg-black text-white px-8 py-3 rounded-lg font-bold text-sm uppercase tracking-wider shadow-lg hover:bg-gray-800 transition">Save Changes</button>
                     </div>
                 </div>

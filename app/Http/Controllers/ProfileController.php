@@ -77,6 +77,6 @@ class ProfileController extends Controller
         /** @var \App\Models\User $user */
         $user->save();
 
-        return redirect()->route('profile')->with('success', 'Profil berhasil diperbarui!');
+        return redirect()->route('profile.index')->with('success', 'Profil berhasil diperbarui!');
     }
 }

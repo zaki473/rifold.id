@@ -82,7 +82,7 @@
                 <div class="hidden sm:block">
                     @auth
                         <!-- KONDISI: SUDAH LOGIN -->
-                        <a href="{{ route('profile') }}" class="flex items-center justify-center p-1 focus:outline-none group" title="My Profile">
+                        <a href="{{ route('profile.index') }}" class="flex items-center justify-center p-1 focus:outline-none group" title="My Profile">
                             @if(Auth::user()->profile_photo_path)
                                 <!-- Opsi 1: Jika ada foto profil -->
                                 <img src="{{ asset('storage/' . Auth::user()->profile_photo_path) }}"

@@ -16,11 +16,12 @@ class OrderController extends Controller
      */
     public function index()
     {
-        $orders = Order::where('user_id', Auth::id())
-            ->latest()
-            ->get();
+        $orders = Order::with('items.product') // ✅ ini yang penting
+        ->where('user_id', Auth::id())
+        ->latest()
+        ->get();
 
-        return view('orders.index', compact('orders'));
+    return view('pages.profile.profile', compact('orders'));
     }
 
     /**
@@ -118,14 +119,6 @@ class OrderController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
-    {
-        $order = Order::with('items.product')
-            ->where('user_id', Auth::id())
-            ->findOrFail($id);
-
-        return view('orders.show', compact('order'));
-    }
 
     /**
      * Show the form for editing the specified resource.
@@ -151,7 +144,7 @@ class OrderController extends Controller
         //
     }
 
-    
+
 
 
     public function saveInformation(Request $request)
@@ -174,5 +167,29 @@ class OrderController extends Controller
     // Redirect ke halaman shipping
     return redirect()->route('checkout.shipping.view');
 }
+
+public function adminIndex()
+    {
+        $orders = Order::with('user')
+            ->orderBy('created_at', 'desc')
+            ->paginate(10);
+
+        return view('pages.admin.status_order', compact('orders'));
+    }
+
+    public function updateStatus(Request $request, Order $order)
+{
+    $request->validate([
+        'status' => 'required|in:pending,paid,processed,shipped,delivered,cancelled'
+    ]);
+
+    $order->update([
+        'status' => $request->status,
+    ]);
+
+    return back()->with('success', 'Status pesanan berhasil diperbarui');
+}
+
+
 
 }
