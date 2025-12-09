@@ -24,7 +24,7 @@
 
     <div class="flex-grow flex items-center justify-center px-4 py-12">
         <div class="bg-white rounded-2xl shadow-sm border border-gray-100 p-8 md:p-12 max-w-md w-full text-center">
-            
+
             <div class="animate-pop mx-auto w-24 h-24 bg-green-50 rounded-full flex items-center justify-center mb-6">
                 <svg xmlns="http://www.w3.org/2000/svg" class="h-12 w-12 text-green-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7" />
@@ -32,10 +32,11 @@
             </div>
 
             <h2 class="text-3xl font-bold text-gray-900 mb-2">Pembayaran Berhasil!</h2>
-            <p class="text-sm text-gray-400 font-medium mb-6 uppercase tracking-wide">ID Pesanan: #ORD-{{ rand(10000, 99999) }}</p>
-
+                <p class="text-sm text-gray-400 font-medium mb-6 uppercase tracking-wide">
+                    ID Pesanan: #{{ $order->order_number }}
+                </p>
             <p class="text-gray-600 mb-8 leading-relaxed">
-                Terima kasih telah membeli produk Rifold. Pesanan kamu sedang diproses 
+                Terima kasih telah membeli produk Rifold. Pesanan kamu sedang diproses
                 dan akan segera dikirim ke alamat tujuan.
             </p>
 

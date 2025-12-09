@@ -29,7 +29,7 @@
 
         <!-- Breadcrumb -->
         <div class="mb-6">
-            <a href="{{ url()->previous() }}" class="inline-flex items-center text-sm font-medium text-gray-500 hover:text-black transition-colors duration-200">
+            <a href="javascript:history.back()" class="inline-flex items-center text-sm font-medium text-gray-500 hover:text-black transition-colors duration-200">
                 <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18" />
                 </svg>
@@ -66,6 +66,17 @@
                     <h2 class="text-2xl font-bold mb-2 text-gray-900">Scan QRIS</h2>
                     <p class="text-sm text-gray-500 mb-6 max-w-md">Silakan scan kode QR di bawah ini menggunakan aplikasi e-wallet atau mobile banking Anda.</p>
 
+                    <div class="text-center mb-10">
+                    <p class="text-sm text-gray-500 mb-2 uppercase tracking-wider font-medium">Total Tagihan</p>
+                    <h2 class="text-4xl sm:text-5xl font-bold text-gray-900 mb-4">
+                       Rp {{ number_format($order->total_price, 0, ',', '.') }}
+                    </h2>
+
+                    <div class="inline-flex items-center px-4 py-1.5 rounded-full bg-gray-100 text-xs font-medium text-gray-600 border border-gray-200">
+                        Order ID: #{{ $order->order_number }}
+                    </div>
+                </div>
+
                     <!-- Timer Countdown (Centered) -->
                     <div class="inline-flex items-center gap-2 bg-orange-50 text-orange-700 px-5 py-2 rounded-full font-medium text-sm mb-6 border border-orange-100 shadow-sm">
                         <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
@@ -97,101 +108,69 @@
 
                     <!-- FORM UPLOAD BUKTI -->
                     {{-- Ganti action ke route controller yang menangani upload --}}
-                    <form action="{{ route('home') }}" method="POST" enctype="multipart/form-data" class="w-full max-w-md mt-6">
-                        @csrf
-                        {{-- Input Hidden ID Order jika perlu --}}
-                        <input type="hidden" name="order_id" value="{{ $order->id ?? '' }}">
+                    <form action="{{ route('payment.upload') }}" method="POST" enctype="multipart/form-data" class="w-full max-w-md mt-6">
+    @csrf
+    {{-- Input Hidden ID Order --}}
+    <input type="hidden" name="order_id" value="{{ $order->id ?? '' }}">
 
-                        <div class="text-left mb-2">
-                            <label class="text-sm font-semibold text-gray-900">Upload Bukti Transaksi</label>
-                            <p class="text-xs text-gray-500">Kirim tangkapan layar (screenshot) bukti pembayaran berhasil.</p>
-                        </div>
+    <div class="text-left mb-2">
+        <label class="text-sm font-semibold text-gray-900">Upload Bukti Transaksi</label>
+        <p class="text-xs text-gray-500">Kirim tangkapan layar (screenshot) bukti pembayaran berhasil.</p>
+    </div>
 
-                        <!-- Upload Area -->
-                        <div class="mt-2 w-full">
-                            <label for="proof-file" class="flex flex-col items-center justify-center w-full h-40 border-2 border-gray-300 border-dashed rounded-xl cursor-pointer bg-gray-50 hover:bg-gray-100 hover:border-black transition-all group relative overflow-hidden">
+    <!-- Upload Area -->
+    <div class="mt-2 w-full">
+        <label for="proof-file" class="flex flex-col items-center justify-center w-full h-40 border-2 border-gray-300 border-dashed rounded-xl cursor-pointer bg-gray-50 hover:bg-gray-100 hover:border-black transition-all group relative overflow-hidden">
 
-                                <!-- Placeholder Content -->
-                                <div id="upload-placeholder" class="flex flex-col items-center justify-center pt-5 pb-6">
-                                    <svg class="w-8 h-8 mb-3 text-gray-400 group-hover:text-black transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"></path></svg>
-                                    <p class="mb-2 text-sm text-gray-500"><span class="font-semibold text-black">Klik untuk upload</span></p>
-                                    <p class="text-xs text-gray-400">PNG, JPG or JPEG (MAX. 2MB)</p>
-                                </div>
+            <!-- Placeholder Content -->
+            <div id="upload-placeholder" class="flex flex-col items-center justify-center pt-5 pb-6">
+                <svg class="w-8 h-8 mb-3 text-gray-400 group-hover:text-black transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"></path></svg>
+                <p class="mb-2 text-sm text-gray-500"><span class="font-semibold text-black">Klik untuk upload</span></p>
+                <p class="text-xs text-gray-400">PNG, JPG or JPEG (MAX. 2MB)</p>
+            </div>
 
-                                <!-- Image Preview -->
-                                <div id="image-preview-container" class="hidden absolute inset-0 w-full h-full bg-white flex-col items-center justify-center p-2">
-                                    <img id="image-preview" src="#" alt="Preview" class="h-full object-contain rounded-md" />
-                                    <div class="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
-                                        <span class="text-white text-xs font-medium bg-black/50 px-3 py-1 rounded-full">Ganti Gambar</span>
-                                    </div>
-                                </div>
-
-                                <input id="proof-file" name="payment_proof" type="file" class="hidden" accept="image/*" required />
-                            </label>
-                        </div>
-
-                        <!-- Tombol Submit -->
-                        <div class="mt-6">
-                            <button type="submit" id="submit-btn" disabled class="w-full bg-black text-white font-bold py-4 rounded-xl hover:bg-gray-800 disabled:bg-gray-300 disabled:cursor-not-allowed transition transform active:scale-[0.99] shadow-lg flex items-center justify-center gap-2">
-                                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" /></svg>
-                                Konfirmasi & Kirim Bukti
-                            </button>
-                        </div>
-                    </form>
-
+            <!-- Image Preview -->
+            <div id="image-preview-container" class="hidden absolute inset-0 w-full h-full bg-white flex-col items-center justify-center p-2">
+                <img id="image-preview" src="#" alt="Preview" class="h-full object-contain rounded-md" />
+                <div class="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+                    <span class="text-white text-xs font-medium bg-black/50 px-3 py-1 rounded-full">Ganti Gambar</span>
                 </div>
             </div>
 
-
-        </div>
+            <input id="proof-file" name="payment_proof" type="file" class="hidden" accept="image/*" required onchange="previewAndEnableSubmit(event)" />
+        </label>
     </div>
 
-    @include('components.footer')
+    <!-- Tombol Submit -->
+    <div class="mt-6">
+        <button type="submit" id="submit-btn" disabled class="w-full bg-black text-white font-bold py-4 rounded-xl hover:bg-gray-800 disabled:bg-gray-300 disabled:cursor-not-allowed transition transform active:scale-[0.99] shadow-lg flex items-center justify-center gap-2">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" /></svg>
+            Konfirmasi & Kirim Bukti
+        </button>
+    </div>
+</form>
 
-    <!-- JAVASCRIPT LOGIC -->
-    <script>
-        document.addEventListener('DOMContentLoaded', function () {
-            // Durasi dalam menit
-            const DURATION_MINUTES = 20;
+<script>
+function previewAndEnableSubmit(event) {
+    const input = event.target;
+    const placeholder = document.getElementById('upload-placeholder');
+    const previewContainer = document.getElementById('image-preview-container');
+    const previewImage = document.getElementById('image-preview');
+    const submitBtn = document.getElementById('submit-btn');
 
-            // Konversi ke detik
-            let timeRemaining = DURATION_MINUTES * 60;
+    if (input.files && input.files[0]) {
+        const reader = new FileReader();
 
-            const timerDisplay = document.getElementById('countdown');
-            const qrWrapper = document.getElementById('qr-wrapper');
-            const expiredOverlay = document.getElementById('expired-overlay');
+        reader.onload = function(e) {
+            previewImage.src = e.target.result;
+            placeholder.classList.add('hidden');
+            previewContainer.classList.remove('hidden');
+            submitBtn.disabled = false; // aktifkan tombol submit
+        }
 
-            const countdownInterval = setInterval(() => {
-                const minutes = Math.floor(timeRemaining / 60);
-                const seconds = timeRemaining % 60;
-
-                // Format MM:SS (tambah angka 0 di depan jika < 10)
-                const formattedTime = `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
-
-                timerDisplay.textContent = formattedTime;
-
-                // Efek visual jika waktu < 1 menit (Text merah & berkedip)
-                if (timeRemaining < 60) {
-                    timerDisplay.classList.add('text-urgent');
-                    timerDisplay.parentElement.classList.replace('bg-orange-50', 'bg-red-50');
-                    timerDisplay.parentElement.classList.replace('text-orange-700', 'text-red-700');
-                    timerDisplay.parentElement.classList.replace('border-orange-100', 'border-red-100');
-                }
-
-                // Jika waktu habis
-                if (timeRemaining <= 0) {
-                    clearInterval(countdownInterval);
-                    timerDisplay.textContent = "00:00";
-
-                    // Tampilkan UI Expired
-                    qrWrapper.classList.add('qr-blur');
-                    expiredOverlay.classList.remove('hidden');
-                    expiredOverlay.classList.add('flex');
-                }
-
-                timeRemaining--;
-            }, 1000);
-        });
-    </script>
+        reader.readAsDataURL(input.files[0]);
+    }
+}
+</script>
 </body>
 </html>

@@ -10,7 +10,9 @@ use App\Http\Controllers\ImagesController;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\ReviewController;
 use App\Http\Controllers\ProfileController; // Pastikan ini ada
-
+use App\Http\Controllers\OrderController;
+use App\Http\Controllers\CheckoutController;
+use App\Http\Controllers\PaymentController;
 /*
 |--------------------------------------------------------------------------
 | Public Routes
@@ -72,29 +74,40 @@ Route::get('/product/{id}', [ProductController::class, 'show'])
 |--------------------------------------------------------------------------
 */
 
-Route::get('/checkout', function () {
-    return view('pages.checkout.checkout');
-})->name('checkout');
+// STEP 1 - Information
+Route::get('/checkout', [CheckoutController::class, 'index'])
+    ->name('checkout.index');
 
-Route::post('/checkout/shipping', function () {
-    return view('pages.checkout.shipping');
-})->name('checkout.shipping');
+Route::post('/checkout/information', [CheckoutController::class, 'saveInformation'])
+    ->name('checkout.shipping');
 
-Route::post('/checkout/payment', function () {
-    return view('pages.checkout.payment');
-})->name('checkout.payment');
+// STEP 2 - Shipping
+Route::get('/checkout/shipping', [CheckoutController::class, 'shipping'])
+    ->name('checkout.shipping.view');
 
-Route::post('/checkout/confirmation', function () {
-    return view('pages.checkout.confirmation');
-})->name('checkout.confirmation');
+Route::post('/checkout/shipping', [CheckoutController::class, 'storeShipping'])
+    ->name('checkout.shipping.store');
 
-Route::get('/payment_qris', function () {
-    return view('pages.checkout.payment_qris');
-})->name('payment_qris');
+// STEP 3 - PAYMENT
+Route::get('/checkout/payment', [CheckoutController::class, 'payment'])->name('checkout.payment');
+Route::get('/payment/bank/{order}', [PaymentController::class, 'bank'])->name('payment.bank');
+Route::get('/payment/qris/{order}', [PaymentController::class, 'qris'])->name('payment.qris');
+Route::post('/checkout/confirmation', [CheckoutController::class, 'confirmation'])->name('checkout.confirmation');
+Route::get('/order/success/{order}', [CheckoutController::class, 'success'])->name('order.success');
+Route::post('/payment/upload', [PaymentController::class, 'upload'])->name('payment.upload');
+Route::get('/payment/upload/{orderId}', [PaymentController::class, 'uploadView']) ->name('payment.upload.view');
 
-Route::get('/payment_bank', function () {
-    return view('pages.checkout.payment_bank');
-})->name('payment_bank');
+
+// Confirmation
+Route::get('/payment/bank/{order}', [PaymentController::class, 'bank'])
+     ->name('payment.bank');
+
+Route::get('/payment/qris/{order}', [PaymentController::class, 'qris'])
+     ->name('payment.qris');
+
+Route::get('/checkout/confirmation', [CheckoutController::class, 'confirmation'])
+     ->name('checkout.confirmation'); // atau checkout.confirmation, bebas asal konsisten
+
 
 /*
 |--------------------------------------------------------------------------
@@ -133,6 +146,12 @@ Route::middleware('auth')->group(function () {
 
     Route::get('/mixandmatch/{id}', [MixAndMatchController::class, 'detail'])
     ->name('mixandmatch.detail');
+
+    // ini order
+    Route::get('/orders', [OrderController::class, 'index'])->name('orders.index');
+    Route::post('/orders', [OrderController::class, 'store'])->name('orders.store');
+    Route::get('/orders/{id}', [OrderController::class, 'show'])->name('orders.show');
+    Route::get('/order-success/{id}', [OrderController::class, 'success']) ->name('orders.success');
 
 });
 

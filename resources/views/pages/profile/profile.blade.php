@@ -125,41 +125,59 @@
                 </section>
 
                 <!-- SECTION 2: ORDER HISTORY -->
-                <section id="orders" class="scroll-mt-32 pt-8 border-t border-gray-100">
-                    <h2 class="text-2xl font-bold tracking-tight mb-8">Recent Orders</h2>
+                <!-- SECTION 2: ORDER HISTORY -->
+<section id="orders" class="scroll-mt-32 pt-8 border-t border-gray-100">
+    <h2 class="text-2xl font-bold tracking-tight mb-8">Recent Orders</h2>
 
-                    @if(isset($orders) && $orders->isNotEmpty())
-                        <div class="space-y-6">
-                            @foreach($orders as $order)
-                            <div class="group flex flex-col sm:flex-row gap-6 p-4 rounded-xl hover:bg-gray-50 transition-colors duration-300">
-                                <div class="w-24 h-28 flex-shrink-0 bg-gray-200 rounded-lg overflow-hidden">
-                                    {{-- Pastikan gambar produk juga dinamis --}}
-                                    <img src="{{ asset($order->product_image) }}" class="w-full h-full object-cover object-top" alt="Product">
-                                </div>
-                                <div class="flex-1 flex flex-col justify-center">
-                                    <div class="flex justify-between items-start mb-1">
-                                        <h3 class="font-semibold text-lg text-gray-900">{{ $order->product_name }}</h3>
-                                        <span class="text-sm font-medium text-gray-900">Rp {{ number_format($order->total_price, 0, ',', '.') }}</span>
-                                    </div>
-                                    <p class="text-sm text-gray-500 mb-4">Placed on {{ \Carbon\Carbon::parse($order->created_at)->format('d M Y') }}</p>
-                                    <div class="flex justify-between items-center">
-                                        <span class="px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wide bg-gray-200 text-gray-700">
-                                            {{ $order->status }}
-                                        </span>
-                                    </div>
-                                </div>
-                            </div>
-                            @endforeach
+    @if($orders->isNotEmpty())
+        <div class="space-y-6">
+            @foreach($orders as $order)
+                @php $firstItem = $order->items->first(); @endphp
+                <div class="group flex flex-col sm:flex-row gap-6 p-4 rounded-xl hover:bg-gray-50 transition-colors duration-300">
+                    <div class="w-24 h-28 flex-shrink-0 bg-gray-200 rounded-lg overflow-hidden">
+    @if($order->firstItem?->product?->image)
+        <img src="{{ asset('storage/products/' . $order->firstItem->product->image) }}"
+     class="w-full h-full object-cover object-top"
+     alt="{{ $order->firstItem->product->name ?? 'Product' }}">
+
+    @else
+        <img src="{{ asset('images/no-image.png') }}"
+             class="w-full h-full object-cover object-top" alt="No Image">
+    @endif
+</div>
+
+<!-- Nama produk juga diperbaiki -->
+<div class="ml-3 flex-1">
+    <p class="font-medium text-gray-900">
+        {{ $order->firstItem?->product?->name ?? 'Product' }}
+    </p>
+    <p class="text-sm text-gray-500">Placed on {{ $order->created_at->format('d M Y') }}</p>
+</div>
+                    <div class="flex-1 flex flex-col justify-center">
+                        <div class="flex justify-between items-start mb-1">
+                            <h3 class="font-semibold text-lg text-gray-900">{{ $firstItem->product->name ?? 'Product' }}</h3>
+                            <span class="text-sm font-medium text-gray-900">Rp {{ number_format($order->total_price, 0, ',', '.') }}</span>
                         </div>
-                    @else
-                        <div class="py-12 text-center bg-gray-50 rounded-xl">
-                            <p class="text-gray-500 mb-4">You haven't placed any orders yet.</p>
-                            <a href="{{ route('katalog') }}" class="inline-block bg-black text-white px-8 py-3 rounded-full text-sm font-bold uppercase tracking-wide hover:bg-gray-800 transition">
-                                Start Shopping
-                            </a>
+                        <p class="text-sm text-gray-500 mb-4">Placed on {{ $order->created_at->format('d M Y') }}</p>
+                        <div class="flex justify-between items-center">
+                            <span class="px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wide bg-gray-200 text-gray-700">
+                                {{ ucfirst($order->payment_status) }}
+                            </span>
                         </div>
-                    @endif
-                </section>
+                    </div>
+                </div>
+            @endforeach
+        </div>
+    @else
+        <div class="py-12 text-center bg-gray-50 rounded-xl">
+            <p class="text-gray-500 mb-4">You haven't placed any orders yet.</p>
+            <a href="{{ route('katalog') }}" class="inline-block bg-black text-white px-8 py-3 rounded-full text-sm font-bold uppercase tracking-wide hover:bg-gray-800 transition">
+                Start Shopping
+            </a>
+        </div>
+    @endif
+</section>
+
 
             </div>
         </div>

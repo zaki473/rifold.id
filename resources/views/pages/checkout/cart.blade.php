@@ -9,7 +9,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <style>
         body { font-family: 'Poppins', sans-serif; }
-        input[type=number]::-webkit-inner-spin-button, 
+        input[type=number]::-webkit-inner-spin-button,
         input[type=number]::-webkit-outer-spin-button { -webkit-appearance: none; margin: 0; }
     </style>
 </head>
@@ -19,15 +19,15 @@
     @include('components.navbar')
 
     <div class="container mx-auto px-4 md:px-6 py-10 max-w-6xl pt-28">
-        
+
         <!-- Header -->
         <div class="flex justify-between items-end mb-8">
             <div>
                 <h1 class="text-3xl font-bold text-gray-900">Keranjang Saya</h1>
                 <p class="text-gray-500 text-sm mt-1">{{ $cartItems->count() }} item di keranjangmu</p>
             </div>
-            <a href="{{ route('katalog') }}" class="hidden md:flex items-center text-sm font-medium text-gray-600 hover:text-black transition">
-                Lanjutkan Belanja 
+            <a href="{{ route('checkout.index') }}" class="hidden md:flex items-center text-sm font-medium text-gray-600 hover:text-black transition">
+                Lanjutkan Belanja
                 <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 ml-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3" />
                 </svg>
@@ -36,10 +36,10 @@
 
         @if($cartItems->count() > 0)
         <div class="grid grid-cols-1 lg:grid-cols-3 gap-8 items-start">
-            
+
             <!-- KOLOM UTAMA (DAFTAR PRODUK) -->
             <div class="lg:col-span-2 space-y-6">
-                
+
                 <div class="bg-white p-4 rounded-xl shadow-sm border border-gray-100 flex items-center">
                     <input type="checkbox" id="selectAll" class="w-5 h-5 accent-black cursor-pointer rounded border-gray-300">
                     <label for="selectAll" class="ml-3 text-sm font-medium text-gray-700 cursor-pointer select-none">Pilih Semua Produk</label>
@@ -47,12 +47,12 @@
 
                 <!-- LIST ITEM LOOPING -->
                 <div class="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden">
-                    
+
                     @foreach($cartItems as $item)
                     <div class="p-4 md:p-6 border-b border-gray-100 flex gap-4 md:gap-6 items-center last:border-0">
                         <!-- Checkbox -->
                         <input type="checkbox" class="item-check w-5 h-5 accent-black cursor-pointer rounded border-gray-300 flex-shrink-0">
-                        
+
                         <!-- Image -->
                         <div class="w-20 h-24 md:w-24 md:h-28 bg-gray-100 rounded-lg overflow-hidden flex-shrink-0">
                             @if(isset($item->product->images) && count($item->product->images) > 0)
@@ -71,7 +71,7 @@
                                         Warna: {{ $item->product->color ?? '-' }} | Size: {{ $item->size }}
                                     </p>
                                 </div>
-                                
+
                                 <!-- Remove Button -->
                                 <form action="{{ route('cart.destroy', $item->id) }}" method="POST">
                                     @csrf
@@ -86,7 +86,7 @@
                                 <div class="font-bold text-gray-900">
                                     Rp {{ number_format($item->product->price * $item->quantity, 0, ',', '.') }}
                                 </div>
-                                
+
                                 <!-- Quantity Control -->
                                 <div class="flex items-center border border-gray-300 rounded-lg h-8 md:h-9">
                                     {{-- Tombol Kurang --}}
@@ -117,7 +117,7 @@
             <div class="lg:col-span-1 hidden lg:block">
                 <div class="bg-white p-6 rounded-xl shadow-sm border border-gray-100 sticky top-24">
                     <h3 class="text-lg font-bold text-gray-900 mb-6">Ringkasan Pesanan</h3>
-                    
+
                     <div class="space-y-3 text-sm text-gray-600 mb-6">
                         <div class="flex justify-between">
                             <span>Subtotal ({{ $cartItems->sum('quantity') }} item)</span>
@@ -136,7 +136,7 @@
                         </div>
                     </div>
 
-                    <a href="{{ route('checkout') }}" class="block w-full bg-black text-white text-center font-bold py-3.5 rounded-xl hover:bg-gray-800 transition transform active:scale-[0.99] shadow-lg">
+                    <a href="{{ route('checkout.index') }}" class="block w-full bg-black text-white text-center font-bold py-3.5 rounded-xl hover:bg-gray-800 transition transform active:scale-[0.99] shadow-lg">
                         Lanjut ke Pembayaran
                     </a>
                 </div>
@@ -167,7 +167,7 @@
                 <span class="text-lg font-bold text-black">Rp {{ number_format($totalPrice ?? 0, 0, ',', '.') }}</span>
             </div>
             @if($cartItems->count() > 0)
-                <a href="{{ route('checkout') }}" class="bg-black text-white font-bold py-3 px-8 rounded-lg hover:bg-gray-800 transition text-sm">
+                <a href="{{ route('checkout.index') }}" class="bg-black text-white font-bold py-3 px-8 rounded-lg hover:bg-gray-800 transition text-sm">
                     Checkout ({{ $cartItems->sum('quantity') }})
                 </a>
             @endif
