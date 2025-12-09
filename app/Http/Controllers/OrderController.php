@@ -170,11 +170,15 @@ class OrderController extends Controller
 
 public function adminIndex()
     {
-        $orders = Order::with('user')
-            ->orderBy('created_at', 'desc')
-            ->paginate(10);
+        $orders = Order::with([
+        'user',
+        'items.product' => function ($query) {
+            $query->withTrashed(); // kalau product pakai soft delete
+        }
+    ])->orderBy('created_at', 'desc')
+      ->paginate(10);
 
-        return view('pages.admin.status_order', compact('orders'));
+    return view('pages.admin.status_order', compact('orders'));
     }
 
     public function updateStatus(Request $request, Order $order)
