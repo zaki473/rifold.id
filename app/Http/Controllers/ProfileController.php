@@ -12,25 +12,16 @@ class ProfileController extends Controller
 {
     // Menampilkan Halaman Profil
     public function index()
-{
-    $user = Auth::user();
+    {
+         $user = Auth::user();
 
-    $orders = Order::with(['items.product' => function ($query) {
-        $query->withTrashed(); // penting! biar product yang soft-deleted tetap muncul
-    }])
-    ->where('user_id', $user->id)
-    ->orderBy('created_at', 'desc')
-    ->get();
-
-    foreach ($orders as $order) {
-        // Cari item yang product-nya masih ada (atau pernah ada)
-        $firstItemWithProduct = $order->items->firstWhere('product', '!=', null);
-
-        $order->firstItem = $firstItemWithProduct ?? $order->items->first();
+        // Ambil order beserta item dan produknya
+        $orders = Order::where('user_id', Auth::id())
+            ->with('items.product') // Ini akan jalan kalau Model OrderItem sudah diperbaiki
+            ->latest()
+            ->get();
+        return view('pages.profile.profile', compact('user', 'orders'));
     }
-
-    return view('pages.profile.profile', compact('user', 'orders'));
-}
 
 
     // Menampilkan Halaman Edit

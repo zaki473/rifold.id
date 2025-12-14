@@ -5,7 +5,8 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
     <title>Rifold - Payment</title>
     <style>
         body {
@@ -99,14 +100,18 @@
                     <h2 class="text-xl font-bold mb-6">Ringkasan Pesanan</h2>
 
                     <div class="space-y-4 mb-6">
-                        @foreach ($cartItems as $item)
-                            <div class="flex justify-between">
+                        {{-- Kita ambil dari $order->items karena data sudah masuk ke tabel order --}}
+                        @foreach ($order->items as $item)
+                            <div class="flex justify-between items-center py-2 border-b border-gray-50 last:border-0">
                                 <div>
-                                    <p class="font-semibold">{{ $item->product->name }}</p>
+                                    {{-- Pastikan relasi product ada --}}
+                                    <p class="font-semibold text-gray-900">{{ $item->product->name ?? 'Produk dihapus' }}
+                                    </p>
                                     <p class="text-xs text-gray-500">Qty: {{ $item->quantity }}</p>
                                 </div>
-                                <p class="font-semibold">
-                                    Rp {{ number_format($item->product->price * $item->quantity, 0, ',', '.') }}
+                                <p class="font-semibold text-gray-900">
+                                    {{-- Di tabel order_items kita simpan harga di kolom 'price' --}}
+                                    Rp {{ number_format($item->price * $item->quantity, 0, ',', '.') }}
                                 </p>
                             </div>
                         @endforeach

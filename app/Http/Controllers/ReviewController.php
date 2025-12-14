@@ -32,15 +32,16 @@ class ReviewController extends Controller
             'comment' => $request->comment,
         ]);
 
-        return redirect()->back()->with('success', 'Review published successfully!');
+        return redirect()->route('detail', $request->product_id)
+            ->with('success', 'Review published successfully!');
     }
 
     public function create($id)
-{
-    // Ambil data produk berdasarkan ID agar fotonya muncul di form review
-    $product = Product::findOrFail($id);
-    
-    // Tampilkan halaman review yang baru kita buat
-    return view('pages.katalog.review', compact('product'));
-}
+    {
+        // Ambil data produk berdasarkan ID agar fotonya muncul di form review
+        $product = Product::findOrFail($id);
+
+        // Tampilkan halaman review yang baru kita buat
+        return view('pages.katalog.review', compact('product'));
+    }
 }

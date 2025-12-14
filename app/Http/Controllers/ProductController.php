@@ -63,9 +63,25 @@ class ProductController extends Controller
     }
 
     // --- FRONTEND ---
-    public function katalog()
+    public function katalog(Request $request)
     {
-        $products = Product::latest()->get();
+        // 1. Mulai Query Dasar
+        $query = Product::latest();
+
+        // 2. Jika ada search, filter datanya
+        if ($request->has('search') && $request->search != '') {
+            $search = $request->search;
+            
+            $query->where(function($q) use ($search) {
+                $q->where('name', 'LIKE', "%{$search}%")
+                  ->orWhere('category', 'LIKE', "%{$search}%")
+                  ->orWhere('description', 'LIKE', "%{$search}%");
+            });
+        }
+
+        // 3. Ambil hasil akhirnya
+        $products = $query->get();
+
         return view('pages.katalog.katalog', compact('products'));
     }
 

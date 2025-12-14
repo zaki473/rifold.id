@@ -43,18 +43,20 @@
             <!-- Ikon Kanan (Search, Cart, Profile) & Tombol Menu Mobile -->
             <div class="flex items-center space-x-4">
 
-                <!-- Search Bar Desktop -->
-                <div class="hidden md:block relative">
-                    <input type="text" placeholder="Search product.."
-                        class="bg-gray-100 rounded-full py-2 pl-10 pr-4 w-56 focus:outline-none focus:ring-2 focus:ring-gray-400 focus:bg-white transition-all duration-300 ease-in-out">
-                    <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                        <svg class="w-5 h-5 text-gray-500" xmlns="http://www.w3.org/2000/svg" fill="none"
-                            viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
-                            <path stroke-linecap="round" stroke-linejoin="round"
-                                d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z" />
+                <!-- SEARCH BAR -->
+                <form action="{{ route('katalog') }}" method="GET" class="relative hidden md:block">
+                    <button type="submit"
+                        class="absolute inset-y-0 left-0 pl-3 flex items-center cursor-pointer text-gray-500 hover:text-black">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24"
+                            stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
                         </svg>
-                    </div>
-                </div>
+                    </button>
+                    <input type="text" name="search" value="{{ request('search') }}" placeholder="Search product..."
+                        class="pl-10 pr-4 py-2 border border-gray-300 rounded-full text-sm focus:outline-none focus:border-black focus:ring-1 focus:ring-black w-64 transition-all"
+                        autocomplete="off">
+                </form>
 
                 <!-- Ikon Search Mobile -->
                 <button id="search-toggle-mobile"
@@ -67,30 +69,32 @@
                 </button>
 
                 @auth
-                <!-- Cart (Hanya muncul jika login) -->
-                <a href="{{ route('cart') }}" class="relative group p-2">
-                    <svg class="w-6 h-6 text-gray-700 group-hover:text-black transition-colors duration-300"
-                        xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
-                        stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round"
-                            d="M2.25 3h1.386c.51 0 .955.343 1.087.835l.383 1.437M7.5 14.25a3 3 0 00-3 3h15.75m-12.75-3h11.218c.51 0 .962-.343 1.087-.835l1.823-6.831a.75.75 0 00-.678-.915H5.617m-1.386-2.25L5.617 5.25m0 0L6 7.5h12l-1.823-6.75H5.617zM6 18.75a.75.75 0 11-1.5 0 .75.75 0 011.5 0zm12.75 0a.75.75 0 11-1.5 0 .75.75 0 011.5 0z" />
-                    </svg>
-                </a>
+                    <!-- Cart (Hanya muncul jika login) -->
+                    <a href="{{ route('cart') }}" class="relative group p-2">
+                        <svg class="w-6 h-6 text-gray-700 group-hover:text-black transition-colors duration-300"
+                            xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                            stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round"
+                                d="M2.25 3h1.386c.51 0 .955.343 1.087.835l.383 1.437M7.5 14.25a3 3 0 00-3 3h15.75m-12.75-3h11.218c.51 0 .962-.343 1.087-.835l1.823-6.831a.75.75 0 00-.678-.915H5.617m-1.386-2.25L5.617 5.25m0 0L6 7.5h12l-1.823-6.75H5.617zM6 18.75a.75.75 0 11-1.5 0 .75.75 0 011.5 0zm12.75 0a.75.75 0 11-1.5 0 .75.75 0 011.5 0z" />
+                        </svg>
+                    </a>
                 @endauth
 
                 <!-- START: Logic Profile / Login Button (Desktop) -->
                 <div class="hidden sm:block">
                     @auth
                         <!-- KONDISI: SUDAH LOGIN -->
-                        <a href="{{ route('profile.index') }}" class="flex items-center justify-center p-1 focus:outline-none group" title="My Profile">
+                        <a href="{{ route('profile.index') }}"
+                            class="flex items-center justify-center p-1 focus:outline-none group" title="My Profile">
                             @if(Auth::user()->profile_photo_path)
                                 <!-- Opsi 1: Jika ada foto profil -->
                                 <img src="{{ asset('storage/' . Auth::user()->profile_photo_path) }}"
-                                     alt="{{ Auth::user()->name }}"
-                                     class="w-8 h-8 rounded-full object-cover border border-gray-300 group-hover:border-black transition-all duration-300">
+                                    alt="{{ Auth::user()->name }}"
+                                    class="w-8 h-8 rounded-full object-cover border border-gray-300 group-hover:border-black transition-all duration-300">
                             @else
                                 <!-- Opsi 2: Jika tidak ada foto (Tampilkan Inisial) -->
-                                <div class="w-8 h-8 rounded-full bg-gray-100 border border-gray-300 flex items-center justify-center text-sm font-bold text-gray-700 group-hover:bg-black group-hover:text-white transition-all duration-300">
+                                <div
+                                    class="w-8 h-8 rounded-full bg-gray-100 border border-gray-300 flex items-center justify-center text-sm font-bold text-gray-700 group-hover:bg-black group-hover:text-white transition-all duration-300">
                                     {{-- Ambil huruf pertama dari nama user --}}
                                     {{ strtoupper(substr(Auth::user()->name, 0, 1)) }}
                                 </div>
@@ -139,8 +143,8 @@
             <input type="text" placeholder="Cari produk..."
                 class="bg-gray-100 rounded-full py-2 pl-10 pr-4 w-full focus:outline-none focus:ring-2 focus:ring-gray-400 focus:bg-white transition-all duration-300 ease-in-out">
             <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                <svg class="w-5 h-5 text-gray-500" xmlns="http://www.w3.org/2000/svg" fill="none"
-                    viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                <svg class="w-5 h-5 text-gray-500" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                    stroke-width="1.5" stroke="currentColor">
                     <path stroke-linecap="round" stroke-linejoin="round"
                         d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z" />
                 </svg>
@@ -166,20 +170,25 @@
                 <div class="border-t border-gray-200 mt-2 pt-2">
                     <div class="px-3 py-2 flex items-center">
                         @if(Auth::user()->profile_photo_path)
-                             <img src="{{ asset('storage/' . Auth::user()->profile_photo_path) }}" alt="" class="h-8 w-8 rounded-full object-cover mr-2">
+                            <img src="{{ asset('storage/' . Auth::user()->profile_photo_path) }}" alt=""
+                                class="h-8 w-8 rounded-full object-cover mr-2">
                         @else
-                             <div class="h-8 w-8 rounded-full bg-gray-200 flex items-center justify-center text-xs font-bold mr-2 text-gray-700">
+                            <div
+                                class="h-8 w-8 rounded-full bg-gray-200 flex items-center justify-center text-xs font-bold mr-2 text-gray-700">
                                 {{ strtoupper(substr(Auth::user()->name, 0, 1)) }}
-                             </div>
+                            </div>
                         @endif
                         <span class="font-medium text-gray-800">Hi, {{ Auth::user()->name }}</span>
                     </div>
-                    <a href="{{ route('profile.edit') }}" class="text-gray-700 hover:bg-gray-200 hover:text-black block px-3 py-2 rounded-md text-base font-medium">My Profile</a>
+                    <a href="{{ route('profile.edit') }}"
+                        class="text-gray-700 hover:bg-gray-200 hover:text-black block px-3 py-2 rounded-md text-base font-medium">My
+                        Profile</a>
 
                     <!-- Form Logout -->
                     <form method="POST" action="{{ route('logout') }}" class="block">
                         @csrf
-                        <button type="submit" class="w-full text-left text-red-600 hover:bg-red-50 block px-3 py-2 rounded-md text-base font-medium">
+                        <button type="submit"
+                            class="w-full text-left text-red-600 hover:bg-red-50 block px-3 py-2 rounded-md text-base font-medium">
                             Logout
                         </button>
                     </form>
@@ -196,7 +205,7 @@
 
 <!-- JavaScript -->
 <script>
-    document.addEventListener('DOMContentLoaded', function() {
+    document.addEventListener('DOMContentLoaded', function () {
         const mobileMenuButton = document.getElementById('mobile-menu-button');
         const mobileMenu = document.getElementById('mobile-menu');
         const iconOpen = document.getElementById('icon-open');
