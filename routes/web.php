@@ -9,10 +9,11 @@ use App\Http\Controllers\MixAndMatchController;
 use App\Http\Controllers\ImagesController;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\ReviewController;
-use App\Http\Controllers\ProfileController; // Pastikan ini ada
+use App\Http\Controllers\ProfileController; 
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\CheckoutController;
 use App\Http\Controllers\PaymentController;
+use App\Http\Controllers\HomeController;
 /*
 |--------------------------------------------------------------------------
 | Public Routes
@@ -209,3 +210,6 @@ Route::middleware('auth')->group(function () {
     Route::get('/katalog/{id}/review', [ReviewController::class, 'create'])->name('reviews.create');
     Route::post('/reviews/store', [ReviewController::class, 'store'])->name('reviews.store');
 });
+
+Route::get('/', [HomeController::class, 'index'])->name('home');
+Route::get('/bestseller', [HomeController::class, 'bestseller'])->name('bestseller');

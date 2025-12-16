@@ -9,21 +9,18 @@ return new class extends Migration
     /**
      * Run the migrations.
      */
-    public function up(): void
-    {
-        Schema::create('images_thumbnail', function (Blueprint $table) {
-            $table->id();
-            $table->string('name');
-            $table->string('images_path');
-            $table->timestamps();
-        });
-    }
+   public function up(): void
+{
+    Schema::create('content_images', function (Blueprint $table) {
+        $table->id();
+        $table->string('name')->nullable(); // Nama gambar
+        $table->string('image_path');       // Path gambar
+        $table->timestamps();
+    });
+}
 
-    /**
-     * Reverse the migrations.
-     */
-    public function down(): void
-    {
-        Schema::dropIfExists('images_thumbnail');
-    }
+public function down(): void
+{
+    Schema::dropIfExists('content_images');
+}
 };

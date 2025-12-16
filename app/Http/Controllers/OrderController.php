@@ -17,11 +17,11 @@ class OrderController extends Controller
     public function index()
     {
         $orders = Order::with('items.product') // ✅ ini yang penting
-        ->where('user_id', Auth::id())
-        ->latest()
-        ->get();
+            ->where('user_id', Auth::id())
+            ->latest()
+            ->get();
 
-    return view('pages.profile.profile', compact('orders'));
+        return view('pages.profile.profile', compact('orders'));
     }
 
     /**
@@ -38,14 +38,14 @@ class OrderController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'customer_name'   => 'required|string',
-            'email'           => 'required|email',
-            'phone'           => 'required',
-            'address'         => 'required',
+            'customer_name' => 'required|string',
+            'email' => 'required|email',
+            'phone' => 'required',
+            'address' => 'required',
             'shipping_method' => 'required',
-            'shipping_cost'   => 'required|numeric',
+            'shipping_cost' => 'required|numeric',
             'payment_method' => 'required|in:transfer,qris,cod',
-            'payment_proof'  => 'nullable|image|mimes:jpg,jpeg,png|max:2048',
+            'payment_proof' => 'nullable|image|mimes:jpg,jpeg,png|max:2048',
         ]);
 
         $userId = Auth::id();
@@ -78,20 +78,20 @@ class OrderController extends Controller
         // SIMPAN KE TABEL ORDERS
         // ================================
         $order = Order::create([
-            'user_id'         => $userId,
-            'order_number'   => 'INV-' . strtoupper(Str::random(8)),
-            'customer_name'  => $request->customer_name,
-            'email'          => $request->email,
-            'phone'          => $request->phone,
-            'address'        => $request->address,
-            'shipping_method'=> $request->shipping_method,
-            'shipping_cost'  => $request->shipping_cost,
-            'payment_method'=> $request->payment_method,
+            'user_id' => $userId,
+            'order_number' => 'INV-' . strtoupper(Str::random(8)),
+            'customer_name' => $request->customer_name,
+            'email' => $request->email,
+            'phone' => $request->phone,
+            'address' => $request->address,
+            'shipping_method' => $request->shipping_method,
+            'shipping_cost' => $request->shipping_cost,
+            'payment_method' => $request->payment_method,
             'payment_proof' => $paymentProofPath,
-            'payment_status'=> $request->payment_method == 'cod' ? 'unpaid' : 'paid',
-            'subtotal'       => $subtotal,
-            'total_price'    => $total,
-            'status'         => 'pending',
+            'payment_status' => $request->payment_method == 'cod' ? 'unpaid' : 'paid',
+            'subtotal' => $subtotal,
+            'total_price' => $total,
+            'status' => 'pending',
         ]);
 
         // ================================
@@ -99,11 +99,11 @@ class OrderController extends Controller
         // ================================
         foreach ($carts as $cart) {
             OrderItem::create([
-                'order_id'   => $order->id,
-                'product_id'=> $cart->product_id,
-                'qty'        => $cart->qty,
-                'price'      => $cart->product->price,
-                'subtotal'   => $cart->qty * $cart->product->price,
+                'order_id' => $order->id,
+                'product_id' => $cart->product_id,
+                'qty' => $cart->qty,
+                'price' => $cart->product->price,
+                'subtotal' => $cart->qty * $cart->product->price,
             ]);
         }
 
@@ -148,51 +148,50 @@ class OrderController extends Controller
 
 
     public function saveInformation(Request $request)
-{
-    $request->validate([
-        'nama'    => 'required|string',
-        'email'   => 'required|email',
-        'telepon' => 'required',
-        'alamat'  => 'required',
-    ]);
+    {
+        $request->validate([
+            'nama' => 'required|string',
+            'email' => 'required|email',
+            'telepon' => 'required',
+            'alamat' => 'required',
+        ]);
 
-    // Simpan ke session
-    session([
-        'checkout.customer_name' => $request->nama,
-        'checkout.email'         => $request->email,
-        'checkout.phone'         => $request->telepon,
-        'checkout.address'      => $request->alamat,
-    ]);
+        // Simpan ke session
+        session([
+            'checkout.customer_name' => $request->nama,
+            'checkout.email' => $request->email,
+            'checkout.phone' => $request->telepon,
+            'checkout.address' => $request->alamat,
+        ]);
 
-    // Redirect ke halaman shipping
-    return redirect()->route('checkout.shipping.view');
-}
+        // Redirect ke halaman shipping
+        return redirect()->route('checkout.shipping.view');
+    }
 
-public function adminIndex()
+    public function adminIndex()
     {
         $orders = Order::with([
-        'user',
-        'items.product' => function ($query) {
-            $query->withTrashed(); // kalau product pakai soft delete
-        }
-    ])->orderBy('created_at', 'desc')
-      ->paginate(10);
+            'user',
+            'items.product' => function ($query) {
+            }
+        ])->orderBy('created_at', 'desc')
+            ->paginate(10);
 
-    return view('pages.admin.status_order', compact('orders'));
+        return view('pages.admin.status_order', compact('orders'));
     }
 
     public function updateStatus(Request $request, Order $order)
-{
-    $request->validate([
-        'status' => 'required|in:pending,paid,processed,shipped,delivered,cancelled'
-    ]);
+    {
+        $request->validate([
+            'status' => 'required|in:pending,paid,processed,shipped,delivered,cancelled'
+        ]);
 
-    $order->update([
-        'status' => $request->status,
-    ]);
+        $order->update([
+            'status' => $request->status,
+        ]);
 
-    return back()->with('success', 'Status pesanan berhasil diperbarui');
-}
+        return back()->with('success', 'Status pesanan berhasil diperbarui');
+    }
 
 
 
