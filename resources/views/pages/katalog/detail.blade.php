@@ -106,17 +106,18 @@
                             <span class="inline-block px-3 py-1 bg-gray-100 text-gray-500 rounded-md text-xs font-semibold tracking-widest uppercase mb-3">{{ $product->category }}</span>
                             <h1 class="text-3xl md:text-4xl font-bold text-gray-900 leading-tight mb-2">{{ $product->name }}</h1>
 
-                            <div class="flex items-center gap-2 mb-4">
-                                <div class="flex text-yellow-400 text-sm">
-                                    @for($i = 1; $i <= 5; $i++)
-                                        @if($i <= round($avgRating)) <i class="fa-solid fa-star"></i>
-                                        @else <i class="fa-regular fa-star text-gray-300"></i> @endif
-                                    @endfor
-                                </div>
-                                <a href="#reviews" class="text-sm text-gray-500 hover:text-black underline decoration-1 underline-offset-2">
-                                    {{ $roundedRating }} ({{ $totalReviews }} Reviews)
-                                </a>
+                        {{-- RATING --}}
+                        <div class="flex items-center gap-2 mb-4">
+                            <div class="flex text-yellow-400 text-sm">
+                                @for($i = 1; $i <= 5; $i++)
+                                    @if($i <= round($avgRating)) <i class="fa-solid fa-star"></i>
+                                    @else <i class="fa-regular fa-star text-gray-300"></i> @endif
+                                @endfor
                             </div>
+                            <a href="#reviews" class="text-sm text-gray-500 hover:text-black underline decoration-1 underline-offset-2">
+                                {{ $roundedRating }} ({{ $totalReviews }} Reviews)
+                            </a>
+                        </div>
 
                             <p class="text-2xl font-semibold text-gray-900">Rp {{ number_format($product->price, 0, ',', '.') }}</p>
                         </div>
@@ -128,7 +129,7 @@
                             <p class="text-sm font-medium text-gray-900 mb-2 uppercase tracking-wide">Color</p>
                             <div class="flex items-center gap-3">
                                 <div class="w-8 h-8 rounded-full ring-2 ring-offset-2 ring-gray-200 shadow-sm"
-                                    style="{{ 'background-color: ' . ($product->color ?? '#000000') }}"></div>
+                                    style="background-color: {{ $product->color ?? '#000000' }}"></div>
                                 <span class="text-sm text-gray-500 uppercase">{{ $product->color ?? 'No Color' }}</span>
                             </div>
                         </div>

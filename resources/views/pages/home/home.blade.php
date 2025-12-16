@@ -5,37 +5,58 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src="https://cdn.tailwindcss.com"></script>
+    {{-- FontAwesome untuk Icon Panah --}}
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
     <title>Rifold</title>
+    <style>
+        /* Sembunyikan Scrollbar tapi tetap bisa scroll */
+        .scrollbar-hide::-webkit-scrollbar { display: none; }
+        .scrollbar-hide { -ms-overflow-style: none; scrollbar-width: none; }
+    </style>
 </head>
 
 <body class="bg-[#FBF7F4] text-[#333333]">
 
     @include('components.navbar')
 
+    {{-- ========================================== --}}
+    {{-- 1. HERO SECTION (BANNER DINAMIS) --}}
+    {{-- ========================================== --}}
     <section class="relative w-full">
-        <!-- Gambar -->
-        <img src="{{ asset('images/thumbnail.png') }}" alt="thumbnail" class="w-full h-auto object-cover">
+        
+        {{-- LOGIKA GAMBAR: Cek apakah ada upload dari Admin? --}}
+        @if(isset($latestBanner) && $latestBanner)
+            {{-- Jika ADA, pakai gambar dari database --}}
+            <img src="{{ asset('storage/' . $latestBanner->image_path) }}" 
+                 alt="{{ $latestBanner->name ?? 'Hero Banner' }}" 
+                 class="w-full h-auto object-cover min-h-[500px]">
+        @else
+            {{-- Jika TIDAK ADA, pakai gambar default (thumbnail.png) --}}
+            <img src="{{ asset('images/thumbnail.png') }}" 
+                 alt="Default Banner" 
+                 class="w-full h-auto object-cover min-h-[500px]">
+        @endif
 
-        <div class="absolute inset-0 bg-black bg-opacity-60"></div>
+        {{-- Overlay Gelap --}}
+        <div class="absolute inset-0 bg-black bg-opacity-40"></div>
 
+        {{-- Teks di Tengah --}}
         <div class="absolute inset-0 flex items-center justify-center">
-            <div class="flex flex-col items-center text-center space-y-4">
-
-                <h1 class="text-white text-5xl md:text-7xl font-extrabold drop-shadow-xl">
+            <div class="flex flex-col items-center text-center space-y-4 px-4">
+                <h1 class="text-white text-5xl md:text-7xl font-extrabold drop-shadow-xl tracking-tight">
                     FOR THE STORIES AHEAD
                 </h1>
-
-                <p class="text-white text-lg md:text-4xl font-light drop-shadow-md">
+                <p class="text-white text-lg md:text-3xl font-light drop-shadow-md tracking-wide">
                     explore your everyday story with RIFOLD
                 </p>
-
             </div>
         </div>
-
     </section>
 
-
-    <section class="max-w-7xl mx-auto px-4 py-12">
+    {{-- ========================================== --}}
+    {{-- 2. GRID SECTION (STATIC) --}}
+    {{-- ========================================== --}}
+    <section class="max-w-7xl mx-auto px-4 py-16">
         <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-9">
             <div class="group overflow-hidden rounded-lg shadow-lg">
                 <img src="{{ asset('images/kiri.png') }}" alt="Kiri"
@@ -54,38 +75,39 @@
         </div>
     </section>
 
-    <section class="about max-w-7xl mx-auto px-4 py-12 flex flex-col md:flex-row items-start justify-between gap-8">
-
+    {{-- ========================================== --}}
+    {{-- 3. ABOUT SECTION --}}
+    {{-- ========================================== --}}
+    <section class="about max-w-7xl mx-auto px-4 py-12 flex flex-col md:flex-row items-start justify-between gap-12">
         <div class="md:w-1/2 flex flex-col justify-between">
-            <h1 class="text-4xl md:text-8xl font-extrabold leading-tight">
+            <h1 class="text-5xl md:text-8xl font-extrabold leading-tight tracking-tighter text-black">
                 FOR <br> THE <br> STORIES <br> AHEAD
             </h1>
 
-            <h1 class="text-lg md:text-2xl mt-6 leading-relaxed">
-                Dari kota kecil, kami belajar arti kedekatan.
-                <br> Dari setiap produk, kami berusaha menghadirkan ketenangan.
-                <br> Dan dari setiap pelanggan, kami percaya:
-                cerita terbaik masih menunggu di depan sana.
-                <br><br>
-                Rifold — For The Stories Ahead.
-            </h1>
+            <div class="text-lg md:text-xl mt-8 leading-relaxed text-gray-700 font-medium text-justify">
+                <p>
+                    Dari kota kecil, kami belajar arti kedekatan.
+                    Dari setiap produk, kami berusaha menghadirkan ketenangan.
+                    Dan dari setiap pelanggan, kami percaya:
+                    cerita terbaik masih menunggu di depan sana.
+                </p>
+                <p class="mt-4 font-bold text-black">Rifold — For The Stories Ahead.</p>
+            </div>
         </div>
 
-        <div class="group overflow-hidden rounded-lg shadow-lg">
+        <div class="md:w-1/2 group overflow-hidden rounded-lg shadow-xl">
             <img src="{{ asset('images/poloovercool.png') }}" alt="about"
-                class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500 ease-in-out">
+                class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 ease-in-out">
         </div>
-
     </section>
 
-
- {{-- ========================================== --}}
-    {{-- 2. BEST SELLER SECTION (HEADER RIGHT + THIN ARROW) --}}
     {{-- ========================================== --}}
-    <section class="py-24 bg-white">
+    {{-- 4. BEST SELLER SECTION (DINAMIS) --}}
+    {{-- ========================================== --}}
+    <section class="py-24 bg-white mt-12">
         <div class="max-w-7xl mx-auto px-6 lg:px-12">
             
-            {{-- HEADER: JUDUL KIRI, VIEW ALL KANAN --}}
+            {{-- HEADER --}}
             <div class="flex flex-col md:flex-row justify-between items-end mb-10 gap-4">
                 <div class="space-y-1">
                     <h2 class="text-4xl md:text-5xl font-black text-black tracking-tight uppercase">
@@ -94,10 +116,9 @@
                     <p class="text-gray-500 font-medium">Top trending products this week</p>
                 </div>
                 
-                {{-- TOMBOL VIEW ALL (AESTHETIC THIN ARROW) --}}
+                {{-- TOMBOL VIEW ALL --}}
                 <a href="{{ route('bestseller') }}" class="group flex items-center gap-3 text-sm font-medium text-gray-900 hover:text-gray-600 transition-colors pb-1">
                     View All
-                    {{-- SVG Panah Tipis Panjang --}}
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5 transform group-hover:translate-x-1 transition-transform duration-300">
                         <path stroke-linecap="round" stroke-linejoin="round" d="M17.25 8.25 21 12m0 0-3.75 3.75M21 12H3" />
                     </svg>
@@ -116,7 +137,6 @@
                 <div id="bestSellerContainer" class="flex gap-6 overflow-x-auto pb-8 scrollbar-hide scroll-smooth snap-x">
                     
                     @foreach($bestSellers as $index => $product)
-                    {{-- CARD PRODUK --}}
                     <a href="{{ route('detail', $product->id) }}" class="min-w-[260px] w-[260px] snap-center group/card block cursor-pointer">
                         
                         {{-- Image Wrapper --}}
@@ -129,7 +149,7 @@
                                 <img src="https://via.placeholder.com/400" class="w-full h-full object-cover">
                             @endif
 
-                            {{-- Ranking Badge --}}
+                            {{-- Ranking Badge (Hanya untuk Real Best Seller) --}}
                             @if(isset($product->total_sold))
                                 <div class="absolute top-3 left-3 bg-[#D32F2F] text-white text-[10px] font-extrabold px-3 py-1 rounded-full shadow-sm tracking-wider">
                                     HOT #{{ $index + 1 }}
@@ -171,10 +191,20 @@
 
         </div>
     </section>
-    <!-- END BEST SELLER SECTION -->
 
     @include('components.footer')
 
-</body>
+    {{-- SCRIPT SCROLL BEST SELLER --}}
+    <script>
+        const container = document.getElementById('bestSellerContainer');
+        const leftBtn = document.getElementById('scrollLeft');
+        const rightBtn = document.getElementById('scrollRight');
 
+        if(container && leftBtn && rightBtn) {
+            leftBtn.onclick = () => { container.scrollBy({ left: -280, behavior: 'smooth' }); };
+            rightBtn.onclick = () => { container.scrollBy({ left: 280, behavior: 'smooth' }); };
+        }
+    </script>
+
+</body>
 </html>

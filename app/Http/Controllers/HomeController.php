@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Product;
 use Illuminate\Support\Facades\DB;
+use App\Models\ContentImage;
 
 class HomeController extends Controller
 {
@@ -12,7 +13,7 @@ class HomeController extends Controller
      * HALAMAN UTAMA (HOME)
      * Menampilkan 5 produk di carousel (Campuran Best Seller + Dummy)
      */
-    public function index()
+   public function index()
     {
         // 1. Ambil Best Seller ASLI (Berdasarkan penjualan)
         $bestSellers = Product::select('products.*', DB::raw('SUM(order_items.quantity) as total_sold'))
@@ -25,29 +26,30 @@ class HomeController extends Controller
             ->get();
 
         // 2. LOGIK DUMMY FILLER
-        // Jika hasil best seller kurang dari 5 (misal cuma 2), kita isi sisanya dengan produk biasa
+        // Jika hasil best seller kurang dari 5, isi sisanya dengan produk biasa
         if ($bestSellers->count() < 5) {
-            // Ambil ID yang sudah ada di best seller biar ga dobel
             $existingIds = $bestSellers->pluck('id')->toArray();
             
-            // Hitung butuh berapa lagi
             $needed = 5 - $bestSellers->count();
 
-            // Ambil produk tambahan
             $fillers = Product::whereNotIn('id', $existingIds)
-                ->inRandomOrder() // Atau latest() kalau mau yang terbaru
+                ->inRandomOrder()
                 ->take($needed)
                 ->get();
 
-            // Gabungkan: Best Seller ditaruh di depan, Filler di belakang
             $bestSellers = $bestSellers->merge($fillers);
-
-            
         }
 
-        return view('pages.home.home', compact('bestSellers'));
-    }
+        // ==========================================
+        // 3. LOGIKA BANNER IMAGE (DITARUH DI LUAR IF)
+        // ==========================================
+        // Kita ambil 1 gambar terbaru (first) karena di Home cuma ada 1 slot Hero Image
+        // Saya namakan $latestBanner agar sesuai dengan view home.blade.php yang kita buat sebelumnya
+        $latestBanner = ContentImage::latest()->first();
 
+        // 4. KIRIM KE VIEW
+        return view('pages.home.home', compact('bestSellers', 'latestBanner'));
+    }
     /**
      * HALAMAN FULL BEST SELLER (VIEW ALL)
      * Menampilkan semua produk urut penjualan terbanyak

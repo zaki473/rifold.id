@@ -3,103 +3,117 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Rifold Dashboard Admin - Add Images Home</title>
-    <link href="https://unpkg.com/tailwindcss@^2/dist/tailwind.min.css" rel="stylesheet">
-    <style>
-        body {
-            background-color: #f4f7f6;
-        }
-    </style>
+    <title>Add Content Image - Rifold Admin</title>
+    <script src="https://cdn.tailwindcss.com"></script>
 </head>
-<body class="flex bg-gray-100">
+<body class="bg-gray-50 text-gray-800">
+
     @include('components.sidebar')
 
-    {{-- Main Content --}}
-    <main class="flex-1 ml-64">
+    <main class="ml-64 transition-all duration-300">
         @include('components.header_admin')
+
         <div class="p-8">
-            <h2 class="text-2xl font-semibold mb-4">Add images</h2>
+            <h2 class="text-2xl font-bold mb-6 text-gray-900">Add New Banner</h2>
+            
+            <div class="bg-white rounded-xl shadow-sm border border-gray-100 p-8">
 
-            {{-- Menampilkan Error Validasi (Jika ada) --}}
-            @if ($errors->any())
-                <div class="mb-4 bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded">
-                    <ul class="list-disc pl-5">
-                        @foreach ($errors->all() as $error)
-                            <li>{{ $error }}</li>
-                        @endforeach
-                    </ul>
-                </div>
-            @endif
-
-            <div class="bg-white rounded-lg shadow p-6">
-                <h3 class="text-xl font-semibold mb-4 border-b pb-4">Add images</h3>
-
-                {{-- Form Start --}}
-                {{-- PERBAIKAN 1: Tambahkan Action Route --}}
                 <form action="{{ route('images.store') }}" method="POST" enctype="multipart/form-data">
                     @csrf
 
-                    {{-- PERBAIKAN 2: Tambahkan Input Nama (Wajib untuk Database) --}}
-                    <div class="mb-6">
-                        <label for="images_name" class="block text-sm font-medium text-gray-700 mb-2">Images name</label>
-                        <input type="text" name="images_name" id="images_name" placeholder="e.g. Summer Casual Outfit"
-                               class="w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500" required>
-                    </div>
-
-                    {{-- Images Upload Area --}}
-                    <div class="mt-6">
-                        <label class="block text-sm font-medium text-gray-700">Images (Thumbnail)</label>
-                        <div class="mt-1 flex justify-center px-6 pt-10 pb-10 border-2 border-gray-300 border-dashed rounded-md hover:bg-gray-50 transition-colors relative">
-                            <div class="space-y-1 text-center">
-                                <div class="mx-auto h-12 w-12 text-gray-400 bg-gray-100 rounded-full flex items-center justify-center">
-                                    <svg class="h-6 w-6" stroke="currentColor" fill="none" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16a4 4 0 01-4-4V7a4 4 0 014-4h5l5 5v11a4 4 0 01-4 4H7z"></path>
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 11v6m0 0l-3-3m3 3l3-3"></path>
-                                        <path d="M12 11V6.5M12 6.5L9.5 9M12 6.5L14.5 9" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" transform="rotate(180 12 8.75) scale(1, -1) translate(0, -5)"></path>
-                                        <path d="M12 11V6.5M12 6.5L9.5 9M12 6.5L14.5 9" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" transform="scale(1, 1) translate(0, 5)"></path>
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1"></path>
-                                    </svg>
-                                </div>
-                                <div class="flex text-sm text-gray-600 justify-center">
-                                    <label for="file-upload" class="relative cursor-pointer bg-white rounded-md font-medium text-black hover:text-indigo-500 focus-within:outline-none">
-                                        <span class="font-bold">Click to upload</span>
-                                        {{-- PERBAIKAN 3: Ubah name menjadi images[] sesuai controller --}}
-                                        <input id="file-upload" name="images[]" type="file" class="sr-only" multiple onchange="showFileNames(this)">
-                                    </label>
-                                    <p class="pl-1">or drag and drop</p>
-                                </div>
-                                <p class="text-xs text-gray-500">PNG, JPEG and JPG.</p>
-                                {{-- Area untuk menampilkan nama file yang dipilih --}}
-                                <p id="file-list" class="text-sm text-indigo-600 mt-2 font-semibold"></p>
+                    <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+                        
+                        {{-- KOLOM KIRI: FORM INPUT --}}
+                        <div class="lg:col-span-1 space-y-6">
+                            
+                            {{-- Input Name --}}
+                            <div>
+                                <label class="block text-sm font-semibold text-gray-700 mb-2">Image Title / Name</label>
+                                <input type="text" name="images_name" 
+                                       class="w-full border border-gray-300 rounded-lg px-4 py-2.5 focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 outline-none transition"
+                                       placeholder="e.g. Hero Banner 1" required>
+                                <p class="text-xs text-gray-500 mt-2">Nama ini digunakan untuk identifikasi gambar di list admin.</p>
                             </div>
+
+                            {{-- Info Banner --}}
+                            <div class="bg-blue-50 border border-blue-200 rounded-lg p-4">
+                                <h4 class="text-sm font-bold text-blue-800 mb-1">Tips Ukuran Gambar</h4>
+                                <p class="text-xs text-blue-600 leading-relaxed">
+                                    Agar tampilan Home maksimal, gunakan gambar dengan rasio <strong>Landscape (16:9)</strong> atau <strong>Portrait (4:5)</strong> dengan kualitas tinggi (HD).
+                                </p>
+                            </div>
+
                         </div>
+
+                        {{-- KOLOM KANAN: UPLOAD & PREVIEW --}}
+                        <div class="lg:col-span-2">
+                            <label class="block text-sm font-semibold text-gray-700 mb-2">Upload Image</label>
+                            
+                            {{-- Area Upload --}}
+                            <div class="relative w-full h-80 border-2 border-dashed border-gray-300 rounded-xl hover:bg-gray-50 transition flex flex-col justify-center items-center cursor-pointer overflow-hidden group"
+                                 onclick="document.getElementById('imageInput').click()">
+                                
+                                {{-- Preview Image (Awalnya Hidden) --}}
+                                <img id="preview" class="hidden absolute inset-0 w-full h-full object-cover rounded-xl z-10">
+
+                                {{-- Placeholder Icon & Text --}}
+                                <div id="placeholder" class="text-center p-6">
+                                    <div class="w-16 h-16 bg-indigo-50 text-indigo-500 rounded-full flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition">
+                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                                        </svg>
+                                    </div>
+                                    <p class="text-sm font-medium text-gray-900">Click to upload image</p>
+                                    <p class="text-xs text-gray-500 mt-1">PNG, JPG, WEBP up to 2MB</p>
+                                </div>
+
+                                {{-- Overlay saat ada gambar (Tombol Ganti) --}}
+                                <div id="overlay" class="hidden absolute inset-0 bg-black/50 z-20 flex items-center justify-center opacity-0 group-hover:opacity-100 transition">
+                                    <p class="text-white font-semibold">Click to change image</p>
+                                </div>
+                            </div>
+
+                            {{-- Input File Hidden --}}
+                            <input type="file" name="image" id="imageInput" class="hidden" accept="image/*" onchange="previewImage(event)">
+                        </div>
+
                     </div>
 
-                    {{-- Submit Button --}}
-                    <div class="mt-8 flex justify-end">
-                        <button type="submit" class="bg-gray-800 text-white font-semibold py-2 px-6 rounded-md hover:bg-gray-900 transition-colors">
-                            Publish Product
+                    {{-- Footer Buttons --}}
+                    <div class="mt-8 pt-6 border-t border-gray-100 flex justify-end gap-3">
+                        <a href="{{ route('images.index') }}" class="bg-gray-500 text-white font-semibold py-2.5 px-6 rounded-lg hover:bg-gray-600 transition">
+                            Cancel
+                        </a>
+                        <button type="submit" class="bg-indigo-600 text-white font-semibold py-2.5 px-6 rounded-lg hover:bg-indigo-700 transition shadow-lg shadow-indigo-200">
+                            Save Banner
                         </button>
                     </div>
+
                 </form>
-                {{-- Form End --}}
 
             </div>
         </div>
     </main>
 
-    {{-- Script Sedikit untuk Menampilkan Nama File setelah dipilih --}}
+    {{-- Script untuk Preview Gambar --}}
     <script>
-        function showFileNames(input) {
-            const fileList = document.getElementById('file-list');
-            if (input.files.length > 0) {
-                let names = [];
-                for (let i = 0; i < input.files.length; i++) {
-                    names.push(input.files[i].name);
+        function previewImage(event) {
+            const input = event.target;
+            const preview = document.getElementById('preview');
+            const placeholder = document.getElementById('placeholder');
+            const overlay = document.getElementById('overlay');
+
+            if (input.files && input.files[0]) {
+                const reader = new FileReader();
+                
+                reader.onload = function(e) {
+                    preview.src = e.target.result;
+                    preview.classList.remove('hidden'); // Tampilkan gambar
+                    placeholder.classList.add('hidden'); // Sembunyikan teks placeholder
+                    overlay.classList.remove('hidden');  // Aktifkan overlay hover
                 }
-                fileList.textContent = 'Selected: ' + names.join(', ');
-            } else {
-                fileList.textContent = '';
+                
+                reader.readAsDataURL(input.files[0]);
             }
         }
     </script>
