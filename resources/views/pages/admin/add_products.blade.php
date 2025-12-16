@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -13,10 +14,23 @@
             background-color: #f4f7f6;
         }
 
-        .ghost { opacity: 0.5; background: #e0e7ff; border: 2px dashed #6366f1; }
-        .main-tag { display: none; }
-        #image-preview-container .preview-card:first-child .main-tag { display: block; }
-        #image-preview-container .preview-card:first-child { border: 2px solid #4F46E5; }
+        .ghost {
+            opacity: 0.5;
+            background: #e0e7ff;
+            border: 2px dashed #6366f1;
+        }
+
+        .main-tag {
+            display: none;
+        }
+
+        #image-preview-container .preview-card:first-child .main-tag {
+            display: block;
+        }
+
+        #image-preview-container .preview-card:first-child {
+            border: 2px solid #4F46E5;
+        }
     </style>
 </head>
 
@@ -44,7 +58,8 @@
             <div class="bg-white rounded-lg shadow p-6">
                 <h3 class="text-xl font-semibold mb-4 border-b pb-4">New Product Data</h3>
 
-                <form id="productForm" action="{{ route('store_products') }}" method="POST" enctype="multipart/form-data">
+                <form id="productForm" action="{{ route('store_products') }}" method="POST"
+                    enctype="multipart/form-data">
                     @csrf
 
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -56,9 +71,33 @@
                         </div>
 
                         {{-- Category --}}
-                        <div>
-                            <label class="block text-sm font-medium mb-2">Category</label>
-                            <input type="text" name="category" class="w-full p-3 border rounded-md" required>
+                        <div class="col-span-1">
+                            <label class="block text-sm font-semibold text-gray-700 mb-2">Category</label>
+                            {{-- GANTI INPUT TEXT JADI SELECT OPTION --}}
+                            <div class="relative">
+                                <select name="category"
+                                    class="w-full border border-gray-300 rounded-lg px-4 py-2.5 focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 outline-none transition appearance-none bg-white">
+                                    <option value="" disabled selected>Select Category</option>
+                                    {{-- Value harus huruf kecil, sesuai dengan value di filter katalog --}}
+                                    <option value="flannel" {{ old('category') == 'flannel' ? 'selected' : '' }}>Flannel
+                                        Shirts</option>
+                                    <option value="jacket" {{ old('category') == 'jacket' ? 'selected' : '' }}>Jackets
+                                    </option>
+                                    <option value="polo" {{ old('category') == 'polo' ? 'selected' : '' }}>Polo Shirts
+                                    </option>
+                                    <option value="tshirt" {{ old('category') == 'tshirt' ? 'selected' : '' }}>T-Shirts
+                                    </option>
+                                </select>
+                                <!-- Panah dropdown kustom -->
+                                <div
+                                    class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
+                                    <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg"
+                                        viewBox="0 0 20 20">
+                                        <path
+                                            d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z" />
+                                    </svg>
+                                </div>
+                            </div>
                         </div>
 
                         {{-- Size --}}
@@ -99,7 +138,8 @@
                         {{-- Description --}}
                         <div class="md:col-span-2">
                             <label class="block text-sm font-medium mb-2">Description</label>
-                            <textarea name="description" rows="4" class="w-full p-3 border rounded-md" required></textarea>
+                            <textarea name="description" rows="4" class="w-full p-3 border rounded-md"
+                                required></textarea>
                         </div>
 
                         {{-- Images --}}
@@ -107,17 +147,19 @@
                             <label class="block text-sm font-medium mb-2">Product Images</label>
 
                             <div class="mt-1 flex justify-center px-6 pt-10 pb-10 border-2 border-gray-300 border-dashed rounded-md hover:bg-gray-50 transition-colors relative cursor-pointer"
-                                 onclick="document.getElementById('file-upload').click()">
+                                onclick="document.getElementById('file-upload').click()">
 
                                 <div class="space-y-1 text-center">
-                                    <div class="mx-auto h-12 w-12 text-gray-400 bg-gray-100 rounded-full flex items-center justify-center">
+                                    <div
+                                        class="mx-auto h-12 w-12 text-gray-400 bg-gray-100 rounded-full flex items-center justify-center">
                                         📷
                                     </div>
 
                                     <div class="flex text-sm text-gray-600 justify-center">
                                         <label for="file-upload" class="relative cursor-pointer font-bold">
                                             Click to upload
-                                            <input id="file-upload" name="images[]" type="file" class="sr-only" multiple>
+                                            <input id="file-upload" name="images[]" type="file" class="sr-only"
+                                                multiple>
                                         </label>
                                         <p class="pl-1">or drag & drop</p>
                                     </div>
@@ -147,7 +189,7 @@
         const previewContainer = document.getElementById('image-preview-container');
         let dt = new DataTransfer();
 
-        fileInput.addEventListener('change', function() {
+        fileInput.addEventListener('change', function () {
             for (let i = 0; i < this.files.length; i++) {
                 dt.items.add(this.files[i]);
             }
@@ -159,7 +201,7 @@
             previewContainer.innerHTML = '';
             Array.from(dt.files).forEach((file, index) => {
                 const reader = new FileReader();
-                reader.onload = function(e) {
+                reader.onload = function (e) {
                     const div = document.createElement('div');
                     div.classList.add('preview-card', 'relative', 'rounded-md', 'overflow-hidden', 'shadow', 'border');
                     div.setAttribute('data-index', index);
@@ -198,9 +240,10 @@
             }
         });
 
-        document.getElementById('productForm').addEventListener('submit', function() {
+        document.getElementById('productForm').addEventListener('submit', function () {
             fileInput.files = dt.files;
         });
     </script>
 </body>
+
 </html>

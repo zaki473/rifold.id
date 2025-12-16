@@ -149,54 +149,92 @@
 
   @include('components.footer')
 
-  <!-- SCRIPT FILTER -->
-  <script>
-    document.addEventListener("DOMContentLoaded", () => {
-      const categoryChecks = document.querySelectorAll(".filter-category");
-      const priceChecks = document.querySelectorAll(".filter-price");
-      const sizeChecks = document.querySelectorAll(".filter-size");
-      const styleChecks = document.querySelectorAll(".filter-style");
-      const products = document.querySelectorAll(".product-card");
+  <!-- SCRIPT FILTER (FIXED & IMPROVED) -->
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+    // Ambil semua elemen filter
+    const categoryChecks = document.querySelectorAll(".filter-category");
+    const priceChecks = document.querySelectorAll(".filter-price");
+    const sizeChecks = document.querySelectorAll(".filter-size");
+    const styleChecks = document.querySelectorAll(".filter-style");
+    const products = document.querySelectorAll(".product-card");
 
-      function applyFilters() {
+    function applyFilters() {
+        // 1. Cek Kategori
         const allCheck = document.querySelector('.filter-category[value="all"]');
-        const activeCategories = Array.from(categoryChecks).filter(cb => cb.checked && cb.value !== "all").map(cb => cb.value);
-        const activePrices = Array.from(priceChecks).filter(cb => cb.checked).map(cb => cb.value);
-        const activeSizes = Array.from(sizeChecks).filter(cb => cb.checked).map(cb => cb.value);
-        const activeStyles = Array.from(styleChecks).filter(cb => cb.checked).map(cb => cb.value);
+        let activeCategories = Array.from(categoryChecks)
+            .filter(cb => cb.checked && cb.value !== "all")
+            .map(cb => cb.value.toLowerCase());
 
-        if (allCheck.checked) {
-          categoryChecks.forEach(cb => { if (cb.value !== "all") cb.checked = false; });
-        } else {
-          allCheck.checked = false;
+        // Logika checkbox "All Products"
+        if (this === allCheck && allCheck.checked) {
+            // Jika klik "All", matikan yang lain
+            categoryChecks.forEach(cb => { if (cb.value !== "all") cb.checked = false; });
+            activeCategories = [];
+        } else if (this !== allCheck && this.classList && this.classList.contains('filter-category')) {
+            // Jika klik kategori lain, matikan "All"
+            allCheck.checked = false;
+        }
+        
+        // Jika tidak ada kategori spesifik yang dipilih, anggap semua aktif (atau kembali ke All)
+        if (activeCategories.length === 0 && !allCheck.checked) {
+            allCheck.checked = true;
         }
 
+        // 2. Ambil Filter Lainnya
+        const activePrices = Array.from(priceChecks).filter(cb => cb.checked).map(cb => cb.value);
+        const activeSizes = Array.from(sizeChecks).filter(cb => cb.checked).map(cb => cb.value.toLowerCase());
+        const activeStyles = Array.from(styleChecks).filter(cb => cb.checked).map(cb => cb.value.toLowerCase());
+
+        // 3. Loop Semua Produk
         products.forEach(product => {
-          const category = product.dataset.category;
-          const price = parseInt(product.dataset.price);
-          const size = product.dataset.size;
-          const style = product.dataset.style;
+            // Ambil data dari atribut HTML produk (pastikan di blade sudah strtolower)
+            const prodCategory = (product.dataset.category || '').toLowerCase();
+            const prodPrice = parseInt(product.dataset.price || 0);
+            const prodSize = (product.dataset.size || '').toLowerCase(); // string "s,m,l"
+            const prodStyle = (product.dataset.style || '').toLowerCase();
 
-          const matchCategory = allCheck.checked || activeCategories.length === 0 || activeCategories.includes(category);
-          const matchSize = activeSizes.length === 0 || activeSizes.includes(size);
-          const matchStyle = activeStyles.length === 0 || activeStyles.includes(style);
+            // -- LOGIKA PENCOCOKAN --
 
-          let matchPrice = activePrices.length === 0;
-          if (activePrices.includes("low") && price < 100000) matchPrice = true;
-          if (activePrices.includes("mid") && price >= 100000 && price <= 130000) matchPrice = true;
-          if (activePrices.includes("high") && price > 130000) matchPrice = true;
+            // A. Kategori (Gunakan includes agar lebih fleksibel)
+            // Misal: Filter "flannel" akan cocok dengan produk kategori "flannel shirts"
+            const isCategoryMatch = allCheck.checked || 
+                                    activeCategories.length === 0 || 
+                                    activeCategories.some(filter => prodCategory.includes(filter));
 
-          if (category === "polo" && size !== "oversized") product.style.display = "none";
-          else if (category === "flannel" && size !== "regular") product.style.display = "none";
-          else if (category === "overcool" && size !== "boxy") product.style.display = "none";
-          else if (matchCategory && matchPrice && matchSize && matchStyle) product.style.display = "block";
-          else product.style.display = "none";
+            // B. Harga
+            let isPriceMatch = activePrices.length === 0;
+            if (!isPriceMatch) {
+                if (activePrices.includes("low") && prodPrice < 100000) isPriceMatch = true;
+                if (activePrices.includes("mid") && prodPrice >= 100000 && prodPrice <= 130000) isPriceMatch = true;
+                if (activePrices.includes("high") && prodPrice > 130000) isPriceMatch = true;
+            }
+
+            // C. Size (Cek apakah string size produk mengandung filter size)
+            // Misal: Produk size "s,m,l" akan cocok jika filter "m" dipilih
+            const isSizeMatch = activeSizes.length === 0 || 
+                                activeSizes.some(filter => prodSize.includes(filter));
+
+            // D. Style
+            const isStyleMatch = activeStyles.length === 0 || 
+                                 activeStyles.some(filter => prodStyle.includes(filter));
+
+            // -- TAMPILKAN / SEMBUNYIKAN --
+            if (isCategoryMatch && isPriceMatch && isSizeMatch && isStyleMatch) {
+                product.style.display = "block";
+            } else {
+                product.style.display = "none";
+            }
         });
-      }
+    }
 
-      [...categoryChecks, ...priceChecks, ...sizeChecks, ...styleChecks].forEach(cb => cb.addEventListener("change", applyFilters));
-      applyFilters();
-    });
-  </script>
+    // Pasang Event Listener ke semua checkbox
+    const allFilters = [...categoryChecks, ...priceChecks, ...sizeChecks, ...styleChecks];
+    allFilters.forEach(cb => cb.addEventListener("change", applyFilters));
+
+    // Jalankan sekali saat load
+    applyFilters();
+});
+</script>
 </body>
 </html>
